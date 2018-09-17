@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+    {% block title %}课程管理{% endblock %}
+
+    {% load str_time %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/m_teacher.css">
+    <link rel="stylesheet" href="/static/css/m_student.css">
+{% endblock %}
+
+
+{% block content %}
+    <div class="m_body">
+        <div class="m_leftmenu">
+            <div class="m_menu actions">
+                <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                <a href="#">我的课程</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-male" aria-hidden="true"></i>
+                <a href="#">我的学生</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <a href="#">课程表</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-braille" aria-hidden="true"></i>
+                <a href="#">学生成绩单</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;
+                <a href="#">上课提醒设置</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
+                <a href="#">发布测试</a>
+            </div>
+
+        </div>
+        <div class="content">
+            <div class="m_hide m m_1  show">
+                <table class="m_1_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="suu success">课程名称</td>
+                        <td class="suu success">总课时</td>
+                        <td class="suu success twth">课程介绍</td>
+                        <td class="suu success twth">备注</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in course_list %}
+                        <tr>
+                            <td class="suu ">{{ row.c_name }}</td>
+                            <td class="suu ">{{ row.c_count }}</td>
+                            <td class="suu twth">{{ row.c_detail }}</td>
+                            <td class="suu twth">{{ row.c_remark }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_2 m_hide">
+                <table class="m_2_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="success">学生姓名</td>
+                        <td class="success">学生班级</td>
+                        <td class="success">学生性别</td>
+                        <td class="success">学生状态</td>
+                        <td class="success">操作</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in student_list %}
+
+                        <tr>
+                            <td class="">{{ row.s_name }}</td>
+                            <td class="">{{ row.s_grade }}</td>
+                            {% if row.s_sex == True %}
+                                <td class="">男</td>
+                            {% else %}
+                                <td class="">女</td>
+                            {% endif %}
+
+                            {% if row.s_state == True %}
+                                    <td class="">学习中</td>
+                                {% else %}
+                                    <td class="">已毕业</td>
+                                {% endif %}
+                            <td class="">删除</td>
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_3 m_hide">
+                <table class="m_1_table table table-hover">
+
+                    <thead>
+                    <tr>
+                        <td class="success kb">课程名称</td>
+                        <td class="success kb">课程章节</td>
+                        <td class="success kb">课程时长</td>
+                        <td class="success kb">上课时间</td>
+                        <td class="success wth">简介</td>
+                        <td class="success wth">备注</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for d in detail_list %}
+
+                        <tr>
+                            <td class=" kb">{{ d.d_name }}</td>
+                            <td class=" kb">{{ d.d_number }}</td>
+                            <td class=" kb">{{ d.d_time_length }}</td>
+                            <td class=" kb">
+    {#                        {{ d.d_create_time | strf_time}}#}
+                                待定
+                            </td>
+                            <td class="wth">{{ d.d_detail }}</td>
+                            <td class="wth">{{ d.d_remark }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_4 m_hide">
+                <table class="m_1_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="success">学生名称</td>
+                        <td class="success">课程名称</td>
+                        <td class="success">成绩</td>
+                        <td class="success">备注</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_6 m_hide">
+                <div class="m_6_remind">
+                    <div>
+                        <form action="#">
+                            <span>短息提醒：</span>&nbsp;
+                            <input type="radio" name="remind" value="1">提醒
+                            <input type="radio" name="remind" value="0" checked>不提醒
+                        </form>
+                        <p>
+                            <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">设置</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="m_7 m m_hide">
+                <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script>
+        $('.m_menu').click(function () {
+            $(this).addClass('actions');
+            $(this).siblings().removeClass('actions')
+        });
+
+
+        $(function () {
+            $('.m_leftmenu div').click(function () {
+                $(".content").children().eq($(this).index()).addClass("show").siblings().removeClass("show");
+
+            })
+        })
+    </script>
+{% endblock %}

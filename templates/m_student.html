@@ -1,0 +1,348 @@
+{% extends 'base.html' %}
+
+{% block title %}课程管理{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/m_student.css">
+    <style>
+        .wth {
+            display: inline-block;
+            width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            course: hand;
+        }
+
+        .wth:hover {
+            text-overflow: inherit;
+            overflow: visible;
+            white-space: pre-wrap;
+        }
+
+        .su {
+            width: 170px;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="m_body">
+        <div class="m_leftmenu">
+            <div class="m_menu actions">
+                <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                <a href="#">我的课程进度</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-tasks" aria-hidden="true"></i>&nbsp;
+                <a href="#">我的课程计划</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>&nbsp;
+                <a href="#">已完成课时</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-times-circle" aria-hidden="true"></i>&nbsp;
+                <a href="#">已取消课时</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp;
+                <a href="#">我的预约课</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>&nbsp;
+                <a href="#">上课提醒设置</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
+                <a href="#">测试课</a>
+            </div>
+
+        </div>
+        <div class="m_content">
+            <div class="m_hide m m_1  show">
+                <table class="m_1_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="su success">课程名称</td>
+                        <td class="su success">已购买课时</td>
+                        <td class="su success wth">课程介绍</td>
+                        <td class="su success wth">备注</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in course_list %}
+                        <tr>
+                            <td class="su ">{{ row.c_name }}</td>
+                            <td class="su ">{{ row.c_count }}</td>
+                            <td class="wth">
+                                {{ row.c_detail }}
+                            </td>
+                            <td class="wth">{{ row.c_remark }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_2 m_hide">
+                {#            <div class="m_search">#}
+                {#                <span>课程名称:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择课程</option>#}
+                {#                    <option value="1">课程一</option>#}
+                {#                    <option value="2">课程二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <span>任课老师:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择任课老师</option>#}
+                {#                    <option value="1">老师一</option>#}
+                {#                    <option value="2">老师二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <a style="margin-left: 20px" type="button" class="btn btn-info">查询</a>#}
+                {#            </div>#}
+                <table class="m_2_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="success">课程名称</td>
+                        <td class="success" style="width: 100px;">上课时间</td>
+                        <td class="success" style="width: 100px;">任课老师</td>
+                        <td class="success">课程链接</td>
+                        <td class="success" style="width: 50px;">状态</td>
+                        <td class="success wth">备注</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in grent_list %}
+                        {% for de in detail_list %}
+                            {% for t in teacher_list %}
+                                <tr>
+                                    {% if row.g_did_id == de.d_id %}
+                                        <td class="">
+                                            {{ de.d_name }}
+                                        </td>
+
+                                        <td class="">
+                                            {% load str_time %}
+                                            {{ row.g_time|strf_time }}
+                                        </td>
+                                        {% if row.g_tid_id == t.t_id %}
+                                            <td class="">{{ t.t_name }}老师</td>
+                                        {% else %}
+                                            <td class="">无老师信息</td>
+                                        {% endif %}
+                                        <td class="">
+                                            <a href="http://{{ row.g_url }}">{{ row.g_url }}</a></td>
+                                        <td class="">{{ row.g_record }}</td>
+                                        <td class="wth"><a href="/evaluate?sid={{ row.g_sid_id }}">查看评价</a></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_3 m_hide">
+                {#            <div class="m_search">#}
+                {#                <span>课程名称:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择课程</option>#}
+                {#                    <option value="1">课程一</option>#}
+                {#                    <option value="2">课程二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <span>任课老师:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择任课老师</option>#}
+                {#                    <option value="1">老师一</option>#}
+                {#                    <option value="2">老师二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <span>是否评价:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择</option>#}
+                {#                    <option value="1">未评价</option>#}
+                {#                    <option value="2">已评价</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <a style="margin-left: 20px" type="button" class="btn btn-info">查询</a>#}
+                {#            </div>#}
+                <table class="m_1_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="success">课程名称</td>
+                        <td class="success">课程章节</td>
+                        <td class="success">课程时长</td>
+                        <td class="success wth">简介</td>
+                        <td class="success wth">课堂反馈</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for g in grent_list %}
+                        {% for row in detail_list %}
+                            {% for e in evaluate_list %}
+                                <tr>
+                                    {# 状态为1 表示已完成课#}
+                                    {% if g.g_did_id == row.d_id and g.g_record == '1' %}
+                                        <td class="">{{ row.d_name }}</td>
+                                        <td class="">{{ row.d_number }}</td>
+                                        <td class="">{{ row.d_time_length }}</td>
+                                        <td class="wth">{{ row.d_remark }}</td>
+                                        {% if row.d_id == e.e_did_id %}
+                                            <td class="wth">{{ e.e_stot_evaluate }}</td>
+                                        {% else %}
+                                            <td class="wth">暂无反馈</td>
+                                        {% endif %}
+                                    {% endif %}
+                                </tr>
+
+                            {% endfor %}
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_4 m_hide">
+                {#            <div class="m_search">#}
+                {#                <span>课程名称:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择课程</option>#}
+                {#                    <option value="1">课程一</option>#}
+                {#                    <option value="2">课程二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <span>任课老师:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择任课老师</option>#}
+                {#                    <option value="1">老师一</option>#}
+                {#                    <option value="2">老师二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <span>课程状态:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择</option>#}
+                {#                    <option value="1">未开课</option>#}
+                {#                    <option value="2">进行中</option>#}
+                {#                    <option value="3">已结束</option>#}
+                {#                    <option value="4">已取消</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <a style="margin-left: 20px;" type="button" class="btn btn-info">查询</a>#}
+                {#            </div>#}
+                <table class="m_1_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="su success">课程名称</td>
+                        <td class="su success">课程章节</td>
+                        <td class="su success">课程时长</td>
+                        <td class="su success wth">简介</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for g in grent_list %}
+                        {% for row in detail_list %}
+                            <tr>
+                                {# 状态为2 表示与取消课#}
+                                {% if g.g_did_id == row.d_id and g.g_record == '2' %}
+                                    <td class="su ">{{ row.d_name }}</td>
+                                    <td class="su ">{{ row.d_number }}</td>
+                                    <td class="su ">{{ row.d_time_length }}</td>
+                                    <td class="wth">{{ row.d_remark }}</td>
+                                {% endif %}
+                            </tr>
+
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_5 m_hide">
+                {#            <div class="m_search">#}
+                {#                <span>课程名称:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择课程</option>#}
+                {#                    <option value="1">课程一</option>#}
+                {#                    <option value="2">课程二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <span>任课老师:</span>&nbsp;#}
+                {#                <select id="city" class="select">#}
+                {#                    <option>请选择任课老师</option>#}
+                {#                    <option value="1">老师一</option>#}
+                {#                    <option value="2">老师二</option>#}
+                {#                </select>&nbsp;&nbsp;#}
+                {#                <a style="margin-left: 20px" type="button" class="btn btn-info">查询</a>#}
+                {#            </div>#}
+                <table class="m_1_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="su success wth">课程名称</td>
+                        <td class="su success">课程章节</td>
+                        <td class="su success">课程时长</td>
+                        <td class="su success wth">简介</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for g in grent_list %}
+                        {% for row in detail_list %}
+                            <tr>
+                                {# 状态为3 表示预约课#}
+                                {% if g.g_did_id == row.d_id and g.g_record == '3' %}
+                                    <td class="su wth">{{ row.d_name }}</td>
+                                    <td class="su ">{{ row.d_number }}</td>
+                                    <td class="su ">{{ row.d_time_length }}</td>
+                                    <td class="wth">{{ row.d_remark }}</td>
+                                {% endif %}
+                            </tr>
+
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="m m_6 m_hide">
+                <div class="m_6_remind">
+                    <div>
+                        <form action="#">
+                            <span>短息提醒：</span>&nbsp;
+                            <input type="radio" name="remind" value="1">提醒
+                            <input type="radio" name="remind" value="0" checked>不提醒
+                        </form>
+                        <p>
+                            <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">设置</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="m_7 m m_hide">
+                <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
+            </div>
+        </div>
+        <div class="m_generalize">
+            <div class="m_weixin">
+                <div class="m_weixin_header">在线客服</div>
+                <div class="m_weixin_img">
+                    <img src="/static/img/online_phone.jpg" alt="在线客服">
+                </div>
+                <a type="button" class="btn btn-info">在线客服</a>
+            </div>
+            <div class="m_weixin">
+                <div class="m_weixin_header">微信客服</div>
+                <div class="m_weixin_img">
+                    <img width="100" src="/static/img/weixin.jpg" alt="微信客服">
+                </div>
+                <span style="display:inline-block;width: 180px">欢迎关注酷丁青少儿编程，获取更多资讯信息</span>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script>
+        $('.m_menu').click(function () {
+            $(this).addClass('actions');
+            $(this).siblings().removeClass('actions')
+        });
+
+        $(function () {
+            $('.m_leftmenu div').click(function () {
+                $(".m_content").children().eq($(this).index()).addClass("show").siblings().removeClass("show");
+
+            })
+        });
+
+    </script>
+{% endblock %}

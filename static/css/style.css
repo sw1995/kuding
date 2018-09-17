@@ -1,0 +1,91 @@
+
+body{
+    top: 0;
+    margin: 0 auto;
+    width: 1280px;
+    background-color: #eee;
+}
+.logo{
+    float: left;
+}
+.logo img{
+    width: 200px;
+    display: inline-block;
+    margin-top: 15px;
+    margin-left: 24px;
+}
+
+.head {
+    height: 80px;
+    width: 1280px;
+    background-color: rgb(32, 143, 243);
+}
+
+.head .mynav{
+    float: left;
+    margin-left: 20px;
+    height: 80px;
+
+}
+.mynav li{
+    float: left;
+    width: 80px;
+    height: 78px;
+    /*border: 1px solid red;*/
+    list-style: none;
+
+}
+.mynav li p{
+   margin-top: 10px ;
+    text-align: center;
+}
+
+.head .guestshow{
+    float: right;
+    width: 200px;
+    height: 80px;
+    /*background-color: yellow;*/
+}
+.user-img{
+    float: right;
+    height: 80px;
+}
+.user-img img{
+    display: inline-block;
+    height: 60px;
+    border-radius: 50%;
+    margin: 10px 10px 0px ;
+}
+.user-inf{
+    float: right;
+    height: 80px;
+}
+.user-inf .stu_name{
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.user-inf .stu_state{
+    width: 40px;
+    float: right;
+    margin-top: 8px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+.footer{
+    background-color: #ffffff;
+    width: 1280px;
+    height: 80px;
+    font-size: 14px;
+    color: #969595;
+    text-align: center;
+    margin-top: 170px;
+}
+.footer a{
+    text-decoration: none;
+    display: inline-block;
+    margin: 0px 15px;
+    padding-top: 20px;
+}

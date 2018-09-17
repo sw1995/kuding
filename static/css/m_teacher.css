@@ -1,0 +1,80 @@
+/*start content*/
+.m_body .content{
+    margin-left: 20px;
+    margin-top: 30px;
+    height: 600px;
+    width: 1000px;
+    box-shadow: 0 0 30px grey;
+    float: left;
+    border-radius: 5px;
+}
+
+.m_body .content .m_hide{
+    display: none;
+}
+
+.m_body .content .m{
+    border-radius: 5px;
+    height: 550px;
+    width: 900px;
+    margin: 25px auto;
+    font-size: 16px;
+    text-align: center;
+}
+.m_body .content .m_1 .m_1_table{
+    width: 900px;
+    margin: 6px auto;
+}
+
+
+.m_body .content .m .m_search{
+    height: 50px;
+    width: 900px;
+    line-height: 50px;
+    text-align: left;
+}
+.m_body .content .m .m_search select{
+    width: 100px;
+    height: 25px;
+    font-size: 15px;
+}
+
+.m_body .content .m .m_2_table{
+    width: 900px;
+    margin: 6px auto;
+}
+
+.m_body .content .m .m_6_remind{
+    border-radius: 5px;
+    height: 200px;
+    width: 700px;
+    margin: 100px auto;
+    font-size: 16px;
+    text-align: center;
+    line-height: 100px;
+}
+
+
+/*end content*/
+.suu{
+    width: 220px;
+}
+
+.kb{
+    width: 140px;
+}
+
+.twth {
+    display: inline-block;
+    width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    course: hand;
+}
+
+.twth:hover {
+    text-overflow: inherit;
+    overflow: visible;
+    white-space: pre-wrap;
+}

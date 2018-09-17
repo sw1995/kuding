@@ -1,0 +1,416 @@
+{% extends 'base.html' %}
+{% block title %}
+    个人中心
+{% endblock %}
+
+
+{% block content %}
+
+    {% if role == "student" %}
+         <div id="container">
+            <div class="connent">
+                <div class="left_menu left">
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">最新消息</a>
+                    </div>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的分享</a>
+                    </div>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">成就称号</a>
+                    </div>
+                    <div class="leftmenu sss">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的资料</a>
+
+                    </div>
+                    <ul class="sel-table">
+                        <li>个人信息</li>
+                        <li>修改密码</li>
+                    </ul>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的订单</a>
+                    </div>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的邀请</a>
+                    </div>
+
+                </div>
+
+                <div class="center left">
+
+                    <div class="home2">
+                        11111
+                    </div>
+                    <div class="home2 hide">
+                        2
+                    </div>
+                    <div class="home2 hide">
+                        3
+                    </div>
+                    <div class="home2 hide">
+
+                    </div>
+                    <div class="home2 hide">
+                    </div>
+                    <div class="home2 hide">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="success">课程名称</th>
+                                <th class="info">课程时长</th>
+                                <th class="danger">课程详情</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td class="success">
+
+                                    </td>
+                                    <td class="info">
+                                        暂无订单
+                                    </td>
+                                    <td class="danger">
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="home2 hide per_info">
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            个人信息：
+                            <p>
+                                账号：<input type="text" disabled value={{ stu_obj.s_account }}>
+                            </p>
+                            <p>
+                                姓名：<input type="text" disabled value={{ stu_obj.s_name }}>
+                            </p>
+                            <p>
+                                性别：
+                                {% if stu_obj.s_sex == 1 %}
+                                    <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
+                                    <label for=""><input type="radio" name="sex" value="0"> 女</label>
+                                {% else %}
+                                    <label for=""><input type="radio" name="sex"  value="1"> 男</label>
+                                    <label for=""><input type="radio" name="sex" checked="checked" value="0"> 女</label>
+                                {% endif %}
+                            </p>
+                            <p>
+                                年级：<input type="text" id="grade" value={{ stu_obj.s_grade }}>
+                            </p>
+                            <p>
+                                手机号：{{ stu_obj.s_account }}
+                            </p>
+                            <p>
+                                <input type="button" id="save" value="点击保存">
+                            </p>
+
+                        </form>
+                    </div>
+
+
+                    <div class="home2 hide pwd_man">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <p>
+                                原密码：<input name="pwd" type="text" placeholder="请输入原密码">
+                            </p>
+                            <p>
+                                新密码：<input name="new_pwd" type="text" placeholder="请输入新密码">
+                            </p>
+                            <p>
+                                确认密码：<input name="conf_pwd" type="text" placeholder="请再次输入密码">
+                            </p>
+                            <p>
+                                <input type="button" id="confirm_pwd" value="确认修改">
+                            </p>
+                        </form>
+                    </div>
+
+
+                </div>
+
+                <div class="right_menu left">
+                    <div class="server1">
+                        <div class="right_info">
+                            最新动态
+                        </div>
+                        恭喜你喜提客服小姐姐一枚
+                    </div>
+                    <div class="server2">
+                        <div class="right_info">
+                            排行榜
+                        </div>
+                        {% for stu_rank in stu_rank_obj %}
+                            <p>{{ stu_rank.s_name }}</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if role == "teacher" %}
+        <div id="container">
+            <div class="connent">
+                <div class="left_menu left">
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">最新消息</a>
+                    </div>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的分享</a>
+                    </div>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">成就称号</a>
+                    </div>
+                    <div class="leftmenu sss">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的资料</a>
+
+                    </div>
+                    <ul class="sel-table">
+                        <li>个人信息</li>
+                        <li>修改密码</li>
+                    </ul>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的订单</a>
+                    </div>
+                    <div class="leftmenu">
+                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <a for="" href="#">我的邀请</a>
+                    </div>
+
+                </div>
+
+                <div class="center left">
+
+                    <div class="home2">
+                        11111
+                    </div>
+                    <div class="home2 hide">
+                        2
+                    </div>
+                    <div class="home2 hide">
+                        3
+                    </div>
+                    <div class="home2 hide">
+
+                    </div>
+                    <div class="home2 hide">
+                    </div>
+                    <div class="home2 hide">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="success">课程名称</th>
+                                <th class="info">课程时长</th>
+                                <th class="danger">课程详情</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td class="success">
+
+                                    </td>
+                                    <td class="info">
+                                        暂无订单
+                                    </td>
+                                    <td class="danger">
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <div class="home2 hide per_info">
+
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            个人信息：
+                            <p>
+                                账号：<input type="text" disabled value={{ tea_obj.t_account }}>
+                            </p>
+                            <p>
+                                姓名：<input type="text" disabled value={{ tea_obj.t_name }}>
+                            </p>
+                            <p>
+                                性别：
+                                {% if tea_obj.t_sex == 1 %}
+                                    <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
+                                    <label for=""><input type="radio" name="sex" value="0"> 女</label>
+                                {% else %}
+                                    <label for=""><input type="radio" name="sex"  value="1"> 男</label>
+                                    <label for=""><input type="radio" name="sex" checked="checked" value="0"> 女</label>
+                                {% endif %}
+                            </p>
+                            <p>
+                                年龄：<input id="age" type="text" value={{ tea_obj.t_age }}>
+                            </p>
+                            <p>
+                                手机号：{{ tea_obj.t_account }}
+                            </p>
+                            <p>
+                                <input type="button" id="save" value="点击保存">
+                            </p>
+
+                        </form>
+                    </div>
+
+
+                    <div class="home2 hide pwd_man">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <p>
+                                原密码：<input name="pwd" type="password" placeholder="请输入原密码">
+                            </p>
+                            <p>
+                                新密码：<input name="new_pwd" type="password" placeholder="请输入新密码">
+                            </p>
+                            <p>
+                                确认密码：<input name="conf_pwd" type="password" placeholder="请再次输入密码">
+                            </p>
+                            <p>
+                                <input type="button" id="confirm_pwd" value="确认修改">
+                            </p>
+                        </form>
+                    </div>
+
+
+                </div>
+
+                <div class="right_menu left">
+                    <div class="server1">
+                        <div class="right_info">
+                            最新动态
+                        </div>
+                        恭喜你喜提客服小姐姐一枚
+                    </div>
+                    <div class="server2">
+                        <div class="right_info">
+                            排行榜
+                        </div>
+                        {% for stu_rank in stu_rank_obj %}
+                            <p>{{ stu_rank.s_name }}</p>
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="info">
+    {% csrf_token %}
+    </div>
+    <script>
+        $('.leftmenu').click(function () {
+            $(this).addClass('active');
+            $(this).siblings().removeClass('active');
+        });
+        $(function () {
+            $('.left_menu div').click(function () {
+                $(".center").children().eq($(this).index()).addClass("show").siblings().removeClass("show").addClass("hide");
+            })
+        });
+        $(function () {
+            $('.mynav li').click(function () {
+                $(this).css('background', '#7282FF').siblings().css('background', '');
+
+            });
+        });
+        $(function () {
+            $('.sss').click(function () {
+                {#$(this).css('height','200px');#}
+                $('.sel-table').slideToggle();
+            })
+        });
+        $(function () {
+            $('.sel-table li:first-child').click(function () {
+                $(this).addClass('active').siblings().removeClass('active').parents().siblings().removeClass('active');
+                $('.per_info').addClass('show').siblings().removeClass('show');
+            })
+        });
+        $(function () {
+            $('.sel-table li:last-child').click(function () {
+                $(this).addClass('active').siblings().removeClass('active').parents().siblings().removeClass('active');
+                $('.pwd_man').addClass('show').siblings().removeClass('show');
+            })
+        });
+
+        var gentle = $("[checked='checked']").val();
+     $("[name='sex']").click(function () {
+            gentle = $(this).val();
+         });
+
+    $("#save").click(function () {
+        $.ajax({
+            url: '/confirm_center/',
+            type: "POST",
+            dataType: "json",
+            data: {
+                sex: gentle,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+                grade: $("#grade").val(),
+                age: $("#age").val()
+            },
+            success: function (arg) {
+               if(arg.status){
+                    alert(arg.msg)
+                }
+            }
+        })
+    });
+
+    $("#confirm_pwd").click(function () {
+        pwd = $("[name='pwd']").val();
+        new_pwd = $("[name='new_pwd']").val();
+        conf_pwd = $("[name='conf_pwd']").val();
+        $.ajax({
+            url:'/confirm_pwd/',
+            type: "POST",
+            dataType: "json",
+            data: {
+                pwd: pwd,
+                new_pwd: new_pwd,
+                conf_pwd: conf_pwd,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            success: function (arg) {
+               if(arg.status){
+                    alert(arg.msg)
+                }else {
+                   alert(arg.msg)
+               }
+            }
+        })
+    })
+
+    </script>
+
+{% endblock %}
+
+

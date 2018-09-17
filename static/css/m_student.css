@@ -1,0 +1,157 @@
+.show{
+    display: block;
+}
+
+/* start header*/
+.m_header{
+    width: 1280px;
+    height: 100px;
+    background-color: #5bc0de;
+}
+/*end header*/
+
+/*start m_body*/
+.m_body{
+    width: 1280px;
+    height: 700px;
+    background-color: rgb(243,245,249);
+    /*border-radius: 10px;*/
+}
+
+.m_body .m_leftmenu{
+    margin-top: 30px;
+    margin-left: 20px;
+    height: 600px;
+    width: 200px;
+    box-shadow: 0 0 30px grey;
+    float: left;
+    border-radius: 5px;
+}
+
+.m_body .m_leftmenu .m_menu{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid white;
+    /*text-align: center;*/
+    border-radius: 5px;
+    margin-left: -1px;
+
+}
+
+.m_body .m_leftmenu .m_menu i{
+    margin-left: 40px;
+}
+
+.m_body .m_leftmenu .m_menu a{
+    text-decoration: none;
+    color: black;
+}
+
+.actions{
+    background-color: #66afe9;
+}
+
+/*start content*/
+.m_body .m_content{
+    margin-left: 20px;
+    margin-top: 30px;
+    height: 600px;
+    width: 750px;
+    box-shadow: 0 0 30px grey;
+    float: left;
+    border-radius: 5px;
+}
+
+.m_body .m_content .m_hide{
+    display: none;
+}
+
+.m_body .m_content .m{
+    border-radius: 5px;
+    height: 550px;
+    width: 700px;
+    margin: 25px auto;
+    font-size: 16px;
+    text-align: center;
+}
+.m_body .m_content .m_1 .m_1_table{
+    width: 695px;
+    margin: 6px auto;
+}
+
+
+.m_body .m_content .m .m_search{
+    height: 50px;
+    width: 700px;
+    line-height: 50px;
+    text-align: left;
+}
+.m_body .m_content .m .m_search select{
+    width: 100px;
+    height: 25px;
+    font-size: 15px;
+}
+
+.m_body .m_content .m .m_2_table{
+    width: 695px;
+    margin: 6px auto;
+}
+
+.m_body .m_content .m .m_6_remind{
+    border-radius: 5px;
+    height: 200px;
+    width: 700px;
+    margin: 100px auto;
+    font-size: 16px;
+    text-align: center;
+    line-height: 100px;
+}
+
+
+/*end content*/
+
+.m_body .m_generalize{
+    margin-top: 30px;
+    margin-left: 20px;
+    height: 500px;
+    float: left;
+    border-radius: 5px;
+}
+
+.m_body .m_generalize .m_weixin{
+    height: 230px;
+    box-shadow:0 0 30px grey;
+    width: 260px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.m_body .m_generalize .m_weixin .m_weixin_header{
+    border-radius: 5px;
+    background-color: #66afe9;
+    text-align: center;
+    height: 50px;
+    width: 260px;
+    line-height: 50px;
+    font-size: 22px;
+    color: #999999;
+}
+.m_body .m_generalize .m_weixin .m_weixin_img{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/*end m_body*/
+
+/*start footer*/
+.m_footer{
+    height: 100px;
+    width: 1300px;
+    background-color: black;
+}
+
+
+
+/*end footer*/

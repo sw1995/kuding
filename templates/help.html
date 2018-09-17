@@ -1,0 +1,386 @@
+{#帮助中心页#}
+
+{% extends 'base.html' %}
+
+{% block title %}
+帮助中心
+{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="/static/css/kuding.css">
+{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        {#        bootstrap导航条（网页区域划分2-8-2）#}
+        <div class="col-md-2" style="padding-left: 0;padding-right: 0;width:20%">
+            <div class="bord"
+                 style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px;background-color: #ffffff">
+                <ul style="padding-left: 0">
+                    <li class="li_notice active" style="list-style-type: none"><a
+                            href="#problem" aria-controls="problem" role="tab" data-toggle="tab" class="clic">常见问题</a>
+                    </li>
+                    <li class="li_notice" role="presentation" style="list-style-type: none"><a class="clic"
+                                                                                               href="#torom"
+                                                                                               aria-controls="torom"
+                                                                                               role="tab"
+                                                                                               data-toggle="tab">进入教室</a>
+                    </li>
+                    <li class="li_notice" role="presentation" style="list-style-type: none"><a class="clic" href="#Plug"
+                                                                                               aria-controls="Plug"
+                                                                                               role="tab"
+                                                                                               data-toggle="tab">安装插件</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8" style="padding-left: 0;padding-right: 0;width: 60%">
+            <div class="tab-content">
+                {#                导航条显示第一部分内容  常见问题#}
+                <div role="tabpanel" id="problem" class="bord tab-pane active"
+                     style="background: #ffffff;box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px">
+                    <div style="padding-right: 40px;padding-top: 40px">
+                        <div style=" height: 51px;color: #ffffff;font-size: 17px;border-radius: 5px;background: #27b4f7; text-align: center;width: 130px;padding: 15px 0;margin: 0 auto 20px 40px">
+                            常 见 问 题
+                        </div>
+                        {#                        显示常见问题（静态/动态？）#}
+                        <ul class="sc">
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                            <li style="list-style-type: none;margin-bottom:20px">
+                                <div class="main">
+                                    <div class="time">2018-09-6 星期四</div>
+                                    <div class="ico"><i class="fa fa-lg fa-hand-o-right"
+                                                        style="color: #2aabd2"
+                                                        aria-hidden="true"></i></div>
+                                </div>
+                                <ul class="hidden li_c" style="color: #2aabd2">
+                                    <li>1.傲梦官网进行注册登录</li>
+                                    <li>2.傲梦官网页面->点击立即预约按钮</li>
+                                    <li>3.系统提示预约成功</li>
+                                    <li>4.课程顾问会及时与您沟通并安排试听课程</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                {#                导航条显示第二部分内容   进入教室#}
+                <div role="tabpanel" id="torom" class="bord tab-pane"
+                     style="background: #ffffff;box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px">
+                    <div style="padding-top: 40px">
+                        <div style=" height: 51px;color: #ffffff;font-size: 17px;border-radius: 5px;background: #27b4f7; text-align: center;width: 130px;padding: 15px 0;margin: 0 auto 20px 40px">
+                            进 入 教 室
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="padding: 0 20px">登陆傲梦个人平台<i class="fa fa-long-arrow-right"></i> 点击课程管理栏目<i
+                                    class="fa fa-long-arrow-right"></i> 查看我的课程计划<i class="fa fa-long-arrow-right"></i>
+                                点击查看备注并记住上课口令<i class="fa fa-long-arrow-right"></i> 点击进入房间<i
+                                        class="fa fa-long-arrow-right"></i> 输入昵称与上课口令
+                            </p>
+                            <div style="">
+                                <video id="vid" src="/static/img/HowToRoom.mov" width="80%" height="480" controls
+                                       preload="metadata" autoplay loop></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#                导航条显示第三部分内容    安装插件#}
+                <div role="tabpanel" id="Plug" class="bord tab-pane"
+                     style="background: #ffffff;box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px">
+                    <div style="padding-top: 40px">
+                        <div style=" height: 51px;color: #ffffff;font-size: 17px;border-radius: 5px;background: #27b4f7; text-align: center;width: 130px;padding: 15px 0;margin: 0 auto 20px 40px">
+                            安 装 插 件
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="padding: 0 20px">点击下载启动器 <i class="fa fa-long-arrow-right"></i> 另存为电脑文件夹中 <i
+                                    class="fa fa-long-arrow-right"></i> 解压压缩吧<i class="fa fa-long-arrow-right"></i>
+                                双击并安装解压后文件<i class="fa fa-long-arrow-right"></i>安装后回到之前的点击启动页面，并点击红色的启动按钮就能进入房间啦</p>
+                            <div style="">
+                                <video id="vid" src="/static/img/installPlugin.mov" width="80%" height="480" controls
+                                       preload="metadata" autoplay loop></video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2" style="padding-left: 0;padding-right: 0;width:20%;">
+            {#            一个框内容暂定#}
+            <div class="bord"
+                 style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 270px;background-color: #ffffff;margin-bottom:50px ">
+                <ul style="padding-left: 0">
+                    <li class="li_notice active" style="list-style-type: none"><a class="clic" href="#">常见问题</a>
+                    </li>
+                </ul>
+            </div>
+            {#            “联系我们（可添加二维码或其他  暂空）”#}
+            <div id="con" style="width: 200px;text-align: center;right: -200px;position: fixed;z-index: 9999;top: 30%;">
+                <span style="position: absolute;left: -50px;height: 60px;width: 40px;top: 80px;background-color: cyan;color: #c12e2a;text-align: center;border-radius: 10px;line-height: 28px;font-size: 15px;padding: 5px">联系我们</span>
+                <p>联系我们</p>
+                <div style="height: 200px;width: 200px;background-color: cyan">
+                </div>
+            </div>
+            {#            一个框内容暂定#}
+            <div class="bord"
+                 style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 270px;background-color: #ffffff;margin-bottom:50px ">
+                <ul style="padding-left: 0">
+                    <li class="li_notice active" style="list-style-type: none"><a class="clic" href="#">常见问题</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/kuding.js"></script>
+<script>
+    $(".main").on('click', function () {
+        c_h($(this));
+    });
+    {#鼠标进入弹出“联系我们”#}
+    $("#con").mouseover(function x() {
+        $(this).stop();
+        $(this).animate({right: "0px"}, 1000);
+    });
+    {#鼠标离开 “联系我们”收起#}
+    $("#con").mouseleave(function () {
+        $(this).stop();
+        $(this).animate({right: "-200px"}, 1000);
+    })
+</script>
+
+{% endblock %}

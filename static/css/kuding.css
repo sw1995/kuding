@@ -1,0 +1,159 @@
+/*自定义css文件*/
+/*框体头部li标签样式*/
+body{
+    top: 0;
+    margin: 0 auto;
+    width: 1280px!important;
+    background-color: #eee;
+}
+.li_notice {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #27b4f7;
+}
+
+/*框体头部a标签样式*/
+.clic {
+    display: block;
+    width: 100%;
+    height: 60px;
+}
+
+a{
+    color: #27b4f7;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    color: #27b4f7
+}
+
+a:active {
+    color: #27b4f7
+}
+
+a:hover {
+    color: #27b4f7
+}
+
+.hidden {
+    display: none;
+}
+
+/*通知时间样式*/
+.time {
+    color: black;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    margin: 14px 0;
+}
+
+/*通知样式*/
+.msg {
+    height: 40px;
+}
+
+.msg div {
+    color: cyan;
+    padding: 10px 0 10px 30px;
+}
+
+/*通知图标样式*/
+.ico {
+    float: right;
+    padding: 13px
+}
+
+/*帮助条目div样式*/
+li div.main {
+    padding: 0 33px;
+    cursor: pointer;
+    height: 48px;
+    background-color: rgba(222, 239, 252, .9);
+    border-radius: 8px
+}
+
+/*{#div边框样式#}*/
+.bord {
+    border-radius: 8px;
+}
+
+/*滚动条相关*/
+ul.sc {
+    height: 500px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+ul.sc::-webkit-scrollbar { /*滚动条整体样式*/
+    width: 10px; /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+}
+
+ul.sc::-webkit-scrollbar-thumb { /*滚动条里面小方块*/
+    border-radius: 5px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    background: aqua;
+}
+
+ul.sc::-webkit-scrollbar-track { /*滚动条里面轨道*/
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0);
+}
+
+/*导航点击样式*/
+.active {
+    background-color: #2aabd2;
+}
+
+/*帮助信息相关样式*/
+.li_c {
+    padding: 15px;
+    border: 1px cyan solid;
+    margin: 0 40px 0 10px;
+    border-top: none;
+    list-style: none
+}
+
+/*代码工具页相关*/
+.tool_div{
+    width: 1200px;
+    height: 800px;
+    margin-top: 100px;
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%,-50%);*/
+}
+
+.tool_div div{
+    background: transparent;
+    height: 250px;
+    width: 250px;
+    display: inline-block;
+    margin: 25px;
+    border: crimson 2px solid;
+    border-radius: 10px;
+}
+
+body{
+    width: 100%;
+    height: 100%;
+}
+
+/*考试页相关*/
+.test_div{
+    background: transparent;
+    display: inline-block;
+    margin: 20px 1%;
+    width: 30%;
+    height: 250px;
+    border: crimson 2px solid;
+    border-radius: 10px;
+}

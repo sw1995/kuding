@@ -1,0 +1,233 @@
+    {% if role == "student" %}
+        <div id="container">
+            <div class="connent">
+                <div class="left_menu left">
+                    <!--头像 -->
+                    <div class="avatar">
+                        <img class="left_img" src="/static/img/deflaut.png" alt="头像">
+                    </div>
+                    <p>
+                        <span class="name"> {{ stu_obj.s_name }}同学 你好 </span>
+                        <span class="sign">新手上路 </span>
+                    </p>
+                    <p>
+                        <span style="margin-left: 20px; font-size: 12px;"> 金币数: 100</span>
+                        <span style="margin-left: 20px; font-size: 12px;"> 钻石数: 100</span>
+                    </p>
+                    <p>
+                        <span style=" margin-left: 10px;font-size: 12px">最近登陆：2018-09-06 14：24</span>
+                    </p>
+                    <p style="width: 60px;height: 60px;margin-left: 55px">
+                        <i class="fa fa-question-circle fa-4x" style="color: rgb(219,153,246)" aria-hidden="true"></i>
+                    </p>
+
+                    <!--宝石 钻石 -->
+                    <div class="goods">
+                        <p>
+                            <span class="good">宝石数量</span>
+                        </p>
+                        <p>
+                            <span class="good">获取宝石?</span>
+                        </p>
+
+
+                    </div>
+                </div>
+                <div class="home1 left">
+                    <div class="tagrt left">
+                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>
+                    </div>
+                    <div class="teacher_info left">
+                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true">
+                            班主任信息</i>
+                        {% for t_info in t_info_obj %}
+                            <p>
+                                手机号：{{ t_info.t_account }}
+                            </p>
+                            <p>
+                                姓名：{{ t_info.t_name }}
+                            </p>
+                            <p>
+                                {% if t_info.t_sex == 1 %}
+                                    性别：男
+                                {% else %}
+                                    性别：女
+                                {% endif %}
+                            </p>
+                            <p>
+                                年龄：{{ t_info.t_age }}
+                            </p>
+                            <p>
+                                学历：{{ t_info.t_degree }}
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="course_info">
+                        <i class="fa fa-book fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true">课程信息</i>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="success">课程名称</th>
+                                <th class="info">课程时长</th>
+                                <th class="danger">课程详情</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for course in course_list %}
+                                <tr>
+                                    <td class="success">
+                                        {{ course.d_name }}
+                                    </td>
+                                    <td class="info">
+                                        {{ course.d_time_length }}
+                                    </td>
+                                    <td class="danger">
+                                        {{ course.d_detail }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="right_menu left">
+                    <div class="server1">
+                        <div class="right_info">
+                            在线客服
+                        </div>
+                        客服小姐姐
+
+
+                        <p>
+                            <button class="btn btn-danger"> 在线客服</button>
+                        </p>
+                    </div>
+                    <div class="server2">
+                        <div class="right_info">
+                            微信客服
+                        </div>
+                        <img style="width: 170px;margin: 10px 15px 0;" src="/static/img/ercode.jpg" alt="">
+                        <span style="margin-left: 15px">微信关注我们了解更多</span>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% if role == "teacher" %}
+        <div id="container">
+            <div class="connent">
+                <div class="left_menu left">
+                    <!--头像 -->
+                    <div class="avatar">
+                        <img class="left_img" src="/static/img/deflaut.png" alt="头像">
+                    </div>
+                    <p>
+                        <span class="name"> {{ tea_obj.t_name }} 老师! 你好 </span>
+                        <span class="sign">新手上路 </span>
+                    </p>
+                    <p>
+                        <span style="margin-left: 20px; font-size: 12px;"> 金币数: 100</span>
+                        <span style="margin-left: 20px; font-size: 12px;"> 钻石数: 100</span>
+                    </p>
+                    <p>
+                        <span style=" margin-left: 10px;font-size: 12px">最近登陆：2018-09-06 14：24</span>
+                    </p>
+                    <p style="width: 60px;height: 60px;margin-left: 55px">
+                        <i class="fa fa-question-circle fa-4x" style="color: rgb(219,153,246)" aria-hidden="true"></i>
+                    </p>
+
+                    <!--宝石 钻石 -->
+                    <div class="goods">
+                        <p>
+                            <span class="good">宝石数量</span>
+                        </p>
+                        <p>
+                            <span class="good">获取宝石?</span>
+                        </p>
+
+
+                    </div>
+                </div>
+                <div class="home1 left">
+                    <div class="tagrt left">
+                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>
+                    </div>
+                    <div class="teacher_info left">
+                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true">
+                            学生信息</i>
+                        {% for s_info in s_info_list %}
+                            <p>
+                                手机号：{{ s_info.s_account }}
+                            </p>
+                            <p>
+                                姓名：{{ s_info.s_name }}
+                            </p>
+                            <p>
+                                {% if s_info.s_sex == 1 %}
+                                    性别：男
+                                {% else %}
+                                    性别：女
+                                {% endif %}
+                            </p>
+                            <p>
+                                年龄：{{ s_info.s_age }}
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <div style="clear: both"></div>
+                    <div class="course_info">
+                        <i class="fa fa-book fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true">课程信息</i>
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="success">课程名称</th>
+                                <th class="info">课程时长</th>
+                                <th class="danger">课程详情</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for course in course_list %}
+                                <tr>
+                                    <td class="success">
+                                        {{ course.d_name }}
+                                    </td>
+                                    <td class="info">
+                                        {{ course.d_time_length }}
+                                    </td>
+                                    <td class="danger">
+                                        {{ course.d_detail }}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="right_menu left">
+                    <div class="server1">
+                        <div class="right_info">
+                            在线客服
+                        </div>
+                        客服小姐姐
+
+
+                        <p>
+                            <button class="btn btn-danger"> 在线客服</button>
+                        </p>
+                    </div>
+                    <div class="server2">
+                        <div class="right_info">
+                            微信客服
+                        </div>
+                        <img style="width: 170px;margin: 10px 15px 0;" src="/static/img/ercode.jpg" alt="">
+                        <span style="margin-left: 15px">微信关注我们了解更多</span>
+                    </div>
+                </div>
+                <div style="clear: both"></div>
+            </div>
+        </div>
+    {% endif %}

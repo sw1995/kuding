@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    <link rel="stylesheet" href="/static/plug/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/plug/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/s_mycss.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    {% block css %} {% endblock %}
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    {% block js %}{% endblock %}
+    <script src="/static/js/iconfont.js"></script>
+
+    <style type="text/css">
+        .icon {
+           width: 1em; height: 1em;
+           vertical-align: -0.15em;
+           fill: currentColor;
+           overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+{% if role == "student" %}
+    <div class="head">
+        <div class="logo">
+             <img src="/static/img/logo.png">
+         </div>
+         <div class="mynav">
+             <ul>
+                 <li><a href="/index/">
+                     <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-xiaoyuan"></use>
+                            </svg>
+                         </p>
+                        <p style="color: #fff;">官网首页</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/home/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-xuesheng"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">个人主页</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/student/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-kecheng"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">课时管理</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon--gouwuche"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">金币商城</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/center/">
+                        <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-xuesheng1"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">个人中心</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/notice/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-zixun"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">通知中心</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/test/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-tounaosiwei"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">思维挑战</p></a></li>
+                 <li><a href="/tool/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-qianbi"></use>
+                            </svg>
+                         </p>                     <p style="color: #fff;">代码工具</p></a></li>
+                 <li><a href="/help/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-tongji"></use>
+                            </svg>
+                         </p>
+                        <p style="color: #fff;">帮助中心</p></a></li>
+             </ul>
+         </div>
+         <div class="guestshow">
+             <div class="user-img">
+                 <img src="/static/img/deflaut.png" alt="用户头像">
+             </div>
+             <div class="user-inf">
+                 <p class="stu_name">{{ stu_obj.s_name }}同学</p>
+                 <p class="stu_state"><a href="/logout/">退出</a></p>
+             </div>
+         </div>
+    </div>
+{% endif %}
+
+
+{% if role == "teacher" %}
+    <div class="head">
+        <div class="logo">
+             <img src="/static/img/logo.png">
+         </div>
+         <div class="mynav">
+             <ul>
+                 <li><a href="/index/">
+                     <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-xiaoyuan"></use>
+                            </svg>
+                         </p>
+                        <p style="color: #fff;">官网首页</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/home/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-xuesheng"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">个人主页</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/student/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-kecheng"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">课时管理</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon--gouwuche"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">金币商城</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/center/">
+                        <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-xuesheng1"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">个人中心</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-shoucang"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">试题管理</p>
+                     </a>
+                 </li>
+                 <li>
+                     <a href="/test/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-tounaosiwei"></use>
+                            </svg>
+                         </p>
+                         <p style="color: #fff;">试题批改</p></a></li>
+                 <li><a href="/tool/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-qianbi"></use>
+                            </svg>
+                         </p>                     <p style="color: #fff;">代码工具</p></a></li>
+                 <li><a href="/help/">
+                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+                                  <use xlink:href="#icon-tongji"></use>
+                            </svg>
+                         </p>
+                        <p style="color: #fff;">帮助中心</p></a></li>
+             </ul>
+         </div>
+         <div class="guestshow">
+             <div class="user-img">
+                 <img src="/static/img/deflaut.png" alt="用户头像">
+             </div>
+             <div class="user-inf">
+                 <p class="stu_name">{{ tea_obj.t_name }}老师</p>
+                 <p class="stu_state"><a href="/logout/">退出</a></p>
+             </div>
+         </div>
+    </div>
+{% endif %}
+
+
+
+<!--正文部分 -->
+{% block content %}
+
+{% endblock %}
+
+
+
+<div class="footer">
+    <a target="_blank" href="index.html">首页</a>
+    <a target="_blank" href="stu_show.html">学员风采</a>
+    <a target="_blank" href="class_type.html">课程类型</a>
+    <a target="_blank" href="Teachers_lineup.html">师资阵容</a>
+    <a target="_blank" href="contact.html">联系我们</a>
+    <p style="font-size: 12px;">©淮北麒麟信息科技有限公司    All Rights Reserved | <a href="http://www.qilinxx.com/">备案号</a></p>
+</div>
+
+
+
+</body>
+</html>

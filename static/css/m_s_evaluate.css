@@ -1,0 +1,52 @@
+.wth {
+    display: inline-block;
+    width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    course: hand;
+}
+
+.wth:hover {
+    text-overflow: inherit;
+    overflow: visible;
+    white-space: pre-wrap;
+}
+
+.su{
+    width: 180px;
+}
+
+.m_header{
+    width: 1200px;
+    height: 100px;
+    background-color: rgb(245,245,245);
+    line-height: 100px;
+}
+.m_header img{
+    margin-left: 150px;
+    color: white;
+}
+
+.m_body{
+    width: 1000px;
+    height: 800px;
+    overflow: auto;
+    box-shadow: 0 0 5px #66afe9;
+    margin: 0 auto;
+}
+
+.m_body .m_back{
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.m_body .m_content{
+    width: 940px;
+    height: 350px;
+    margin: 20px auto;
+    border: 1px solid #66afe9;
+    border-radius: 10px;
+    text-align: center;
+}

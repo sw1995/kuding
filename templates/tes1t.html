@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %} {% endblock %}
+    </title>
+    <link rel="stylesheet" href="/static/plug/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/plug/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/s_mycss.css">
+    {% block css %} {% endblock %}
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    {% block js %}{% endblock %}
+
+</head>
+<body>
+    <div class="head">
+        <div class="logo">
+             <img src="/static/img/logo.png">
+         </div>
+         <div class="mynav">
+             <ul class="list-side">
+                 <li><a target="/index/"><p><i style="color: rgb(10, 204, 243)" class="fa fa-home fa-2x" aria-hidden="true"></i></p><p style="color: #fff;">官网首页</p></a></li>
+                 <li><a target="/home/"><p><i style="color: blue" class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></p><p style="color: #fff;">个人主页</p></a></li>
+                 <li><a target="/student/"><p><i style="color: blue" class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i></p><p style="color: #fff;">课时管理</p></a></li>
+                 <li><a target=""><p><i style="color: blue" class="fa fa-money fa-2x" aria-hidden="true"></i></p><p style="color: #fff;">金币商城</p></a></li>
+                 <li><a target="/center/"><p><i style="color: blue" class="fa fa-user fa-2x" aria-hidden="true"></i></p><p style="color: #fff;">个人中心</p></a></li>
+                 <li><a target=""><p><i style="color: blue" class="fa fa-comments fa-2x" aria-hidden="true"></i></p><p style="color: #fff;">通知中心</p></a></li>
+                 <li><a target=""><p><i style="color: blue" class="fa fa-plus" aria-hidden="true"></i></p><p style="color: #fff;">思维挑战</p></a></li>
+                 <li><a target=""><p><i style="color: blue" class="fa fa-plus" aria-hidden="true"></i></p><p style="color: #fff;">代码工具</p></a></li>
+                 <li><a target=""><p><i class="fa fa-question-circle fa-2x" style="color: blue;" aria-hidden="true"></i></p><p style="color: #fff;">帮助中心</p></a></li>
+             </ul>
+         </div>
+         <div class="guestshow">
+             <div class="user-img">
+                 <img src="/static/img/deflaut.png" alt="用户头像">
+             </div>
+             <div class="user-inf">
+                 <p class="stu_name">{{ stu_obj.s_name }}同学</p>
+                 <p class="stu_state"><a href="/logout/">退出</a></p>
+             </div>
+         </div>
+    </div>
+
+
+
+<!--正文部分 -->
+<div id="iframe">
+　　<!--jquery 插入html 位址-->
+</div>
+
+
+
+<div class="footer">
+    <a target="_blank" href="index.html">首页</a>
+    <a target="_blank" href="stu_show.html">学员风采</a>
+    <a target="_blank" href="class_type.html">课程类型</a>
+    <a target="_blank" href="Teachers_lineup.html">师资阵容</a>
+    <a target="_blank" href="contact.html">联系我们</a>
+    <p style="font-size: 12px;">©淮北麒麟信息科技有限公司    All Rights Reserved | <a href="http://www.qilinxx.com/">备案号</a></p>
+</div>
+
+
+
+
+<script>
+        $(document).ready(function(){
+        　　$.get("/home/",function(data){//初始將home.html include div#iframe
+        　　　　$("#iframe").html(data);
+                console.log($("#iframe").html(data))
+        　　});
+        $(function() {
+            $('.list-side li').click(function () {
+                // 找出 li 中的超链接 href(#id)
+                $(this).addClass("active").siblings().removeClass("active");
+                var $this = $(this),
+                    _clickTab = $this.find('a').attr('target');// 找到链接a中的targer的值
+                $.get(_clickTab, function (data) {
+                    $("#iframe").html(data);
+                });
+            });
+        })
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+    {% block title %}评价{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/m_s_evaluate.css">
+{% endblock %}
+
+{% block content %}
+    <div class="m_body">
+        <div class="m_back">
+            <a  href="/student/" class="btn btn-info">返回首页</a>
+        </div>
+        <div class="m_content">
+            <p class="btn btn-info">我对老师的评价</p>
+            <table class="m_1_table table table-hover">
+                <thead>
+                <tr>
+                    <td class="su success">课程名称</td>
+                    <td class="su success">老师姓名</td>
+                    <td class="su success">得分</td>
+                    <td class="su success wth">评价</td>
+                    <td class="su success wth">备注</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in evaluate_list %}
+                    <tr>
+                        <td class="su ">{{ detail_name.0 }}</td>
+                        <td class="su ">{{ teacher_name.0 }}</td>
+                        <td class="su ">{{ row.e_stot_score }}</td>
+                        <td class="su  wth">{{ row.e_stot_evaluate }}</td>
+                        <td class="su  wth">{{ row.e_remark}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="m_content">
+            <p class="btn btn-info">老师对我的评价</p>
+            <table class="m_1_table table table-hover">
+                <thead>
+                <tr>
+                    <td class="su success">课程名称</td>
+                    <td class="su success">老师姓名</td>
+                    <td class="su success">得分</td>
+                    <td class="su success wth">评价</td>
+                    <td class="su success wth">备注</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in evaluate_list %}
+                    <tr>
+                        <td class="su">{{ detail_name.0 }}</td>
+                        <td class="su">{{ teacher_name.0 }}</td>
+                        <td class="su">{{ row.e_ttos_score }}</td>
+                        <td class="su wth">{{ row.e_ttos_evaluate }}</td>
+                        <td class="su wth">{{ row.e_remark}}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}
