@@ -57,7 +57,7 @@
     margin-left: 20px;
     margin-top: 30px;
     height: 600px;
-    width: 750px;
+    width: 1000px;
     box-shadow: 0 0 30px grey;
     float: left;
     border-radius: 5px;
@@ -70,31 +70,31 @@
 .m_body .m_content .m{
     border-radius: 5px;
     height: 550px;
-    width: 700px;
+    width: 1000px;
     margin: 25px auto;
     font-size: 16px;
     text-align: center;
 }
 .m_body .m_content .m_1 .m_1_table{
-    width: 695px;
+    width: 950px;
     margin: 6px auto;
 }
 
 
-.m_body .m_content .m .m_search{
-    height: 50px;
-    width: 700px;
-    line-height: 50px;
-    text-align: left;
-}
-.m_body .m_content .m .m_search select{
-    width: 100px;
-    height: 25px;
-    font-size: 15px;
-}
+/*.m_body .m_content .m .m_search{*/
+    /*height: 50px;*/
+    /*width: 700px;*/
+    /*line-height: 50px;*/
+    /*text-align: left;*/
+/*}*/
+/*.m_body .m_content .m .m_search select{*/
+    /*width: 100px;*/
+    /*height: 25px;*/
+    /*font-size: 15px;*/
+/*}*/
 
 .m_body .m_content .m .m_2_table{
-    width: 695px;
+    width: 950px;
     margin: 6px auto;
 }
 

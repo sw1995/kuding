@@ -12,55 +12,79 @@
             <a  href="/student/" class="btn btn-info">返回首页</a>
         </div>
         <div class="m_content">
-            <p class="btn btn-info">我对老师的评价</p>
-            <table class="m_1_table table table-hover">
-                <thead>
-                <tr>
-                    <td class="su success">课程名称</td>
-                    <td class="su success">老师姓名</td>
-                    <td class="su success">得分</td>
-                    <td class="su success wth">评价</td>
-                    <td class="su success wth">备注</td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in evaluate_list %}
-                    <tr>
-                        <td class="su ">{{ detail_name.0 }}</td>
-                        <td class="su ">{{ teacher_name.0 }}</td>
-                        <td class="su ">{{ row.e_stot_score }}</td>
-                        <td class="su  wth">{{ row.e_stot_evaluate }}</td>
-                        <td class="su  wth">{{ row.e_remark}}</td>
-                    </tr>
+        <p class="btn btn-info">我对老师的评价</p>
+        <table class="m_1_table table table-hover">
+            <thead>
+            <tr>
+                <td class="su success">课程名称</td>
+                <td class="su success">老师姓名</td>
+                <td class="su success">得分</td>
+                <td class="su success wth">评价</td>
+                <td class="su success wth">备注</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in evaluate_list %}
+                {% for t in teacher_name %}
+                    {% for d in detail_name %}
+                        {% if row.e_ttos_score == null %}
+                            {% if row.e_tid_id == t.t_id %}
+                            {% if row.e_did_id == d.d_id %}
+                                <tr>
+                                    <td class="su ">{{ d.d_name }}</td>
+                                    <td class="su ">
+                                        {{ t.t_name }}
+                                    </td>
+                                    <td class="su ">{{ row.e_stot_score }}</td>
+                                    <td class="su  wth">{{ row.e_stot_evaluate }}</td>
+                                    <td class="su  wth">{{ row.e_remark }}</td>
+                                </tr>
+                            {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="m_content">
-            <p class="btn btn-info">老师对我的评价</p>
-            <table class="m_1_table table table-hover">
-                <thead>
-                <tr>
-                    <td class="su success">课程名称</td>
-                    <td class="su success">老师姓名</td>
-                    <td class="su success">得分</td>
-                    <td class="su success wth">评价</td>
-                    <td class="su success wth">备注</td>
-                </tr>
-                </thead>
-                <tbody>
-                {% for row in evaluate_list %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="m_content">
+        <p class="btn btn-info">老师对我的评价</p>
+        <table class="m_1_table table table-hover">
+            <thead>
+            <tr>
+                <td class="su success">课程名称</td>
+                <td class="su success">老师姓名</td>
+                <td class="su success">得分</td>
+                <td class="su success wth">评价</td>
+                <td class="su success wth">备注</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in evaluate_list %}
+                {% for t in teacher_name %}
+                    {% for d in detail_name %}
+                        {% if row.e_stot_score == null %}
+                            {% if row.e_tid_id == t.t_id %}
+                            {% if row.e_did_id == d.d_id %}
                     <tr>
-                        <td class="su">{{ detail_name.0 }}</td>
-                        <td class="su">{{ teacher_name.0 }}</td>
+
+                        <td class="su">{{ d.d_name }}</td>
+                        <td class="su">{{ t.t_name }}</td>
                         <td class="su">{{ row.e_ttos_score }}</td>
                         <td class="su wth">{{ row.e_ttos_evaluate }}</td>
-                        <td class="su wth">{{ row.e_remark}}</td>
+                        <td class="su wth">{{ row.e_remark }}</td>
                     </tr>
+                              {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 
     </div>
 {% endblock %}

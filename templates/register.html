@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
 
     <title>注册</title>
-    <link type="text/css" rel="stylesheet" href="/static/plug/bootstrap/css/bootstrap.css">
+    <link type="text/css" rel="stylesheet" href="/static/plug/bootstrap/css/bootstrap.min.css">
 	<link type="text/css" rel="stylesheet" href="/static/css/register.css">
-    <script type="javascript" src="/static/js/jquery-3.3.1.js"></script>
-    <script type="javascript" src="/static/plug/bootstrap/js/bootstrap.js"></script>
+    <script src="/static/js/jquery-3.3.1.js"></script>
+    <script src="/static/plug/bootstrap/js/bootstrap.min.js"></script>
     <script>
         $(function () {
             var t =60;
@@ -72,18 +72,16 @@
                     <p >这里是提示信息</p>
                 </div>
 
-                <input type="text" placeholder="验证码" class="form-control" style=" margin-top: 15px;width: 150px;height: 38px;margin-left: 30px;">
-                <span> <img src="images/yan.jpg" ></span>
-                <p>这里是提示信息</p>
+
 
                 <div class="tel_yanzheng">
                     <div style="float: left;">
                         <label>
-                            <input type="text" class="form-control" placeholder="输入密码" >
+                            <input type="text" class="form-control" placeholder="输入手机验证" >
                         </label>
                     </div>
                     <div style="float: right">
-                        <button type="button" class="getmessage btn btn-warning btn-md" >获取登陆密码</button>
+                        <button type="button" class="getmessage btn btn-warning btn-md" >获取手机验证</button>
                     </div>
                 </div>
                 <div style="margin: 0px 30px 15px;">
@@ -92,7 +90,7 @@
 
             </form>
             <div style="margin-right: 30px;float: right;margin-top: 10px;">
-                <a href="login.html">已有账号，立即登陆</a>
+                <a href="/login/">已有账号，立即登陆</a>
             </div>
         </div>
     </div>

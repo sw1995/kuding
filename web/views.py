@@ -2,6 +2,7 @@ from django.shortcuts import render,HttpResponse,redirect
 from web import models
 import json
 from django.http import JsonResponse
+from web.form.student import Student_to_teacher
 
 
 #登陆
@@ -26,10 +27,10 @@ def login(request):
             request.session["role"] = "teacher"
             # role = request.session.get("role")
             # print(request.session.get("account"))
-            # print(request.session.get("role"))
+            # (request.session.get("role"))
             return redirect('/home/')
 
-    return render(request,"login1.html")
+    return render(request,"login.html")
 
 #注销(退出登陆)
 def logout(request):
@@ -59,7 +60,7 @@ def home(request):
         if role == "student":
             #学生
             stu_obj = models.WebStudent.objects.filter(s_account=account).first()
-            print(stu_obj)
+            # print(stu_obj)
 
             # 查找班主任
             teachers = models.WebGrant.objects.filter(g_sid=stu_obj.pk).first()
@@ -83,7 +84,7 @@ def home(request):
         elif role == "teacher":
             #教师
             tea_obj = models.WebTeacher.objects.filter(t_account=account).first()
-            # print(tea_obj.pk)
+            # print(tea_obj)
             #查找学生
             student_list = models.WebGrant.objects.filter(g_tid_id=tea_obj.pk).values_list("g_sid_id").distinct()
             # print(student_list)
@@ -107,7 +108,7 @@ def home(request):
                     course_list.append(course)
             # print(course_list)
 
-            return render(request, 'home.html',locals())
+            return render(request, 'home.html', locals())
 
     return redirect('/login/')
 
@@ -124,25 +125,34 @@ def center(request):
 
     #获取排行榜
     stu_rank_obj = models.WebStudent.objects.all().order_by("s_id")
-    print(stu_rank_obj)
+    # print(stu_rank_obj)
 # print(stu_obj.s_create_time)
     return render(request, 'center.html', locals())
 
 
 #更改个人信息
 #孙新洋
+import time
 def confirm_center(request):
     if request.method == "POST":
         role = request.session.get("role", None)
         account = request.session.get("account", None)
         ret = {}
+        username = request.POST.get("username")
         sex = request.POST.get("sex")
         grade = request.POST.get("grade")
         age = request.POST.get("age")
+        email = request.POST.get("email")
+        remark = request.POST.get("remark")
+        # print(username, email, grade, sex,remark)
+        # print("- " * 120)
+        # create_time = time.localtime(request.POST.get("create_time"))
         if role == "student":
-            models.WebStudent.objects.filter(s_account=account).update(s_sex=sex,s_grade=grade)
+            models.WebStudent.objects.filter(s_account=account).update(s_name=username, s_email=email, s_sex=sex,s_grade=grade, s_remark=remark)
+            # print("ok")
         else:
-            models.WebTeacher.objects.filter(t_account=account).update(t_sex=sex, t_age=age)
+            models.WebTeacher.objects.filter(t_account=account).update(t_sex=sex, t_age=age, t_name=username,t_remark=remark)
+            # print("ok")
         ret["status"] = 1
         ret["msg"] = "保存成功"
     return JsonResponse(ret)
@@ -159,7 +169,7 @@ def confirm_pwd(request):
         new_pwd = request.POST.get("new_pwd")
         conf_pwd = request.POST.get("conf_pwd")
 
-        print(pwd,new_pwd,conf_pwd)
+        # print(pwd,new_pwd,conf_pwd)
 
         if role == "student":
             stu_obj = models.WebStudent.objects.filter(s_password=pwd).first()
@@ -195,28 +205,94 @@ def m_student(request):
     author:，孟浩
     学生端详情
     """
+    if request.method == 'GET':
+        obj_form = Student_to_teacher()
+        account = request.session["account"]
+        role = request.session.get("role", None)
+        sid = models.WebStudent.objects.filter(s_account=account).values("s_id")
+        sid_id = str(models.WebStudent.objects.filter(s_account=account).values_list("s_id")[0][0])
+        stu_obj = models.WebStudent.objects.filter(s_account=account).first()
+        course_list = models.WebCourse.objects.filter(webdetail__webgrant__g_sid_id=sid).values().distinct()
+        detail_list = models.WebDetail.objects.filter(webgrant__g_sid=sid).values().distinct()
+        grent_list = models.WebGrant.objects.filter(g_sid=sid).values().distinct()
+        evaluate_list = models.WebEvaluate.objects.filter(e_did__webevaluate__e_sid=sid).values().distinct()
+        teacher_list = models.WebTeacher.objects.filter(webgrant__g_sid=sid).values().distinct()
+        return render(
+            request,'m_student.html',
+            {
+                'course_list':course_list,
+                'detail_list':detail_list,
+                'grent_list':grent_list,
+                'evaluate_list':evaluate_list,
+                'teacher_list':teacher_list,
+                "stu_obj":stu_obj,
+                "role":role,
+                "sid_id":sid_id,
+                "obj_form":obj_form,
+            }
+        )
 
-    account = request.session["account"]
-    role = request.session.get("role", None)
-    sid = models.WebStudent.objects.filter(s_account=account).values("s_id")
-    stu_obj = models.WebStudent.objects.filter(s_account=account).first()
-    course_list = models.WebCourse.objects.filter(webdetail__webgrant__g_sid_id=sid).values().distinct()
-    detail_list = models.WebDetail.objects.filter(webgrant__g_sid=sid).values().distinct()
-    grent_list = models.WebGrant.objects.filter(g_sid=sid).values().distinct()
-    evaluate_list = models.WebEvaluate.objects.filter(e_did__webevaluate__e_sid=sid).values().distinct()
-    teacher_list = models.WebTeacher.objects.filter(webgrant__g_sid=sid).values().distinct()
-    return render(
-        request,'m_student.html',
-        {
-            'course_list':course_list,
-            'detail_list':detail_list,
-            'grent_list':grent_list,
-            'evaluate_list':evaluate_list,
-            'teacher_list':teacher_list,
-            "stu_obj":stu_obj,
-            "role":role,
-        }
-    )
+    else:
+        obj_form = Student_to_teacher(request.POST)
+        sid = request.POST.get('g_sid_id')
+        # print(sid)
+        # account = request.session["account"]
+        tid = models.WebGrant.objects.filter(g_sid_id=sid).values_list("g_tid_id")[0][0]
+        did = models.WebGrant.objects.filter(g_sid_id=sid).values_list("g_did_id")[0][0]
+        # print( tid, did)
+        # print("-" * 120)
+        tea_obj = models.WebTeacher.objects.filter(t_id=tid).first()
+        stu_obj = models.WebStudent.objects.filter(s_id=sid).first()
+        det_obj = models.WebDetail.objects.filter(d_id=did).first()
+
+        # print("-" * 120 )
+        # print()
+        if obj_form.is_valid():
+            # 用户提交的数据
+            # print('验证成功：', obj_form.cleaned_data)
+            obj_form.cleaned_data["e_sid"] = stu_obj
+            obj_form.cleaned_data["e_tid"] = tea_obj
+            obj_form.cleaned_data["e_did"] = det_obj
+            obj_form.cleaned_data["e_create_time"] = int(obj_form.cleaned_data["e_create_time"])
+            # print("-" * 120)
+            # print(obj_form)
+            models.WebEvaluate.objects.create(**obj_form.cleaned_data)
+
+            return HttpResponse('评价成功')
+        else:
+            # print('验证失败：', obj_form.errors)
+            return render(request, 'm_student.html', {'obj_form': obj_form})
+import time
+def editdetail(request):
+    show_inf = {'status': True, 'inf': None}
+    try:
+        d_id = request.POST.get('did')
+        # d_name = request.POST.get('d_name')
+        # d_number = request.POST.get('d_number')
+        # d_time_length = request.POST.get('d_time_length')
+        d_create_time = request.POST.get('data')
+
+        timeArray = time.strptime(d_create_time, "%Y-%m-%d")
+        timeStamp = int(time.mktime(timeArray)) * 1000
+        # print(timeStamp)
+        # d_cid_id = request.POST.get('d_cid_id'    )
+        # d_detail = request.POST.get('d_detail')
+        d_remark =request.POST.get('remark')
+        if not d_remark:
+            d_remark = ""
+        # print(d_id, d_create_time, d_remark)
+        models.WebDetail.objects.filter(d_id=d_id).update(
+            d_id=d_id,
+            d_create_time=timeStamp,
+            d_remark=d_remark,
+        )
+    except Exception as e:
+        show_inf['status'] = False
+        show_inf['inf'] = str(e)
+
+    res = json.dumps(show_inf)
+    return HttpResponse(res)
+
 
 
 def m_evaluate(request):
@@ -228,11 +304,18 @@ def m_evaluate(request):
     """
     account = request.session["account"]
     role = request.session.get("role", None)
-    sid = models.WebStudent.objects.filter(s_account=account).values("s_id")
+    # sid = models.WebStudent.objects.filter(s_account=account).values("s_id")
     stu_obj = models.WebStudent.objects.filter(s_account=account).first()
-    evaluate_list = models.WebEvaluate.objects.filter(e_sid_id=sid).values().distinct()
-    teacher_name = models.WebTeacher.objects.filter(webgrant__g_sid_id=sid).values_list('t_name').first()
-    detail_name = models.WebDetail.objects.filter(webgrant__g_sid_id=sid).values_list('d_name').first()
+    # evaluate_list = models.WebEvaluate.objects.filter(e_sid_id=sid).values().distinct()
+    # teacher_name = models.WebTeacher.objects.filter(webgrant__g_sid_id=sid).values_list('t_name').first()
+    # detail_name = models.WebDetail.objects.filter(webgrant__g_sid_id=sid).values_list('d_name').first()
+
+    sid_id = request.GET.get('sid')
+    # print(sid_id)
+    evaluate_list = models.WebEvaluate.objects.filter(e_sid_id=sid_id).values().distinct()
+    teacher_name = models.WebTeacher.objects.filter(webevaluate__e_sid_id=sid_id).values().distinct()
+    detail_name = models.WebDetail.objects.filter(webevaluate__e_sid_id=sid_id).values().distinct()
+
     return render(
         request,
         'm_evaluate.html',
@@ -256,13 +339,15 @@ def m_teacher(request):
     account = request.session["account"]
     role = request.session.get("role", None)
     tea_obj = models.WebTeacher.objects.filter(t_account=account).first()
+    # print("-"* 120)
+    # print(tea_obj)
     tid = models.WebTeacher.objects.filter(t_account=account).values("t_id")
     course_list = models.WebCourse.objects.filter(webdetail__webgrant__g_tid=tid).values().distinct()
     student_list = models.WebStudent.objects.filter(webgrant__g_tid=tid).values().distinct()
     detail_list = models.WebDetail.objects.filter(webgrant__g_tid_id=tid).values().distinct()
     grent_list = models.WebGrant.objects.filter(g_tid=tid).values('g_did_id','g_url').distinct()
 
-    print(grent_list)
+    # print(grent_list)
 
 
     return render(request,'m_teacher.html',

@@ -7,7 +7,7 @@
     <style>
         .wth {
             display: inline-block;
-            width: 150px;
+            width: 220px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -21,7 +21,10 @@
         }
 
         .su {
-            width: 170px;
+            width: 220px;
+        }
+        .sus {
+            width: 180px;
         }
 
     </style>
@@ -57,6 +60,10 @@
             <div class="m_menu">
                 <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
                 <a href="#">测试课</a>
+            </div>
+            <div class="m_menu">
+                <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
+                <a href="#">评价</a>
             </div>
 
         </div>
@@ -105,11 +112,11 @@
                 <table class="m_2_table table table-hover">
                     <thead>
                     <tr>
-                        <td class="success">课程名称</td>
-                        <td class="success" style="width: 100px;">上课时间</td>
-                        <td class="success" style="width: 100px;">任课老师</td>
-                        <td class="success">课程链接</td>
-                        <td class="success" style="width: 50px;">状态</td>
+                        <td class="success su">课程名称</td>
+                        <td class="success su" style="width: 100px;">上课时间</td>
+                        <td class="success su" style="width: 100px;">任课老师</td>
+                        <td class="success su">课程链接</td>
+                        <td class="success su" style="width: 50px;">状态</td>
                         <td class="success wth">备注</td>
                     </tr>
                     </thead>
@@ -119,22 +126,22 @@
                             {% for t in teacher_list %}
                                 <tr>
                                     {% if row.g_did_id == de.d_id %}
-                                        <td class="">
+                                        <td class=" su">
                                             {{ de.d_name }}
                                         </td>
 
-                                        <td class="">
+                                        <td class=" su">
                                             {% load str_time %}
                                             {{ row.g_time|strf_time }}
                                         </td>
                                         {% if row.g_tid_id == t.t_id %}
-                                            <td class="">{{ t.t_name }}老师</td>
+                                            <td class=" su">{{ t.t_name }}老师</td>
                                         {% else %}
-                                            <td class="">无老师信息</td>
+                                            <td class=" su">无老师信息</td>
                                         {% endif %}
-                                        <td class="">
+                                        <td class=" su">
                                             <a href="http://{{ row.g_url }}">{{ row.g_url }}</a></td>
-                                        <td class="">{{ row.g_record }}</td>
+                                        <td class=" su">{{ row.g_record }}</td>
                                         <td class="wth"><a href="/evaluate?sid={{ row.g_sid_id }}">查看评价</a></td>
                                     {% endif %}
                                 </tr>
@@ -169,9 +176,9 @@
                 <table class="m_1_table table table-hover">
                     <thead>
                     <tr>
-                        <td class="success">课程名称</td>
-                        <td class="success">课程章节</td>
-                        <td class="success">课程时长</td>
+                        <td class="success sus">课程名称</td>
+                        <td class="success sus">课程章节</td>
+                        <td class="success sus">课程时长</td>
                         <td class="success wth">简介</td>
                         <td class="success wth">课堂反馈</td>
                     </tr>
@@ -183,9 +190,9 @@
                                 <tr>
                                     {# 状态为1 表示已完成课#}
                                     {% if g.g_did_id == row.d_id and g.g_record == '1' %}
-                                        <td class="">{{ row.d_name }}</td>
-                                        <td class="">{{ row.d_number }}</td>
-                                        <td class="">{{ row.d_time_length }}</td>
+                                        <td class=" sus">{{ row.d_name }}</td>
+                                        <td class=" sus">{{ row.d_number }}</td>
+                                        <td class=" sus">{{ row.d_time_length }}</td>
                                         <td class="wth">{{ row.d_remark }}</td>
                                         {% if row.d_id == e.e_did_id %}
                                             <td class="wth">{{ e.e_stot_evaluate }}</td>
@@ -312,21 +319,24 @@
             <div class="m_7 m m_hide">
                 <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
             </div>
-        </div>
-        <div class="m_generalize">
-            <div class="m_weixin">
-                <div class="m_weixin_header">在线客服</div>
-                <div class="m_weixin_img">
-                    <img src="/static/img/online_phone.jpg" alt="在线客服">
-                </div>
-                <a type="button" class="btn btn-info">在线客服</a>
-            </div>
-            <div class="m_weixin">
-                <div class="m_weixin_header">微信客服</div>
-                <div class="m_weixin_img">
-                    <img width="100" src="/static/img/weixin.jpg" alt="微信客服">
-                </div>
-                <span style="display:inline-block;width: 180px">欢迎关注酷丁青少儿编程，获取更多资讯信息</span>
+            <div class="m_8 m m_hide">
+                <form action="/student/" method="POST">
+                    {% csrf_token %}
+                    <p>{{ obj_form.e_id.label }}:{{ obj_form.e_id }}{{ obj_form.errors.e_id.0 }}</p>
+                    <p class="hide">{{ obj_form.e_ttos_evaluate.label }}:{{ obj_form.e_ttos_evaluate }}{{ obj_form.errors.e_ttos_evaluate.0 }}</p>
+                    <p>{{ obj_form.e_stot_evaluate.label }}:{{ obj_form.e_stot_evaluate }}{{ obj_form.errors.e_stot_evaluate.0 }}</p>
+                    <p class="hide">{{ obj_form.e_ttos_score.label }}:{{ obj_form.e_ttos_score }}{{ obj_form.errors.e_ttos_score.0 }}</p>
+                    <p>{{ obj_form.e_stot_score.label }}:{{ obj_form.e_stot_score }}{{ obj_form.errors.e_stot_score.0 }}</p>
+                    <p>{{ obj_form.e_tid.label }}:{{ obj_form.e_tid }}{{ obj_form.errors.e_tid.0 }}</p>
+                    <p class="hide">{{ obj_form.e_sid.label }}:{{ obj_form.e_sid }}{{ obj_form.errors.e_sid.0 }}</p>
+                    <p class="hide">
+                        <input type="text" name="g_sid_id" value="{{ sid_id }}">
+                    </p>
+                    <p>{{ obj_form.e_did.label }}:{{ obj_form.e_did }}{{ obj_form.errors.e_did.0 }}</p>
+                    <p>{{ obj_form.e_create_time.label }}:{{ obj_form.e_create_time }}{{ obj_form.errors.e_create_time.0 }}</p>
+                    <p>{{ obj_form.e_remark.label }}:{{ obj_form.e_remark }}</p>
+                    <p><input type="submit" value="提交"></p>
+                </form>
             </div>
         </div>
     </div>

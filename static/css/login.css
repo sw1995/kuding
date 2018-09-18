@@ -16,7 +16,7 @@
 /*上面是顶部样式*/
 .main{
     height: 760px;
-    /*background-image: url(../images/bg.jpg);*/
+    background-image: url(/static/img/bg.jpg);
     background-repeat: no-repeat;
     background-position: center;
     margin: 0 auto 50px;

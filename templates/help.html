@@ -12,7 +12,7 @@
 <div class="container-fluid">
     <div class="row">
         {#        bootstrap导航条（网页区域划分2-8-2）#}
-        <div class="col-md-2" style="padding-left: 0;padding-right: 0;width:20%">
+        <div class="col-md-2 col-xs-2" style="padding-left: 0;padding-right: 0;width:20%">
             <div class="bord"
                  style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px;background-color: #ffffff">
                 <ul style="padding-left: 0">
@@ -33,7 +33,7 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-8" style="padding-left: 0;padding-right: 0;width: 60%">
+        <div class="col-md-8 col-xs-2" style="padding-left: 0;padding-right: 0;width: 60%">
             <div class="tab-content">
                 {#                导航条显示第一部分内容  常见问题#}
                 <div role="tabpanel" id="problem" class="bord tab-pane active"
@@ -339,7 +339,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-2" style="padding-left: 0;padding-right: 0;width:20%;">
+        <div class="col-md-2 col-xs-2" style="padding-left: 0;padding-right: 0;width:20%;">
             {#            一个框内容暂定#}
             <div class="bord"
                  style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 270px;background-color: #ffffff;margin-bottom:50px ">
@@ -349,10 +349,11 @@
                 </ul>
             </div>
             {#            “联系我们（可添加二维码或其他  暂空）”#}
-            <div id="con" style="width: 200px;text-align: center;right: -200px;position: fixed;z-index: 9999;top: 30%;">
-                <span style="position: absolute;left: -50px;height: 60px;width: 40px;top: 80px;background-color: cyan;color: #c12e2a;text-align: center;border-radius: 10px;line-height: 28px;font-size: 15px;padding: 5px">联系我们</span>
-                <p>联系我们</p>
-                <div style="height: 200px;width: 200px;background-color: cyan">
+            <div id="con"
+                 style="width: 200px;text-align: center;right: -200px;position: fixed;z-index: 9999;top: 28%;background-color: #e3f4fb;border-radius: 10px;">
+                <span class="spn">联系我们</span>
+                <p style="padding-top: 15px;font-size: 15px;color: #2aabd2">联系我们</p>
+                <div style="height: 200px;width: 200px;background: #c8e5bc;border-radius: 10px;">
                 </div>
             </div>
             {#            一个框内容暂定#}

@@ -57,6 +57,7 @@
 
                     </div>
                     <div class="home2 hide">
+                        5
                     </div>
                     <div class="home2 hide">
                         <table class="table table-hover table-bordered">
@@ -85,6 +86,9 @@
                         </table>
                     </div>
 
+                    <div class="home2 hide">
+                        6
+                    </div>
 
                     <div class="home2 hide per_info">
 
@@ -92,13 +96,13 @@
                             {% csrf_token %}
                             个人信息：
                             <p>
-                                账号：<input type="text" disabled value={{ stu_obj.s_account }}>
+                                <span>账号：</span><input type="text" disabled value={{ stu_obj.s_account }}>
                             </p>
                             <p>
-                                姓名：<input type="text" disabled value={{ stu_obj.s_name }}>
+                                <span>姓名：</span><input type="text" name="username" value={{ stu_obj.s_name }}>
                             </p>
                             <p>
-                                性别：
+                                <span>性别：</span>
                                 {% if stu_obj.s_sex == 1 %}
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
@@ -108,13 +112,20 @@
                                 {% endif %}
                             </p>
                             <p>
-                                年级：<input type="text" id="grade" value={{ stu_obj.s_grade }}>
+                               <span>年级：</span> <input type="text" style="margin-left: 27px" id="grade" value={{ stu_obj.s_grade }}>
                             </p>
                             <p>
-                                手机号：{{ stu_obj.s_account }}
+                                {% load str_time %}
+                                <span>创建时间：</span><input type="text" disabled id="create_time" value={{ stu_obj.s_create_time|strf_time }}>
                             </p>
                             <p>
-                                <input type="button" id="save" value="点击保存">
+                                <span>邮箱：</span><input type="email" id="email" value={{ stu_obj.s_email }}>
+                            </p>
+                            <p>
+                                <span>备注：</span><input type="text" id="remark" value={{ stu_obj.s_remark }}>
+                            </p>
+                            <p>
+                                <input type="button" class="btn btn-success" id="save" value="点击保存">
                             </p>
 
                         </form>
@@ -124,17 +135,18 @@
                     <div class="home2 hide pwd_man">
                         <form action="" method="post">
                             {% csrf_token %}
+                            修改密码：
                             <p>
-                                原密码：<input name="pwd" type="text" placeholder="请输入原密码">
+                                <span>原密码：</span><input name="pwd" type="text" placeholder="请输入原密码">
                             </p>
                             <p>
-                                新密码：<input name="new_pwd" type="text" placeholder="请输入新密码">
+                                <span>新密码：</span><input name="new_pwd" type="text" placeholder="请输入新密码">
                             </p>
                             <p>
-                                确认密码：<input name="conf_pwd" type="text" placeholder="请再次输入密码">
+                                <span>确认密码：</span><input name="conf_pwd" type="text" placeholder="请再次输入密码">
                             </p>
                             <p>
-                                <input type="button" id="confirm_pwd" value="确认修改">
+                                <input type="button" class="btn btn-success" id="confirm_pwd" value="确认修改">
                             </p>
                         </form>
                     </div>
@@ -159,7 +171,7 @@
 
                     </div>
                 </div>
-                <div style="clear: both"></div>
+                <div style="clear:both"></div>
             </div>
         </div>
     {% endif %}
@@ -183,12 +195,12 @@
                     <div class="leftmenu sss">
                         <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
                         <a for="" href="#">我的资料</a>
-
                     </div>
                     <ul class="sel-table">
                         <li>个人信息</li>
                         <li>修改密码</li>
                     </ul>
+
                     <div class="leftmenu">
                         <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
                         <a for="" href="#">我的订单</a>
@@ -215,7 +227,9 @@
 
                     </div>
                     <div class="home2 hide">
+                        5
                     </div>
+                    <!-- 6 -->
                     <div class="home2 hide">
                         <table class="table table-hover table-bordered">
                             <thead>
@@ -243,20 +257,23 @@
                         </table>
                     </div>
 
+                    <div class="home2 hide">
+                        6
+                    </div>
 
+                    <!--个人信息-->
                     <div class="home2 hide per_info">
-
                         <form action="" method="post">
                             {% csrf_token %}
                             个人信息：
                             <p>
-                                账号：<input type="text" disabled value={{ tea_obj.t_account }}>
+                               <span>账号：</span><input type="text" disabled value={{ tea_obj.t_account }}>
                             </p>
                             <p>
-                                姓名：<input type="text" disabled value={{ tea_obj.t_name }}>
+                                <span>姓名：</span><input type="text" disabled value={{ tea_obj.t_name }}>
                             </p>
                             <p>
-                                性别：
+                               <span>性别：</span>
                                 {% if tea_obj.t_sex == 1 %}
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
@@ -266,37 +283,44 @@
                                 {% endif %}
                             </p>
                             <p>
-                                年龄：<input id="age" type="text" value={{ tea_obj.t_age }}>
+                                <span>年龄：</span><input id="age" type="text" value={{ tea_obj.t_age }}>
                             </p>
                             <p>
-                                手机号：{{ tea_obj.t_account }}
+                                {% load str_time %}
+                                <span>创建时间：</span><input type="text" disabled value={{ tea_obj.t_create_time|strf_time }}>
                             </p>
                             <p>
-                                <input type="button" id="save" value="点击保存">
+                               <span>学历：</span><input type="text" disabled value={{ tea_obj.t_degre }}>
+                            </p>
+                            <p>
+                                <span>备注：</span><input type="text" id="remark" value={{ tea_obj.t_remark }}>
+                            </p>
+                            <p>
+                                <input type="button" class="btn btn-success"  id="save" value="点击保存">
                             </p>
 
                         </form>
                     </div>
 
-
+                    <!-- 我的订单-->
                     <div class="home2 hide pwd_man">
                         <form action="" method="post">
                             {% csrf_token %}
+                            修改密码：
                             <p>
-                                原密码：<input name="pwd" type="password" placeholder="请输入原密码">
+                                <span>原密码：</span><input name="pwd" type="password" placeholder="请输入原密码">
                             </p>
                             <p>
-                                新密码：<input name="new_pwd" type="password" placeholder="请输入新密码">
+                                <span>新密码：</span><input name="new_pwd" type="password" placeholder="请输入新密码">
                             </p>
                             <p>
-                                确认密码：<input name="conf_pwd" type="password" placeholder="请再次输入密码">
+                                <span>确认密码：</span><input name="conf_pwd" type="password" placeholder="请再次输入密码">
                             </p>
                             <p>
-                                <input type="button" id="confirm_pwd" value="确认修改">
+                                <input type="button" class="btn btn-success"  id="confirm_pwd" value="确认修改">
                             </p>
                         </form>
                     </div>
-
 
                 </div>
 
@@ -367,12 +391,18 @@
          });
 
     $("#save").click(function () {
+        var username = $("[name='username']").val();
+        var email = $("#email").val();
+        var remark = $("#remark").val();
         $.ajax({
             url: '/confirm_center/',
             type: "POST",
             dataType: "json",
             data: {
+                username:username,
                 sex: gentle,
+                email:email,
+                remark:remark,
                 csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
                 grade: $("#grade").val(),
                 age: $("#age").val()
@@ -386,9 +416,9 @@
     });
 
     $("#confirm_pwd").click(function () {
-        pwd = $("[name='pwd']").val();
-        new_pwd = $("[name='new_pwd']").val();
-        conf_pwd = $("[name='conf_pwd']").val();
+        var pwd = $("[name='pwd']").val();
+        var new_pwd = $("[name='new_pwd']").val();
+        var conf_pwd = $("[name='conf_pwd']").val();
         $.ajax({
             url:'/confirm_pwd/',
             type: "POST",

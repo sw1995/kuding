@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-    {% block title %}课程管理{% endblock %}
+{% block title %}课程管理{% endblock %}
 
-    {% load str_time %}
+{% load str_time %}
 
 {% block css %}
     <link rel="stylesheet" href="/static/css/m_teacher.css">
@@ -37,6 +37,7 @@
                 <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
                 <a href="#">发布测试</a>
             </div>
+
 
         </div>
         <div class="content">
@@ -86,10 +87,10 @@
                             {% endif %}
 
                             {% if row.s_state == True %}
-                                    <td class="">学习中</td>
-                                {% else %}
-                                    <td class="">已毕业</td>
-                                {% endif %}
+                                <td class="">学习中</td>
+                            {% else %}
+                                <td class="">已毕业</td>
+                            {% endif %}
                             <td class="">删除</td>
                         </tr>
 
@@ -99,36 +100,115 @@
             </div>
             <div class="m m_3 m_hide">
                 <table class="m_1_table table table-hover">
-
                     <thead>
                     <tr>
+                        <td class="success kb" style="display: none">ID</td>
                         <td class="success kb">课程名称</td>
                         <td class="success kb">课程章节</td>
                         <td class="success kb">课程时长</td>
                         <td class="success kb">上课时间</td>
+                        <td class="success kb" style="display: none">课程ID</td>
                         <td class="success wth">简介</td>
                         <td class="success wth">备注</td>
+                        <td class="success wth">操作</td>
                     </tr>
                     </thead>
-                    <tbody>
-
-                        {% for d in detail_list %}
-
-                        <tr>
-                            <td class=" kb">{{ d.d_name }}</td>
-                            <td class=" kb">{{ d.d_number }}</td>
-                            <td class=" kb">{{ d.d_time_length }}</td>
-                            <td class=" kb">
-    {#                        {{ d.d_create_time | strf_time}}#}
-                                待定
+                    <tbody id="class_tbody" class="td">
+                    {% load str_time %}
+                    {% for d in detail_list %}
+                        <tr nid="{{ d.d_id }}" id="stu">
+                            <td na="d_id" class=" kb" style="display: none">{{ d.d_id }}</td>
+                            <td na="d_name" class=" kb">{{ d.d_name }}</td>
+                            <td na="d_number" class=" kb">{{ d.d_number }}</td>
+                            <td na="d_time_length" class=" kb">{{ d.d_time_length }}</td>
+                            <td na="d_create_time" class=" kb">{{ d.d_create_time|strd_time }}</td>
+                            <td na="d_cid_id" class=" kb" style="display: none">{{ d.d_cid_id }}</td>
+                            <td na="d_detail" class="wth">{{ d.d_detail }}</td>
+                            <td na="d_remark" class="wth">{{ d.d_remark }}</td>
+                            <td class="info">
+                                <a href="#"  class="editdetail fa fa-pencil-square-o"></a>
                             </td>
-                            <td class="wth">{{ d.d_detail }}</td>
-                            <td class="wth">{{ d.d_remark }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
+
+                <!-- 编辑学生 -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">课程信息</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" id="forms">
+                                    {% csrf_token %}
+                                    <div class="form-group" style="display: none">
+                                        <label for="inputd_id" class="col-sm-2 control-label">ID</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_id" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputd_name" class="col-sm-2 control-label">课程名称</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_name" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputd_number" class="col-sm-2 control-label">课程章节</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_number" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputd_time_length" class="col-sm-2 control-label">课程时长</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_time_length" disabled>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputd_create_time" class="col-sm-2 control-label">上课时间</label>
+                                        <div class="form-group" style="width: 470px;margin-left: 115px">
+{#                                            <input type="text" class="form-control" name="d_create_time">#}
+                                            <input type="date" class="form-control" id="d_create_time" placeholder="请输入审核结束时间">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display: none">
+                                        <label for="inputd_cid_id" class="col-sm-2 control-label">课程ID</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_cid_id">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputd_detail" class="col-sm-2 control-label">简介</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_detail" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputd_remark" class="col-sm-2 control-label">备注</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="d_remark">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="editdetail">保存</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
             <div class="m m_4 m_hide">
                 <table class="m_1_table table table-hover">
                     <thead>
@@ -140,7 +220,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr></tr>
+                    <tr></tr>
                     </tbody>
                 </table>
             </div>
@@ -158,25 +238,82 @@
                     </div>
                 </div>
             </div>
-            <div class="m_7 m m_hide">
+            <di class="m_7 m m_hide">
                 <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
-            </div>
+            </di>
         </div>
     </div>
 
     <script src="/static/js/jquery-3.3.1.js"></script>
+
+    <script src="/static/plug/bootstrap/js/bootstrap.js"></script>
+
     <script>
+        $(function () {
+            bindEvent();
+            bindEdit();
+            bindEditConfirm();
+        });
+
         $('.m_menu').click(function () {
             $(this).addClass('actions');
             $(this).siblings().removeClass('actions')
         });
 
-
-        $(function () {
+        function bindEvent() {
             $('.m_leftmenu div').click(function () {
                 $(".content").children().eq($(this).index()).addClass("show").siblings().removeClass("show");
 
             })
-        })
+        }
+
+        {#编辑学生#}
+
+        function bindEdit() {
+            $('.td').on('click', '.editdetail', function () {
+                $('#myModal').modal('show');
+                $(this).parent().prevAll().each(function () {
+                    var v = $(this).text();
+                    console.log(v);
+                    var n = $(this).attr('na');
+
+                        $("#myModal input[name='" + n + "']").val(v)
+                })
+            });
+        }
+
+        function bindEditConfirm() {
+            $('#editdetail').click(function () {
+                {#var portData = {};#}
+                 var data = $("#d_create_time").val();
+                    var remark = $("[name='d_remark']").val();
+                    var did = $("[name='d_id']").val();
+                    console.log(data);
+                    console.log(remark);
+                    console.log(did);
+                $.ajax({
+                    url: '/editdetail/',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data:{
+                        csrfmiddlewaretoken:$("[name='csrfmiddlewaretoken']").val(),
+                        data:data,
+                        remark:remark,
+                        did:did
+                    },
+                    success: function (arg) {
+                        console.log(arg);
+                        if (arg.status) {
+                            {#createRow(portData, arg.data);#}
+                            window.location.reload();
+                            $('#myModal').modal('hide');
+                        }
+                    }
+                })
+
+            })
+
+        }
+
     </script>
 {% endblock %}

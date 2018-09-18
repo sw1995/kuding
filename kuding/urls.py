@@ -33,6 +33,7 @@ urlpatterns = [
     url(r'^student/$', views.m_student),
     url(r'^teacher/$', views.m_teacher),
     url(r'^evaluate/$', views.m_evaluate),
+    url(r'^editdetail/$', views.editdetail),
 
 
     #吴家贵
