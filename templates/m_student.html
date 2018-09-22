@@ -7,24 +7,39 @@
     <style>
         .wth {
             display: inline-block;
-            width: 220px;
+            width: 221px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             course: hand;
+            border: 1px solid rgb(223, 240, 216);
+            height: 40px;
         }
 
         .wth:hover {
             text-overflow: inherit;
             overflow: visible;
             white-space: pre-wrap;
+            border: 1px solid rgb(223, 240, 216);
         }
 
         .su {
-            width: 220px;
+            width: 237px;
+            border: 1px solid rgb(223, 240, 216);
+        }
+
+        .su4 {
+            width: 250px;
+            border: 1px solid rgb(223, 240, 216);
+        }
+
+        .su5 {
+            width: 250px;
+            border: 1px solid rgb(223, 240, 216);
         }
         .sus {
-            width: 180px;
+            width: 185px;
+            border: 1px solid rgb(223, 240, 216);
         }
 
     </style>
@@ -70,27 +85,47 @@
         <div class="m_content">
             <div class="m_hide m m_1  show">
                 <table class="m_1_table table table-hover">
-                    <thead>
-                    <tr>
-                        <td class="su success">课程名称</td>
-                        <td class="su success">已购买课时</td>
-                        <td class="su success wth">课程介绍</td>
-                        <td class="su success wth">备注</td>
-                    </tr>
-                    </thead>
-                    <tbody>
                     {% for row in course_list %}
-                        <tr>
-                            <td class="su ">{{ row.c_name }}</td>
-                            <td class="su ">{{ row.c_count }}</td>
-                            <td class="wth">
-                                {{ row.c_detail }}
-                            </td>
-                            <td class="wth">{{ row.c_remark }}</td>
-                        </tr>
+                        {% if row.c_name == '预约课' %}
+                            <thead>
+                            <tr>
+                                <td class="su success">课程名称</td>
+                                <td class="su success">已预约课时</td>
+                                <td class="su success wth">课程介绍</td>
+                                <td class="su success wth">备注</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="su ">{{ row.c_name }}</td>
+                                <td class="su ">{{ row.c_count }}</td>
+                                <td class="su wth">
+                                    {{ row.c_detail }}
+                                </td>
+                                <td class="su wth">{{ row.c_remark }}</td>
+                            </tr>
+                            </tbody>
+                        {% else %}
+                            <thead>
+                            <tr>
+                                <td class="su success">课程名称</td>
+                                <td class="su success">已购买课时</td>
+                                <td class="su success wth">课程介绍</td>
+                                <td class="su success wth">备注</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="su ">{{ row.c_name }}</td>
+                                <td class="su ">{{ row.c_count }}</td>
+                                <td class="su wth">
+                                    {{ row.c_detail }}
+                                </td>
+                                <td class="su wth">{{ row.c_remark }}</td>
+                            </tr>
+                            </tbody>
+                        {% endif %}
                     {% endfor %}
-
-                    </tbody>
                 </table>
             </div>
             <div class="m m_2 m_hide">
@@ -113,40 +148,57 @@
                     <thead>
                     <tr>
                         <td class="success su">课程名称</td>
-                        <td class="success su" style="width: 100px;">上课时间</td>
                         <td class="success su" style="width: 100px;">任课老师</td>
+                        <td class="success su" style="width: 100px;">上课时间</td>
                         <td class="success su">课程链接</td>
                         <td class="success su" style="width: 50px;">状态</td>
                         <td class="success wth">备注</td>
                     </tr>
                     </thead>
                     <tbody>
+                    {% for c in course_list %}
                     {% for row in grent_list %}
                         {% for de in detail_list %}
+                            {% if de.d_cid_id == c.c_id and c.c_name != '预约课' %}
                             {% for t in teacher_list %}
                                 <tr>
                                     {% if row.g_did_id == de.d_id %}
                                         <td class=" su">
                                             {{ de.d_name }}
                                         </td>
-
-                                        <td class=" su">
-                                            {% load str_time %}
-                                            {{ row.g_time|strf_time }}
-                                        </td>
                                         {% if row.g_tid_id == t.t_id %}
                                             <td class=" su">{{ t.t_name }}老师</td>
                                         {% else %}
                                             <td class=" su">无老师信息</td>
                                         {% endif %}
+                                        {% if  row.g_time == location_time %}
+                                            <td class=" su">
+                                                {% load str_time %}
+                                                {{ row.g_time|strd_time }}
+                                            </td>
                                         <td class=" su">
                                             <a href="http://{{ row.g_url }}">{{ row.g_url }}</a></td>
-                                        <td class=" su">{{ row.g_record }}</td>
+                                        {% else %}
+                                            <td class=" su">
+                                                {% load str_time %}
+                                                {{ row.g_time|strd_time }}
+                                            </td>
+                                            <td class=" su">暂无连接</td>
+                                        {% endif %}
+                                        {% if row.g_record == '0' %}
+                                            <td class=" su">未上课</td>
+                                        {% elif row.g_record == '1' %}
+                                            <td class=" su">已完成</td>
+                                        {% else %}
+                                            <td class=" su">已取消</td>
+                                        {% endif %}
                                         <td class="wth"><a href="/evaluate?sid={{ row.g_sid_id }}">查看评价</a></td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}
+                            {% endif %}
                         {% endfor %}
+                    {% endfor %}
                     {% endfor %}
                     </tbody>
                 </table>
@@ -187,21 +239,20 @@
                     {% for g in grent_list %}
                         {% for row in detail_list %}
                             {% for e in evaluate_list %}
-                                <tr>
-                                    {# 状态为1 表示已完成课#}
-                                    {% if g.g_did_id == row.d_id and g.g_record == '1' %}
-                                        <td class=" sus">{{ row.d_name }}</td>
-                                        <td class=" sus">{{ row.d_number }}</td>
-                                        <td class=" sus">{{ row.d_time_length }}</td>
-                                        <td class="wth">{{ row.d_remark }}</td>
-                                        {% if row.d_id == e.e_did_id %}
+                                {# 状态为1 表示已完成课#}
+                                {% if g.g_did_id == row.d_id and g.g_record == '1' %}
+                                    {% if row.d_id == e.e_did_id %}
+                                        {% if e.e_ttos_evaluate == null %}
+                                            <tr>
+                                                <td class="">{{ row.d_name }}</td>
+                                                <td class="">{{ row.d_number }}</td>
+                                                <td class="">{{ row.d_time_length }}</td>
+                                                <td class="wth">{{ row.d_remark }}</td>
                                             <td class="wth">{{ e.e_stot_evaluate }}</td>
-                                        {% else %}
-                                            <td class="wth">暂无反馈</td>
+                                            </tr>
                                         {% endif %}
                                     {% endif %}
-                                </tr>
-
+                                {% endif %}
                             {% endfor %}
                         {% endfor %}
                     {% endfor %}
@@ -235,10 +286,10 @@
                 <table class="m_1_table table table-hover">
                     <thead>
                     <tr>
-                        <td class="su success">课程名称</td>
-                        <td class="su success">课程章节</td>
-                        <td class="su success">课程时长</td>
-                        <td class="su success wth">简介</td>
+                        <td class="su4 success">课程名称</td>
+                        <td class="su4 success">课程章节</td>
+                        <td class="su4 success">课程时长</td>
+                        <td class="su4 success wth">简介</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -247,9 +298,9 @@
                             <tr>
                                 {# 状态为2 表示与取消课#}
                                 {% if g.g_did_id == row.d_id and g.g_record == '2' %}
-                                    <td class="su ">{{ row.d_name }}</td>
-                                    <td class="su ">{{ row.d_number }}</td>
-                                    <td class="su ">{{ row.d_time_length }}</td>
+                                    <td class="su4 ">{{ row.d_name }}</td>
+                                    <td class="su4 ">{{ row.d_number }}</td>
+                                    <td class="su4 ">{{ row.d_time_length }}</td>
                                     <td class="wth">{{ row.d_remark }}</td>
                                 {% endif %}
                             </tr>
@@ -278,25 +329,23 @@
                 <table class="m_1_table table table-hover">
                     <thead>
                     <tr>
-                        <td class="su success wth">课程名称</td>
-                        <td class="su success">课程章节</td>
-                        <td class="su success">课程时长</td>
-                        <td class="su success wth">简介</td>
+                        <td class="su5 success wth">课程名称</td>
+                        <td class="su5 success">课程章节</td>
+                        <td class="su5 success">课程时长</td>
+                        <td class="su5 success wth">简介</td>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for g in grent_list %}
+                    {% for c in course_list %}
                         {% for row in detail_list %}
-                            <tr>
-                                {# 状态为3 表示预约课#}
-                                {% if g.g_did_id == row.d_id and g.g_record == '3' %}
+                            {% if row.d_cid_id == c.c_id and c.c_name == '预约课' %}
+                                <tr>
                                     <td class="su wth">{{ row.d_name }}</td>
                                     <td class="su ">{{ row.d_number }}</td>
                                     <td class="su ">{{ row.d_time_length }}</td>
                                     <td class="wth">{{ row.d_remark }}</td>
+                                </tr>
                                 {% endif %}
-                            </tr>
-
                         {% endfor %}
                     {% endfor %}
                     </tbody>

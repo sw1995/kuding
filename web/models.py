@@ -168,9 +168,9 @@ class WebEvaluate(models.Model):
 class WebGrant(models.Model):
     g_id = models.CharField(primary_key=True, max_length=36)
     g_record = models.CharField(max_length=12)
-    g_time = models.BigIntegerField()
-    g_url = models.CharField(max_length=255)
-    g_remark = models.CharField(max_length=255)
+    g_time = models.BigIntegerField(blank=True, null=True)
+    g_url = models.CharField(max_length=1000)
+    g_remark = models.CharField(max_length=255, blank=True, null=True)
     g_did = models.ForeignKey(WebDetail, models.DO_NOTHING, blank=True, null=True)
     g_sid = models.ForeignKey('WebStudent', models.DO_NOTHING, blank=True, null=True)
     g_tid = models.ForeignKey('WebTeacher', models.DO_NOTHING, blank=True, null=True)

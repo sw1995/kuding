@@ -1,0 +1,307 @@
+{% extends 'index_base.html' %}
+
+
+
+{% block article %}
+    <div class="info">{% csrf_token %}</div>
+
+    <div id="fh5co-counter" class="fh5co-counters">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 text-center animate-box">
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="40356" data-speed="5000"
+                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter-label">学生</span>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="30290" data-speed="5000"
+                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter-label">课程</span>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="2039" data-speed="5000"
+                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter-label">教员</span>
+                </div>
+                <div class="col-md-3 text-center animate-box">
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="997585" data-speed="5000"
+                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter-label">收益</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-explore" class="fh5co-bg-section">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                    <h2>我希望孩子在专业机构学习</h2>
+                    <p>我希望孩子跟着专业的老师和团队学习编程 </p>
+                </div>
+            </div>
+        </div>
+        <div class="fh5co-explore fh5co-explore1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-push-5 animate-box">
+                        <img class="img-responsive" src="/static/img/work_1.png" alt="work">
+                    </div>
+                    <div class="col-md-4 col-md-pull-8 animate-box">
+                        <div class="mt">
+                            <h3>我不希望孩子未来被淘汰</h3>
+                            <p>编程可以培养学生的动手能力，逻辑思维能力，计算能力</p>
+                            <ul class="list-nav">
+                                <li><i class="icon-check2"></i>提升竞争力</li>
+                                <li><i class="icon-check2"></i>人工智能时代的必备技能</li>
+                                <li><i class="icon-check2"></i>提升孩子创造力</li>
+                            </ul>
+                            <p><a class="btn btn-primary btn-lg popup-vimeo btn-video"
+                                  href="https://vimeo.com/channels/staffpicks/93951774"><i class="icon-play"></i>
+                                观看视频</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="fh5co-explore">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-pull-1 animate-box">
+                        <img class="img-responsive" src="/static/img/work_1.png" alt="work">
+                    </div>
+                    <div class="col-md-4 animate-box">
+                        <div class="mt">
+                            <div>
+                                <h4><i class="icon-user"></i>编程实战，名师主讲</h4>
+                                <p>我们的老师都是985本科毕业且取得教师资格证的优秀讲师</p>
+                            </div>
+                            <div>
+                                <h4><i class="icon-video2"></i>作业每颗都批改</h4>
+                                <p>孩子学习行为，全程跟踪记录。确定孩子学习状况，更有针对性的指导孩子</p>
+                            </div>
+                            <div>
+                                <h4><i class="icon-shield"></i>老师每天在线11小时</h4>
+                                <p>每天10:00--21:00全天在线，为孩子提供在线指导 </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-blog">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <h2>最新文章</h2>
+                    <p>酷丁少儿编程会不定期举办比赛或活动，以下是最新举办的活动内容</p>
+                    {#                        <a class="more" href="/article_list/">更多>></a>#}
+                </div>
+            </div>
+            <div class="row">
+                {% for article in article_list %}
+                    <div class="col-lg-4 col-md-4">
+                        <div class="fh5co-blog animate-box">
+                            <div class="blog-text">
+                                <a href="/article/{{ article.s_id }}"><img class="img-responsive"
+                                                                           src="{{ article.s_imgurl }}" alt=""></a>
+                                <h3><a href="/article/{{ article.s_id }}">{{ article.s_title }}</a></h3>
+                                <span class="posted_on">{{ article.t_createtime }}</span>
+                                <p>{{ article.s_summary }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div id="fh5co-project">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <h2>学生成果展示</h2>
+                    <p>以下是酷丁少儿编程班学生完成的一些成果展示</p>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid proj-bottom">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                                     class="img-responsive">
+                        <h3>Web Master</h3>
+                        <span>View Course</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                                     class="img-responsive">
+                        <h3>Virtual Assistant</h3>
+                        <span>View Course</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                                     class="img-responsive">
+                        <h3>Read Bible</h3>
+                        <span>View Course</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-9.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                                     class="img-responsive">
+                        <h3>Programming</h3>
+                        <span>View Course</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-5.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                                     class="img-responsive">
+                        <h3>Technician</h3>
+                        <span>View Course</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                                     class="img-responsive">
+                        <h3>Photography</h3>
+                        <span>View Course</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="features">
+                    <div class="col-md-4 animate-box">
+                        <h4>我们有典型的课程</h4>
+                        <p>通过 Sctatch 图形编程语言，孩子能跳过复杂的函数，公式。直达编程训练思维的核心价值 </p>
+                    </div>
+                    <div class="col-md-4 animate-box">
+                        <h4>针对5——16岁儿童</h4>
+                        <p>符合6到16岁儿童认知阶段，能帮助孩子更好学习逻辑思维和计算思维 </p>
+                    </div>
+                    <div class="col-md-4 animate-box">
+                        <h4>图形化编程语言</h4>
+                        <p>图形化代码，通过对代码的拖拽，嵌套，实现编程。还可以实习对机器人，硬件的控制 </p>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center animate-box">
+                    <p><a class="btn btn-primary btn-lg btn-learn" href="#">开启美妙的学习之旅</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fh5co-steps">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                    <h2>网上购课流程</h2>
+                    <p>你可以按照一下流程购买线上或者线下课程</p>
+                </div>
+            </div>
+
+            <div class="row bs-wizard animate-box" style="border-bottom:0;">
+
+                <div class="col-xs-3 bs-wizard-step complete">
+                    <div class="text-center bs-wizard-stepnum"><h4>步骤一</h4></div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center"><p>开始一项免费的课程</p></div>
+                </div>
+
+                <div class="col-xs-3 bs-wizard-step active"><!-- complete -->
+                    <div class="text-center bs-wizard-stepnum"><h4>步骤二</h4></div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center"><p>注册账号</p></div>
+                </div>
+
+                <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
+                    <div class="text-center bs-wizard-stepnum"><h4>步骤三</h4></div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center"><p>线上或线下缴费</p></div>
+                </div>
+
+                <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
+                    <div class="text-center bs-wizard-stepnum"><h4>步骤四</h4></div>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                    <a href="#" class="bs-wizard-dot"></a>
+                    <div class="bs-wizard-info text-center"><p>开始课程</p></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="fh5co-testimonial" class="fh5co-bg-section">
+        <div class="container">
+            <div class="row animate-box">
+                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
+                    <h2>优秀教师</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="row animate-box">
+                        <div class="owl-carousel owl-carousel-fullwidth">
+                            <div class="item">
+                                <div class="testimony-slide active text-center">
+                                    <figure>
+                                        <img src="/static/img/person_1.jpg" alt="user">
+                                    </figure>
+                                    <span>优秀讲师 <a href="#" class="twitter">名字</a></span>
+                                    <blockquote>
+                                        <p>&ldquo;讲师的简介&rdquo;</p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-slide active text-center">
+                                    <figure>
+                                        <img src="/static/img/person_2.jpg" alt="user">
+                                    </figure>
+                                    <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+                                    <blockquote>
+                                        <p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the
+                                            Semantics, a large language ocean.&rdquo;</p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="testimony-slide active text-center">
+                                    <figure>
+                                        <img src="/static/img/person_3.jpg" alt="user">
+                                    </figure>
+                                    <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
+                                    <blockquote>
+                                        <p>&ldquo;Far from the countries Vokalia and Consonantia, there live the blind
+                                            texts. Separated they live in Bookmarksgrove right at the coast of the
+                                            Semantics, a large language ocean.&rdquo;</p>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

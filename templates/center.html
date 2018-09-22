@@ -11,32 +11,38 @@
             <div class="connent">
                 <div class="left_menu left">
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">最新消息</a>
                     </div>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的分享</a>
                     </div>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">成就称号</a>
                     </div>
                     <div class="leftmenu sss">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的资料</a>
 
                     </div>
                     <ul class="sel-table">
-                        <li>个人信息</li>
-                        <li>修改密码</li>
+                        <li>
+                            <img class="little_person_img" src="/static/img/red%20flower.png" alt="">
+                            个人信息
+                        </li>
+                        <li>
+                            <img class="little_person_img" src="/static/img/red%20flower.png" alt="">
+                            修改密码
+                        </li>
                     </ul>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">&nbsp;
                         <a for="" href="#">我的订单</a>
                     </div>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的邀请</a>
                     </div>
 
@@ -154,7 +160,7 @@
 
                 </div>
 
-                <div class="right_menu left">
+                <div class="right_menu left" style="display: none">
                     <div class="server1">
                         <div class="right_info">
                             最新动态
@@ -181,32 +187,41 @@
             <div class="connent">
                 <div class="left_menu left">
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        {#                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;#}
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">最新消息</a>
                     </div>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的分享</a>
                     </div>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">成就称号</a>
                     </div>
                     <div class="leftmenu sss">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的资料</a>
                     </div>
                     <ul class="sel-table">
-                        <li>个人信息</li>
-                        <li>修改密码</li>
+
+                        <li>
+                            <img class="little_person_img" src="/static/img/red%20flower.png" alt="">
+                            个人信息
+                        </li>
+
+                        <li>
+                            <img class="little_person_img" src="/static/img/red%20flower.png" alt="">
+                            修改密码
+                        </li>
                     </ul>
 
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的订单</a>
                     </div>
                     <div class="leftmenu">
-                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;
+                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的邀请</a>
                     </div>
 
@@ -270,7 +285,7 @@
                                <span>账号：</span><input type="text" disabled value={{ tea_obj.t_account }}>
                             </p>
                             <p>
-                                <span>姓名：</span><input type="text" disabled value={{ tea_obj.t_name }}>
+                                <span>姓名：</span><input name="username" type="text" value={{ tea_obj.t_name }}>
                             </p>
                             <p>
                                <span>性别：</span>
@@ -324,7 +339,7 @@
 
                 </div>
 
-                <div class="right_menu left">
+                <div class="right_menu left" style="display: none">
                     <div class="server1">
                         <div class="right_info">
                             最新动态

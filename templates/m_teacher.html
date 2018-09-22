@@ -7,6 +7,11 @@
 {% block css %}
     <link rel="stylesheet" href="/static/css/m_teacher.css">
     <link rel="stylesheet" href="/static/css/m_student.css">
+    <style>
+        .sut {
+            width: 225px;
+        }
+    </style>
 {% endblock %}
 
 
@@ -45,19 +50,19 @@
                 <table class="m_1_table table table-hover">
                     <thead>
                     <tr>
-                        <td class="suu success">课程名称</td>
-                        <td class="suu success">总课时</td>
-                        <td class="suu success twth">课程介绍</td>
-                        <td class="suu success twth">备注</td>
+                        <td class="sut success">课程名称</td>
+                        <td class="sut success">总课时</td>
+                        <td class="sut success twth">课程介绍</td>
+                        <td class="sut success twth">备注</td>
                     </tr>
                     </thead>
                     <tbody>
                     {% for row in course_list %}
                         <tr>
-                            <td class="suu ">{{ row.c_name }}</td>
-                            <td class="suu ">{{ row.c_count }}</td>
-                            <td class="suu twth">{{ row.c_detail }}</td>
-                            <td class="suu twth">{{ row.c_remark }}</td>
+                            <td class="sut ">{{ row.c_name }}</td>
+                            <td class="sut ">{{ row.c_count }}</td>
+                            <td class="sut twth">{{ row.c_detail }}</td>
+                            <td class="sut twth">{{ row.c_remark }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -71,7 +76,6 @@
                         <td class="success">学生班级</td>
                         <td class="success">学生性别</td>
                         <td class="success">学生状态</td>
-                        <td class="success">操作</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -89,9 +93,8 @@
                             {% if row.s_state == True %}
                                 <td class="">学习中</td>
                             {% else %}
-                                <td class="">已毕业</td>
+                                <td class="">已注销</td>
                             {% endif %}
-                            <td class="">删除</td>
                         </tr>
 
                     {% endfor %}
@@ -116,12 +119,16 @@
                     <tbody id="class_tbody" class="td">
                     {% load str_time %}
                     {% for d in detail_list %}
+                        {% for g in grent_list %}
+                            {% if g.g_did_id == d.d_id %}
                         <tr nid="{{ d.d_id }}" id="stu">
                             <td na="d_id" class=" kb" style="display: none">{{ d.d_id }}</td>
                             <td na="d_name" class=" kb">{{ d.d_name }}</td>
                             <td na="d_number" class=" kb">{{ d.d_number }}</td>
                             <td na="d_time_length" class=" kb">{{ d.d_time_length }}</td>
-                            <td na="d_create_time" class=" kb">{{ d.d_create_time|strd_time }}</td>
+
+                            <td na="d_create_time" class=" kb">{{ g.g_time|strd_time }}</td>
+
                             <td na="d_cid_id" class=" kb" style="display: none">{{ d.d_cid_id }}</td>
                             <td na="d_detail" class="wth">{{ d.d_detail }}</td>
                             <td na="d_remark" class="wth">{{ d.d_remark }}</td>
@@ -129,6 +136,8 @@
                                 <a href="#"  class="editdetail fa fa-pencil-square-o"></a>
                             </td>
                         </tr>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
                     </tbody>
                 </table>
@@ -175,7 +184,8 @@
                                         <label for="inputd_create_time" class="col-sm-2 control-label">上课时间</label>
                                         <div class="form-group" style="width: 470px;margin-left: 115px">
 {#                                            <input type="text" class="form-control" name="d_create_time">#}
-                                            <input type="date" class="form-control" id="d_create_time" placeholder="请输入审核结束时间">
+                                            <input type="datetime-local" class="form-control" id="d_create_time"
+                                                   placeholder="请输入审核结束时间">
                                         </div>
                                     </div>
                                     <div class="form-group" style="display: none">
@@ -289,8 +299,8 @@
                     var remark = $("[name='d_remark']").val();
                     var did = $("[name='d_id']").val();
                     console.log(data);
-                    console.log(remark);
-                    console.log(did);
+                {#console.log(remark);#}
+                {#console.log(did);#}
                 $.ajax({
                     url: '/editdetail/',
                     type: 'POST',

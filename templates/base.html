@@ -38,81 +38,87 @@
                                   <use xlink:href="#icon-xiaoyuan"></use>
                             </svg>
                          </p>
-                        <p style="color: #fff;">官网首页</p>
+                     <p style="color: black;">官网首页</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/home/" %}class="action"{% endif %}>
                      <a href="/home/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-xuesheng"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">个人主页</p>
+                         <p style="color: black;">学生主页</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/student/" %}class="action"{% endif %}>
                      <a href="/student/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-kecheng"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">课时管理</p>
+                         <p style="color: black;">课时管理</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/soc/" %}class="action"{% endif %}>
                      <a href="">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon--gouwuche"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">金币商城</p>
+                         <p style="color: black;">积分商城</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/center/" %}class="action"{% endif %}>
                      <a href="/center/">
                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-xuesheng1"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">个人中心</p>
+                         <p style="color: black;">个人中心</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/notice/" %}class="action"{% endif %}>
                      <a href="/notice/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-zixun"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">通知中心</p>
+                         <p style="color: black;">通知中心</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/test/" %}class="action"{% endif %}>
                      <a href="/test/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tounaosiwei"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">思维挑战</p></a></li>
-                 <li><a href="/tool/">
+                         <p style="color: black;">思维挑战</p></a></li>
+                 <li {% if request.path == "/tool/" %}class="action"{% endif %}><a href="/tool/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-qianbi"></use>
                             </svg>
-                         </p>                     <p style="color: #fff;">代码工具</p></a></li>
-                 <li><a href="/help/">
+                         </p>
+                     <p style="color: black;">代码工具</p></a></li>
+                 <li {% if request.path == "/help/" %}class="action"{% endif %}><a href="/help/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tongji"></use>
                             </svg>
                          </p>
-                        <p style="color: #fff;">帮助中心</p></a></li>
+                     <p style="color: black;">帮助中心</p></a></li>
              </ul>
          </div>
          <div class="guestshow">
              <div class="user-img">
-                 <img src="/static/img/deflaut.png" alt="用户头像">
+                 {% if stu_obj.s_sex == 0 %}
+                     <img src="/static/img/stu_girl.png" alt="用户头像">
+                 {% else %}
+                     <img src="/static/img/stu_boy.png" alt="用户头像">
+                 {% endif %}
+
              </div>
              <div class="user-inf">
                  <p class="stu_name">{{ stu_obj.s_name }}同学</p>
-                 <p class="stu_state"><a href="/logout/">退出</a></p>
+                 <p class="stu_state"><a href="/logout/">[退出]</a></p>
              </div>
          </div>
     </div>
@@ -120,92 +126,93 @@
 
 
 {% if role == "teacher" %}
-    <div class="head">
+    <div class="head" style="background-color: gray">
         <div class="logo">
              <img src="/static/img/logo.png">
          </div>
-         <div class="mynav">
+        <div class="mynav">
              <ul>
                  <li><a href="/index/">
                      <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-xiaoyuan"></use>
                             </svg>
                          </p>
-                        <p style="color: #fff;">官网首页</p>
+                     <p style="color: black;">官网首页</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/home/" %}class="action"{% endif %}>
                      <a href="/home/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-xuesheng"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">个人主页</p>
+                         <p style="color: black;">教师主页</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/teacher/" %}class="action"{% endif %}>
                      <a href="/teacher/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-kecheng"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">课时管理</p>
+                         <p style="color: black;">课时管理</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/soc/" %}class="action"{% endif %}>
                      <a href="">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon--gouwuche"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">金币商城</p>
+                         <p style="color: black;">积分商城</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/center/" %}class="action"{% endif %}>
                      <a href="/center/">
                         <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-xuesheng1"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">个人中心</p>
+                         <p style="color: black;">个人中心</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/man/" %}class="action"{% endif %}>
                      <a href="">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-shoucang"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">试题管理</p>
+                         <p style="color: black;">试题管理</p>
                      </a>
                  </li>
-                 <li>
+                 <li {% if request.path == "/test/" %}class="action"{% endif %}>
                      <a href="/test/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tounaosiwei"></use>
                             </svg>
                          </p>
-                         <p style="color: #fff;">试题批改</p></a></li>
-                 <li><a href="/tool/">
+                         <p style="color: black;">试题批改</p></a></li>
+                 <li {% if request.path == "/tool/" %}class="action"{% endif %}><a href="/tool/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-qianbi"></use>
                             </svg>
-                         </p>                     <p style="color: #fff;">代码工具</p></a></li>
-                 <li><a href="/help/">
+                         </p>
+                     <p style="color: black;">代码工具</p></a></li>
+                 <li {% if request.path == "/help/" %}class="action"{% endif %}><a href="/help/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tongji"></use>
                             </svg>
                          </p>
-                        <p style="color: #fff;">帮助中心</p></a></li>
+                     <p style="color: black;">帮助中心</p></a></li>
              </ul>
          </div>
          <div class="guestshow">
              <div class="user-img">
-                 <img src="/static/img/deflaut.png" alt="用户头像">
+                 <img src="/static/img/tea.png" alt="用户头像">
              </div>
              <div class="user-inf">
                  <p class="stu_name">{{ tea_obj.t_name }}老师</p>
-                 <p class="stu_state"><a href="/logout/">退出</a></p>
+                 <p class="stu_state"><a href="/logout/">[退出]</a></p>
              </div>
          </div>
     </div>

@@ -1618,24 +1618,23 @@ model</ColNames>
       <Position>2</Position>
       <DataType>varchar(12)|0</DataType>
       <NotNull>1</NotNull>
+      <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="369" parent="244" name="g_time">
       <Position>3</Position>
       <DataType>bigint(20)|0</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="370" parent="244" name="g_url">
       <Position>4</Position>
-      <DataType>varchar(255)|0</DataType>
+      <DataType>varchar(1000)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="371" parent="244" name="g_remark">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="372" parent="244" name="g_did_id">

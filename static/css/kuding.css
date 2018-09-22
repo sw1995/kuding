@@ -30,15 +30,16 @@ a:link {
 }
 
 a:visited {
-    color: #27b4f7
+    color: black;
 }
 
 a:active {
-    color: #27b4f7
+    color: black;
 }
 
 a:hover {
-    color: #27b4f7
+    color: black;
+    cursor: pointer;
 }
 
 .hidden {

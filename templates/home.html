@@ -13,33 +13,32 @@
                 <div class="left_menu left">
                     <!--头像 -->
                     <div class="avatar">
-                        <img class="left_img" src="/static/img/deflaut.png" alt="头像">
+                        {% if stu_obj.s_sex == 1 %}
+                            <img class="left_img" src="/static/img/stu_boy.png" alt="头像">
+                        {% else %}
+                            <img class="left_img" src="/static/img/stu_girl.png" alt="头像">
+                        {% endif %}
                     </div>
                     <p>
                         <span class="name"> {{ stu_obj.s_name }}同学 你好 </span>
                         <span class="sign">新手上路 </span>
                     </p>
                     <p>
-                        <span style="margin-left: 20px; font-size: 12px;"> 金币数: 100</span>
-                        <span style="margin-left: 20px; font-size: 12px;"> 钻石数: 100</span>
+                        <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
                     </p>
                     <p>
-                        <span style=" margin-left: 10px;font-size: 12px">最近登陆：2018-09-06 14：24</span>
+                        {% load str_time %}
+                        <span style=" margin-left: 10px;font-size: 12px">创建时间：{{ stu_obj.s_create_time|strf_time }}</span>
                     </p>
                     <p style="width: 60px;height: 60px;margin-left: 100px">
                         <i class="fa fa-question-circle fa-4x" style="color: rgb(219,153,246)" aria-hidden="true"></i>
                     </p>
 
-                    <!--宝石 钻石 -->
+                    <!--积分 -->
                     <div class="goods">
                         <p>
-                            <span class="good">宝石数量</span>
+                            <span class="good">如何获取积分?</span>
                         </p>
-                        <p>
-                            <span class="good">获取宝石?</span>
-                        </p>
-
-
                     </div>
                 </div>
                 <div class="home1 left">
@@ -145,33 +144,28 @@
                 <div class="left_menu left">
                     <!--头像 -->
                     <div class="avatar">
-                        <img class="left_img" src="/static/img/deflaut.png" alt="头像">
+                        <img class="left_img" src="/static/img/tea.png" alt="头像">
                     </div>
                     <p>
                         <span class="name"> {{ tea_obj.t_name }} 老师! 你好 </span>
                         <span class="sign">新手上路 </span>
                     </p>
                     <p>
-                        <span style="margin-left: 20px; font-size: 12px;"> 金币数: 100</span>
-                        <span style="margin-left: 20px; font-size: 12px;"> 钻石数: 100</span>
+                        <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
                     </p>
                     <p>
-                        <span style=" margin-left: 15px;font-size: 12px">最近登陆：2018-09-06 14：24</span>
+                        <span style=" margin-left: 15px;font-size: 12px">创建时间：{{ tea_obj.t_create_time|strf_time }}</span>
                     </p>
                     <p style="width: 60px;height: 60px;margin-left: 55px">
-                        <i class="fa fa-question-circle fa-4x" style="margin-left: 15px;color: rgb(219,153,246)" aria-hidden="true"></i>
+                        <i class="fa fa-question-circle fa-4x" style="margin-left: 35px;color: rgb(219,153,246)"
+                           aria-hidden="true"></i>
                     </p>
 
                     <!--宝石 钻石 -->
                     <div class="goods">
                         <p>
-                            <span class="good">宝石数量</span>
+                            <span class="good">如何获取积分?</span>
                         </p>
-                        <p>
-                            <span class="good">获取宝石?</span>
-                        </p>
-
-
                     </div>
                 </div>
                 <div class="home1 left">
@@ -252,26 +246,6 @@
                             {% endfor %}
                             </tbody>
                         </table>
-                    </div>
-                </div>
-                <div class="right_menu left">
-                    <div class="server1">
-                        <div class="right_info">
-                            在线客服
-                        </div>
-                        <p style="margin-top: 20px">
-                            <img src="/static/img/online_phone.jpg" alt="">
-                        </p>
-                        <p>
-                            <button class="btn btn-danger" style="margin-left: 50px"> 在线客服</button>
-                        </p>
-                    </div>
-                    <div class="server2">
-                        <div class="right_info">
-                            微信客服
-                        </div>
-                        <img style="width: 170px;margin: 10px 15px 0;" src="/static/img/ercode.jpg" alt="">
-                        <span style="margin-left: 15px">微信关注我们了解更多</span>
                     </div>
                 </div>
                 <div style="clear: both"></div>

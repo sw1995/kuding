@@ -2,71 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登陆</title>
-    <link type="text/css" rel="stylesheet" href="/static/plug/bootstrap/css/bootstrap.css">
-	<link type="text/css" rel="stylesheet" href="/static/css/login.css">
-    <script type="javascript" src="/static/js/jquery-3.3.1.js"></script>
-    <script type="javascript" src="/static/plug/bootstrap/js/bootstrap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
 </head>
-<style type="text/css">
-
-</style>
 <body>
-    <div class="toph">
-        <div class="topcon">
-            <a href="index.html" style="display: inline-block;padding-top:28px;">
-                <img src="images/logo.png" style="width: 180px" alt="logo">
-            </a>
-            <img style=" display:inline-block; float:right;" src="images/tel.png">
-        </div>
-    </div>
-    <div class="main">
-        <div class="loginh">
-            <div class="tab_n" style="width: 350px;">欢迎登陆</div>
-            <div class="loginbox">
-                <form class="form-inline" method="post">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label class="sr-only" >账号: </label>
-                        <input type="text" name="user" autofocus class="form-control"  placeholder="请输入手机号或账号登陆">
-                        <p >这里是提示信息</p>
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" >密码: </label>
-                        <input type="password"  name="pwd" class="form-control"  placeholder="请输入密码">
-                        <p >这里是提示信息</p>
 
-                    </div>
-
-                    <div  style="overflow: hidden;padding:15px 30px;">
-                        <div style="float: left;">
-                             <label>
-                                 <input type="checkbox"> 记住用户名
-                             </label>
-                        </div>
-                        <div style="float: right">
-                            <a href="#" style="text-decoration: none;color: #333333;line-height: 2;">忘记密码</a>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-lg" style="width: 290px;height: 40px;margin-left: 30px;">立即登陆</button>
-                    <div style="margin-right: 30px;float: right;margin-top: 10px;">
-                        <a href="/reg/">立即注册</a>
-                    </div>
-                </form>
-
-            </div>
-        </div>
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="user">
+    <input type="text" name="pwd">
+    <input type="submit" value="提交">
 
 
-    </div>
-    <div class="footer">
-        <a target="_blank" href="index.html">首页</a>
-        <a target="_blank" href="stu_show.html">学员风采</a>
-        <a target="_blank" href="class_type.html">课程类型</a>
-        <a target="_blank" href="Teachers_lineup.html">师资阵容</a>
-        <a target="_blank" href="contact.html">联系我们</a>
-        <p style="font-size: 12px;">©淮北麒麟信息科技有限公司    All Rights Reserved | <a href="http://www.qilinxx.com/">备案号</a></p>
-    </div>
+</form>
+
 </body>
 </html>

@@ -89,6 +89,20 @@ DATABASES = {
         'PASSWORD': '123',     # 密码
         'HOST': '115.159.33.73',    # 主机
         'PORT': '3306',         # 数据库使用的端口
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },  # mysql使用严格模式，不指定会有警告信息
+    },
+    "articles": {
+        'ENGINE': 'django.db.backends.mysql',  # 数据库引擎
+        'NAME': 'articles',  # 你要存储数据的库名，事先要创建之
+        'USER': 'root',  # 数据库用户名
+        'PASSWORD': '123',  # 密码
+        'HOST': '115.159.33.73',  # 主机
+        'PORT': '3306',  # 数据库使用的端口
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },  # mysql使用严格模式，不指定会有警告信息
     }
 }
 #默认数据库
@@ -141,3 +155,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR,'static'),
 )
+
+DATABASE_ROUTERS = ['kuding.database_router.DatabaseAppsRouter']
+DATABASE_APPS_MAPPING = {
+    # 'app_name':'database_name',
+    'article': 'articles',
+
+}
