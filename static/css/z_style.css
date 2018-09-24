@@ -2038,3 +2038,23 @@ input[type="radio"], input[type="checkbox"] {
 /*margin-right: 250px;*/
 /*font-size: 12px;*/
 /*}*/
+.blog_title {
+    margin-top: 20px;
+    font-family: "STxingkai";
+}
+
+.posted_on {
+    font-family: STxinwei;
+}
+
+.blog_content {
+    font-family: STxinwei;
+}
+
+.img_hover {
+    transition: all 0.5s;
+}
+
+.img_hover:hover {
+    transform: scale(1.1);
+}

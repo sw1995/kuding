@@ -20,7 +20,7 @@ from web import views
 # from article import urls as article_urls
 
 urlpatterns = [
-    url(r'^admin/$', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^login/$', views.login),
     url(r'^index/$', views.index),
     url(r'^verify_code/$', views.verify_code),
@@ -55,4 +55,7 @@ urlpatterns = [
     url('help/$', views.help),
     url('tool/$', views.tool),
     url('test/$', views.test),
+
+    # 测试
+    # url('test2/', views.test2),
 ]

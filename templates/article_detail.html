@@ -48,7 +48,15 @@
 		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
 		</span></div>
                 </form>
-                <ul class="nav navbar-nav navbar-right">
+
+
+                <div class="nav navbar-nav navbar-right">
+                    <a href="/index/">
+                        <button class="btn btn-default" style="border-top: 1px solid #eee;margin-top: 24px;">返回首页
+                        </button>
+                    </a>
+                </div>
+                <ul class="nav navbar-nav navbar-right" style="display: none">
                     <li><a data-cont="木庄网络博客" title="木庄网络博客" href="/index/">首页</a></li>
                     <li><a data-cont="列表页" title="列表页" href="">列表页</a></li>
                     <li><a data-cont="详细页" title="详细页" href="">详细页</a></li>
@@ -130,9 +138,10 @@
         </div>
     </div>
     <aside class="sidebar">
-        <div class="fixed">
+        <div class="fixed hidden">
             <div class="widget widget_search">
                 <form class="navbar-form" action="" method="post">
+                    {% csrf_token %}
                     <div class="input-group">
                         <input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字"
                                maxlength="15" autocomplete="off">
@@ -148,7 +157,7 @@
             <ul>
                 {% for article in article_list %}
                     <li>
-                        <a title="{{ article.s_title }}" href="#">
+                        <a title="{{ article.s_title }}" href="/article/{{ article.s_id }}">
                     <span class="thumbnail">
                         <img class="thumb" src="{{ article.s_imgurl }}" alt="" style="display: block;">
                     </span>

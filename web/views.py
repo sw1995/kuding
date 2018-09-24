@@ -11,13 +11,16 @@ from web.form.login_form import LoginForm
 # 首页
 def index(request):
     article_list = TArticles.objects.using("articles").all().order_by("-t_createtime")
-    article_list2 = {}
+    article_list2 = []
     # print(len(article_list))
-    if len(article_list) < 3:
-        article_list2 = article_list
-    else:
-        pass
-
+    # if len(article_list) < 3:
+    #     article_list2 = article_list
+    # else:
+    #     pass
+    # print(article_list[0],article_list[1],article_list[2])
+    article_list2.append(article_list[0])
+    article_list2.append(article_list[1])
+    article_list2.append(article_list[2])
     # for i in range(3):
 
     loginForm = LoginForm()
@@ -36,36 +39,68 @@ def index(request):
 def stu_show(request):
     loginForm = LoginForm()
     reg = RegForm()
-
-    return render(request, 'stu_show.html')
+    account = request.session.get("account")
+    role = request.session.get("role")
+    if account:
+        if role == "student":
+            stu_obj = WebStudent.objects.filter(s_account=account).first()
+        else:
+            tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    return render(request, 'stu_show.html', locals())
 
 
 def Teachers_lineup(request):
     loginForm = LoginForm()
     reg = RegForm()
+    account = request.session.get("account")
+    role = request.session.get("role")
+    if account:
+        if role == "student":
+            stu_obj = WebStudent.objects.filter(s_account=account).first()
+        else:
+            tea_obj = WebTeacher.objects.filter(t_account=account).first()
 
-    return render(request, 'Teachers_lineup.html')
+    tea_list = WebTeacher.objects.all()
+    return render(request, 'Teachers_lineup.html', locals())
 
 
 def contact(request):
     loginForm = LoginForm()
     reg = RegForm()
-
-    return render(request, 'contact.html')
+    account = request.session.get("account")
+    role = request.session.get("role")
+    if account:
+        if role == "student":
+            stu_obj = WebStudent.objects.filter(s_account=account).first()
+        else:
+            tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    return render(request, 'contact.html', locals())
 
 
 def news(request):
     loginForm = LoginForm()
     reg = RegForm()
-
-    return render(request, 'news.html')
+    account = request.session.get("account")
+    role = request.session.get("role")
+    if account:
+        if role == "student":
+            stu_obj = WebStudent.objects.filter(s_account=account).first()
+        else:
+            tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    return render(request, 'news.html', locals())
 
 
 def class_type(request):
     loginForm = LoginForm()
     reg = RegForm()
-
-    return render(request, 'class_type.html')
+    account = request.session.get("account")
+    role = request.session.get("role")
+    if account:
+        if role == "student":
+            stu_obj = WebStudent.objects.filter(s_account=account).first()
+        else:
+            tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    return render(request, 'class_type.html', locals())
 
 
 # 登陆
@@ -672,6 +707,6 @@ def article_list(request):
     return render(request, 'article_list.html')
 
 #测试
-def tes1t(request):
-
-    return render(request, 'tes1t.html')
+# def test2(request):
+#
+#     return render(request, 'test2_html.html')
