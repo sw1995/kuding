@@ -9,6 +9,22 @@
     border-radius: 5px;
 }
 
+.ttes {
+    width: 180px;
+    margin-top: 20px;
+}
+
+.tbtns {
+    float: left;
+    width: 100px;
+    margin: 20px -150px;
+}
+
+.tte {
+    width: 500px;
+    margin-top: 20px;
+}
+
 .m_body .content .m_hide{
     display: none;
 }

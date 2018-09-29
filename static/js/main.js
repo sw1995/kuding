@@ -266,6 +266,7 @@ $(function () {
         $('.motai_con').css('display', 'block');
         $('.motai_con .mod-register').css('display', 'none')
         $('.motai_con .modal_data').css('display', 'block');
+        $('.forget_pwd').css('display', 'none');
     });
     $('.modal_data button:first').click(function () {
         $('.motai_con').css('display', 'none');
@@ -278,4 +279,16 @@ $(function () {
     $('.mod-register button').eq(1).click(function () {
         $('.motai_con').css('display', 'none');
     });
+});
+$(function () {
+    $('#forget_btn ').click(function () {
+        // alert("123");
+        $('.motai_con .modal_data').css('display', 'none');
+        $('.forget_pwd').css('display', 'block');
+    });
+    // 下面是取消修改密码
+    $('.reset').click(function () {
+        $('.motai_con').css('display', 'none');
+    })
+
 });

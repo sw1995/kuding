@@ -13,14 +13,14 @@
             white-space: nowrap;
             course: hand;
             border: 1px solid rgb(223, 240, 216);
-            height: 40px;
+        {#height: 40px;#}
         }
 
         .wth:hover {
             text-overflow: inherit;
             overflow: visible;
             white-space: pre-wrap;
-            border: 1px solid rgb(223, 240, 216);
+        {#border: 1px solid rgb(223, 240, 216);#}
         }
 
         .su {
@@ -37,6 +37,7 @@
             width: 250px;
             border: 1px solid rgb(223, 240, 216);
         }
+
         .sus {
             width: 185px;
             border: 1px solid rgb(223, 240, 216);
@@ -85,8 +86,19 @@
         <div class="m_content">
             <div class="m_hide m m_1  show">
                 <table class="m_1_table table table-hover">
+                    {% if course_list.count == 0 %}
+                        <thead>
+                        <tr>
+                            <td class="su success">课程名称</td>
+                            <td class="su success">已预约课时</td>
+                            <td class="su success wth">课程介绍</td>
+                            <td class="su success wth">备注</td>
+                        </tr>
+                        </thead>
+
+                    {% else %}
                     {% for row in course_list %}
-                        {% if row.c_name == '预约课' %}
+                        {% if  row.c_name == '预约课' %}
                             <thead>
                             <tr>
                                 <td class="su success">课程名称</td>
@@ -126,6 +138,7 @@
                             </tbody>
                         {% endif %}
                     {% endfor %}
+                    {% endif %}
                 </table>
             </div>
             <div class="m m_2 m_hide">
@@ -152,54 +165,37 @@
                         <td class="success su" style="width: 100px;">上课时间</td>
                         <td class="success su">课程链接</td>
                         <td class="success su" style="width: 50px;">状态</td>
-                        <td class="success wth">备注</td>
+                        <td class="success wth">操作</td>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for c in course_list %}
-                    {% for row in grent_list %}
-                        {% for de in detail_list %}
-                            {% if de.d_cid_id == c.c_id and c.c_name != '预约课' %}
-                            {% for t in teacher_list %}
-                                <tr>
-                                    {% if row.g_did_id == de.d_id %}
-                                        <td class=" su">
-                                            {{ de.d_name }}
-                                        </td>
-                                        {% if row.g_tid_id == t.t_id %}
-                                            <td class=" su">{{ t.t_name }}老师</td>
-                                        {% else %}
-                                            <td class=" su">无老师信息</td>
-                                        {% endif %}
-                                        {% if  row.g_time == location_time %}
-                                            <td class=" su">
-                                                {% load str_time %}
-                                                {{ row.g_time|strd_time }}
-                                            </td>
-                                        <td class=" su">
-                                            <a href="http://{{ row.g_url }}">{{ row.g_url }}</a></td>
-                                        {% else %}
-                                            <td class=" su">
-                                                {% load str_time %}
-                                                {{ row.g_time|strd_time }}
-                                            </td>
-                                            <td class=" su">暂无连接</td>
-                                        {% endif %}
-                                        {% if row.g_record == '0' %}
-                                            <td class=" su">未上课</td>
-                                        {% elif row.g_record == '1' %}
-                                            <td class=" su">已完成</td>
-                                        {% else %}
-                                            <td class=" su">已取消</td>
-                                        {% endif %}
-                                        <td class="wth"><a href="/evaluate?sid={{ row.g_sid_id }}">查看评价</a></td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
+                    {% for row in grent_join_url %}
+                        <tr>
+                            <td class=" su">{{ row.grent_d_name }}</td>
+                            <td class=" su">{{ row.grent_t_name }}老师</td>
+                            {% if  row.grent_time == location_time %}
+                                <td class=" su">{{ row.grent_time }}</td>
+                                {% if  row.grent_j_url != 'error' %}
+                                    <td class=" su"><a href="http://{{ grent_join_url }}">点击上课</a></td>
+                                {% else %}
+                                    <span>暂无连接</span>
+                                {% endif %}
+                            {% else %}
+                                <td class=" su">{{ row.grent_time }}</td>
+                                <td class=" su">暂无连接</td>
                             {% endif %}
-                        {% endfor %}
+                            {% if row.grent_record == '0' %}
+                                <td class=" su">未上课</td>
+                            {% elif row.grent_record == '1' %}
+                                <td class=" su">已完成</td>
+                            {% else %}
+                                <td class=" su">已取消</td>
+                            {% endif %}
+
+                            <td class="wth"><a href="/evaluate?sid={{ row.grent_sid }}">查看评价</a></td>
+                        </tr>
                     {% endfor %}
-                    {% endfor %}
+
                     </tbody>
                 </table>
             </div>
@@ -248,7 +244,7 @@
                                                 <td class="">{{ row.d_number }}</td>
                                                 <td class="">{{ row.d_time_length }}</td>
                                                 <td class="wth">{{ row.d_remark }}</td>
-                                            <td class="wth">{{ e.e_stot_evaluate }}</td>
+                                                <td class="wth">{{ e.e_stot_evaluate }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endif %}
@@ -345,7 +341,7 @@
                                     <td class="su ">{{ row.d_time_length }}</td>
                                     <td class="wth">{{ row.d_remark }}</td>
                                 </tr>
-                                {% endif %}
+                            {% endif %}
                         {% endfor %}
                     {% endfor %}
                     </tbody>
@@ -369,39 +365,120 @@
                 <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
             </div>
             <div class="m_8 m m_hide">
-                <form action="/student/" method="POST">
-                    {% csrf_token %}
-                    <p>{{ obj_form.e_id.label }}:{{ obj_form.e_id }}{{ obj_form.errors.e_id.0 }}</p>
-                    <p class="hide">{{ obj_form.e_ttos_evaluate.label }}:{{ obj_form.e_ttos_evaluate }}{{ obj_form.errors.e_ttos_evaluate.0 }}</p>
-                    <p>{{ obj_form.e_stot_evaluate.label }}:{{ obj_form.e_stot_evaluate }}{{ obj_form.errors.e_stot_evaluate.0 }}</p>
-                    <p class="hide">{{ obj_form.e_ttos_score.label }}:{{ obj_form.e_ttos_score }}{{ obj_form.errors.e_ttos_score.0 }}</p>
-                    <p>{{ obj_form.e_stot_score.label }}:{{ obj_form.e_stot_score }}{{ obj_form.errors.e_stot_score.0 }}</p>
-                    <p>{{ obj_form.e_tid.label }}:{{ obj_form.e_tid }}{{ obj_form.errors.e_tid.0 }}</p>
-                    <p class="hide">{{ obj_form.e_sid.label }}:{{ obj_form.e_sid }}{{ obj_form.errors.e_sid.0 }}</p>
-                    <p class="hide">
-                        <input type="text" name="g_sid_id" value="{{ sid_id }}">
-                    </p>
-                    <p>{{ obj_form.e_did.label }}:{{ obj_form.e_did }}{{ obj_form.errors.e_did.0 }}</p>
-                    <p>{{ obj_form.e_create_time.label }}:{{ obj_form.e_create_time }}{{ obj_form.errors.e_create_time.0 }}</p>
-                    <p>{{ obj_form.e_remark.label }}:{{ obj_form.e_remark }}</p>
-                    <p><input type="submit" value="提交"></p>
-                </form>
+                <div class="form_box">
+                    <form action="/student/" method="POST" id="fm">
+                        {% csrf_token %}
+                        <div class="form-group m_hide">
+                            <label for="inpute_sid_id" class="col-sm-2 control-label tes">学生姓名:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="e_sid_id" class="form-control te" placeholder="学生姓名"
+                                       value="{{ sid_id }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inpute_stot_evaluate" class="col-sm-2 control-label tes">学生对老师的评价:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="e_stot_evaluate" class="form-control te" id="e_stot_evaluate"
+                                       placeholder="学生对老师的评价">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inpute_ttos_score" class="col-sm-2 control-label tes">学生对老师的打分:</label>
+                            <div class="col-sm-10">
+                                <input type="text" name="e_stot_score" class="form-control te" id="e_stot_score"
+                                       placeholder="学生对老师的打分">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inpute_tid" class="col-sm-2 control-label tes">老师姓名:</label>
+                            <div class="col-sm-10">
+                                <select name="e_tid_id" class="form-control te" id="teacher">
+                                    <option value="">请选择老师</option>
+                                    {% for infor in informations %}
+                                        <option value="{{ infor.t_id }}">{{ infor.t_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                {#                                <input type="text" class="form-control te" id="e_tid" placeholder="老师姓名">#}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inpute_ttos_score" class="col-sm-2 control-label tes">课程名:</label>
+                            <div class="col-sm-10">
+                                <select name="e_did_id" class="form-control te" id="detail">
+                                    <option value="">请选择课程</option>
+                                    {% for infor in informations %}
+                                        <option value="{{ infor.d_id }}">{{ infor.d_name }}</option>
+                                    {% endfor %}
+                                </select>
+                                {#                                <input type="text" class="form-control te" id="e_ttos_score" placeholder="课程名">#}
+                            </div>
+                        </div>
+
+                        <p id="stu_error"></p>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <p class="btns btn btn-default">评价</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
     <script src="/static/js/jquery-3.3.1.js"></script>
     <script>
-        $('.m_menu').click(function () {
-            $(this).addClass('actions');
-            $(this).siblings().removeClass('actions')
+        $(function () {
+            bindEvent();
+            bindmenu();
+            bindEditConfirm();
         });
 
-        $(function () {
+        function bindEditConfirm() {
+            $('.btns').click(function () {
+                var postData = {};
+                $('#fm').find('input, select').each(function () {
+                    var v = $(this).val();
+                    var n = $(this).attr('name');
+                    postData[n] = v;
+
+                });
+                console.log(postData);
+                $.ajax({
+                    url: '/student/',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: postData,
+                    success: function (arg) {
+                        if (arg.status) {
+                            alert(arg.inf);
+                        }
+                        else {
+                            {#$('#stu_error').text(arg.inf);#}
+                            {#window.location.reload()#}
+                            alert(arg.inf);
+                        }
+
+                    }
+                });
+
+            });
+        }
+
+        function bindmenu() {
+            $('.m_menu').click(function () {
+                $(this).addClass('actions');
+                $(this).siblings().removeClass('actions')
+            });
+        }
+
+        function bindEvent() {
             $('.m_leftmenu div').click(function () {
                 $(".m_content").children().eq($(this).index()).addClass("show").siblings().removeClass("show");
 
             })
-        });
+        }
 
     </script>
 {% endblock %}

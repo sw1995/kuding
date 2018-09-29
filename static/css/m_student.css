@@ -61,7 +61,25 @@
     box-shadow: 0 0 30px grey;
     float: left;
     border-radius: 5px;
+    overflow: auto;
 }
+
+.tes {
+    /*width: 150px;*/
+    margin-top: 22px;
+}
+
+.btns {
+    float: left;
+    width: 100px;
+    margin: 20px 150px;
+}
+
+.te {
+    width: 350px;
+    margin-top: 20px;
+}
+
 
 .m_body .m_content .m_hide{
     display: none;

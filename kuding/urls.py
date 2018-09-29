@@ -37,6 +37,10 @@ urlpatterns = [
     url(r'^confirm_pwd/$',views.confirm_pwd),
     # url(r'^tes1t/$',views.tes1t),
     url(r'^logout/$',views.logout),
+    url(r'^get_code/$', views.get_code),
+    url(r'^change_pwd/$', views.change_pwd),
+    # url(r'^t_info_detail/$',views.t_info_detail),
+
 
     # 文章相关
     # url(r'^article/', include(article_urls)),

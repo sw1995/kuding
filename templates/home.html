@@ -4,13 +4,91 @@
 {% endblock %}
 {% block css %}
     <link rel="stylesheet" href="/static/css/m_style.css">
+    <link rel="stylesheet" href="/static/css/m_s_evaluate.css">
+    <link rel="stylesheet" href="/static/css/m_student.css">
+    <link rel="stylesheet" href="/static/css/m_teacher.css">
+    <style>
+        .modal-body input {
+
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
     {% if role == "student" %}
         <div id="container">
+            <!-- 模态框 -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">课程信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" id="forms">
+                                {% csrf_token %}
+                                <div class="form-group" style="display: none">
+                                    <label for="inputt_id" class="col-sm-2 control-label">ID</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_id" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputt_account" class="col-sm-2 control-label">手机号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_account" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputt_name" class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_name" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputt_age" class="col-sm-2 control-label">年龄</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_age" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputt_sex" class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_sex" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: none">
+                                    <label for="inputt_degree" class="col-sm-2 control-label">学历</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_degree" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputt_detail" class="col-sm-2 control-label">简介</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_detail" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputt_remark" class="col-sm-2 control-label">备注</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="t_remark" disabled>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="connent">
+
+                <!-- 左侧菜单 -->
                 <div class="left_menu left">
+
+
                     <!--头像 -->
                     <div class="avatar">
                         {% if stu_obj.s_sex == 1 %}
@@ -21,14 +99,17 @@
                     </div>
                     <p>
                         <span class="name"> {{ stu_obj.s_name }}同学 你好 </span>
-                        <span class="sign">新手上路 </span>
+                        <span class="sign"> 初出茅庐 </span>
                     </p>
                     <p>
                         <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
                     </p>
                     <p>
                         {% load str_time %}
-                        <span style=" margin-left: 10px;font-size: 12px">创建时间：{{ stu_obj.s_create_time|strf_time }}</span>
+                        {% if s_info %}
+                            <span style=" margin-left: 10px;font-size: 12px">最近登陆：{{ stu_info.l_create_time|strd_time }}</span>
+                        {% endif %}
+
                     </p>
                     <p style="width: 60px;height: 60px;margin-left: 100px">
                         <i class="fa fa-question-circle fa-4x" style="color: rgb(219,153,246)" aria-hidden="true"></i>
@@ -42,104 +123,200 @@
                     </div>
                 </div>
                 <div class="home1 left">
-{#                    <div class="tagrt left">#}
-{#                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>#}
-{#                    </div>#}
+                    {#                    <div class="tagrt left">#}
+                    {#                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>#}
+                    {#                    </div>#}
                     <div class="teacher_info left">
-                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px ;font-size: 20px" aria-hidden="true">
+                        {% csrf_token %}
+                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px ;font-size: 20px"
+                           aria-hidden="true">
                             教师信息</i>
-                    <table class="table table-hover table-bordered">
+                        <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
                                 <th class="success">姓名</th>
                                 <th class="info">手机号</th>
                                 <th class="warning">性别</th>
                                 <th class="info">年龄</th>
-                                <th class="danger">学历</th>
+                                <th class="danger">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for t_info in t_info_obj %}
-                                <tr>
-                                    <td class="success">
-                                        {{ t_info.t_name }}
-                                    </td>
-                                    <td class="info">
-                                        {{ t_info.t_account }}
-                                    </td>
-                                    <td class="warning">
-                                        {% if t_info.t_sex == 1 %}
-                                            男
-                                        {% else %}
-                                            女
-                                        {% endif %}
-                                    </td>
-                                    <td class="info">
-                                        {{ t_info.t_age }}
-                                    </td>
-                                    <td class="danger">
-                                        {{ t_info.t_degree }}
-                                    </td>
+                            {% if t_info_obj %}
+                                {% for t_info in t_info_obj %}
+                                    <tr>
+                                        <td sxy="t_name" class="success">
+                                            {{ t_info.t_name }}
+                                        </td>
+                                        <td sxy="t_account" class="info">
+                                            {{ t_info.t_account }}
+                                        </td>
+                                        <td sxy="t_sex" class="warning">
+                                            {% if t_info.t_sex == 1 %}
+                                                男
+                                            {% else %}
+                                                女
+                                            {% endif %}
+                                        </td>
+                                        <td sxy="t_age" class="info">
+                                            {{ t_info.t_age }}
+                                        </td>
+                                        <td sxy="t_degree" class="info hidden ">
+                                            {{ t_info.t_degree }}
+                                        </td>
+                                        <td sxy="t_detail" class="info hidden ">
+                                            {{ t_info.t_detail }}
+                                        </td>
+                                        <td class="danger">
+                                            <a href="#" class="t_info_detail"> 查看详请 </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="info">
+                                    <td align="center" colspan="5">暂无教师信息</td>
                                 </tr>
-                            {% endfor %}
+                            {% endif %}
+
                             </tbody>
                         </table>
                     </div>
                     <div style="clear: both"></div>
                     <div class="course_info">
-                        <i class="fa fa-book fa-2x" style="color: skyblue; margin: 5px; font-size: 20px" aria-hidden="true">课程信息</i>
+                        <i class="fa fa-book fa-2x" style="color: skyblue; margin: 5px; font-size: 20px"
+                           aria-hidden="true">课程信息</i>
 
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
                                 <th class="success">课程名称</th>
-                                <th class="info">课程时长</th>
+                                <th class="info">课程数量</th>
                                 <th class="danger">课程详情</th>
                                 <th class="warning">课程创造时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for course in course_list %}
-                                <tr>
-                                    <td class="success">
-                                        {{ course.d_name }}
-                                    </td>
-                                    <td class="info">
-                                        {{ course.d_time_length }}
-                                    </td>
-                                    <td class="danger">
-                                        {% if course.d_detail == None %}
-                                            暂无简介
+                            {% if course_list %}
+                                {% for course in course_list %}
+                                    <tr>
+                                        <td class="success">
+                                            {{ course.c_name }}
+                                        </td>
+                                        <td class="info">
+                                            {{ course.c_count }}
+                                        </td>
+                                        <td class="danger">
+                                            {% if course.c_detail == "" %}
+                                                暂无简介
                                             {% else %}
-                                             {{ course.d_detail }}
-                                        {% endif %}
-                                    </td>
-                                    {% load str_time %}
-                                    <td class="warning">
-                                        {{ course.d_create_time|strf_time }}
-                                    </td>
+                                                {{ course.c_detail }}
+                                            {% endif %}
+                                        </td>
+                                        {% load str_time %}
+                                        <td class="warning">
+                                            {{ course.c_create_time|strd_time }}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="info">
+                                    <td align="center" colspan="4">暂无课程信息</td>
                                 </tr>
-                            {% endfor %}
+                            {% endif %}
+
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <!-- 代码部分begin -->
                 <div class="toolbar">
-                   <a href="javascript:;" class="toolbar-item toolbar-item-weixin"><span class="toolbar-layer"></span></a>
-                   <a href="javascript:;" class="toolbar-item toolbar-item-feedback"></a>
-                   <a href="javascript:;" class="toolbar-item toolbar-item-app"><span class="toolbar-layer"></span></a>
-                   <a href="javascript:scroll(0,0)" id="top" class="toolbar-item toolbar-item-top"></a>
+                    <a href="javascript:;" class="toolbar-item toolbar-item-weixin"><span class="toolbar-layer"></span></a>
+                    <a href="javascript:;" class="toolbar-item toolbar-item-feedback"></a>
+                    <a href="javascript:;" class="toolbar-item toolbar-item-app"><span class="toolbar-layer"></span></a>
+                    <a href="javascript:scroll(0,0)" id="top" class="toolbar-item toolbar-item-top"></a>
                 </div>
                 <!-- 代码部分end -->
                 <div style="clear: both"></div>
             </div>
         </div>
+        <script src="/static/plug/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            $('.t_info_detail').click(function () {
+                $('#myModal').modal('show');
+                $(".t_info_detail").parent().prevAll().each(function () {
+                    var v = $(this).html();
+                    {#console.log(v);#}
+                    var n = $(this).attr('sxy');
+                    {#console.log(v);#}
+                    $("#myModal input[name='" + n + "']").val(v)
+                })
+            });
+        </script>
     {% endif %}
 
 
     {% if role == "teacher" %}
+
         <div id="container">
+            <!-- 模态框 -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">课程信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" id="forms">
+                                {% csrf_token %}
+                                <div class="form-group" style="display: none">
+                                    <label for="inputs_id" class="col-sm-2 control-label">ID</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_id" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputs_account" class="col-sm-2 control-label">手机号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_account" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputs_name" class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_name" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputs_sex" class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_sex" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="display: none">
+                                    <label for="inputs_grade" class="col-sm-2 control-label">年级</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_grade" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputs_email" class="col-sm-2 control-label">邮箱</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_email" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputs_remark" class="col-sm-2 control-label">备注</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="s_remark" disabled>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="connent">
                 <div class="left_menu left">
                     <!--头像 -->
@@ -148,13 +325,15 @@
                     </div>
                     <p>
                         <span class="name"> {{ tea_obj.t_name }} 老师! 你好 </span>
-                        <span class="sign">新手上路 </span>
+                        <span class="sign"> 初出茅庐 </span>
                     </p>
                     <p>
                         <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
                     </p>
                     <p>
-                        <span style=" margin-left: 15px;font-size: 12px">创建时间：{{ tea_obj.t_create_time|strf_time }}</span>
+                        {% if tea_info %}
+                            <span style=" margin-left: 15px;font-size: 12px">最近登陆：{{ tea_info.l_create_time|strf_time }}</span>
+                        {% endif %}
                     </p>
                     <p style="width: 60px;height: 60px;margin-left: 55px">
                         <i class="fa fa-question-circle fa-4x" style="margin-left: 35px;color: rgb(219,153,246)"
@@ -169,81 +348,106 @@
                     </div>
                 </div>
                 <div class="home1 left">
-{#                    <div class="tagrt left">#}
-{#                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>#}
-{#                    </div>#}
+                    {#                    <div class="tagrt left">#}
+                    {#                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>#}
+                    {#                    </div>#}
                     <div class="teacher_info left">
-                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px; font-size: 20px" aria-hidden="true">
+                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px; font-size: 20px"
+                           aria-hidden="true">
                             学生信息</i>
 
-                            <table class="table table-hover table-bordered">
+                        <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
                                 <th class="success">学生姓名</th>
                                 <th class="info">手机号</th>
                                 <th class="warning">性别</th>
                                 <th class="danger">学生年级</th>
+                                <th class="danger">操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for s_info in s_info_list %}
-                                <tr>
-                                    <td class="success">
-                                        {{ s_info.s_name }}
-                                    </td>
-                                    <td class="info">
-                                        {{ s_info.s_account }}
-                                    </td>
-                                    <td class="warning">
-                                        {% if s_info.s_sex == 1 %}
-                                            男
-                                        {% else %}
-                                            女
-                                        {% endif %}
-                                    </td>
-                                    <td class="danger">
-                                        {{ s_info.s_grade }}
-                                    </td>
+                            {% if s_info_list %}
+                                {% for s_info in s_info_list %}
+                                    <tr>
+                                        <td sxy="s_id" class="success hidden">
+                                            {{ s_info.s_id }}
+                                        </td>
+                                        <td sxy="s_name" class="success">
+                                            {{ s_info.s_name }}
+                                        </td>
+                                        <td sxy="s_account" class="info">
+                                            {{ s_info.s_account }}
+                                        </td>
+                                        <td sxy="s_sex" class="warning">
+                                            {% if s_info.s_sex == 1 %}
+                                                男
+                                            {% else %}
+                                                女
+                                            {% endif %}
+                                        </td>
+                                        <td sxy="s_grade" class="danger">
+                                            {{ s_info.s_grade }}
+                                        </td>
+                                        <td sxy="s_email" class="hidden danger">
+                                            {{ s_info.s_grade }}
+                                        </td>
+                                        <td class="danger">
+                                            <a href="#" class="t_info_detail"> 查看详请 </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="info">
+                                    <td align="center" colspan="5">暂无学生信息</td>
                                 </tr>
-                            {% endfor %}
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>
                     <div style="clear: both"></div>
                     <div class="course_info">
-                        <i class="fa fa-book fa-2x" style="color: skyblue; margin: 5px;font-size: 20px" aria-hidden="true">课程信息</i>
+                        <i class="fa fa-book fa-2x" style="color: skyblue; margin: 5px;font-size: 20px"
+                           aria-hidden="true">课程信息</i>
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
                                 <th class="success">课程名称</th>
-                                <th class="info">课程时长</th>
+                                <th class="info">课程数量</th>
                                 <th class="danger">课程详情</th>
                                 <th class="warning">课程创造时间</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for course in course_list %}
-                                <tr>
-                                    <td class="success">
-                                        {{ course.d_name }}
-                                    </td>
-                                    <td class="info">
-                                        {{ course.d_time_length }}
-                                    </td>
-                                    <td class="danger">
-                                        {% if course.d_detail == None %}
-                                            暂无简介
+                            {% if course_list %}
+                                {% for course in course_list %}
+                                    <tr>
+                                        <td class="success">
+                                            {{ course.c_name }}
+                                        </td>
+                                        <td class="info">
+                                            {{ course.c_count }}
+                                        </td>
+                                        <td class="danger">
+                                            {% if course.c_detail == "" %}
+                                                暂无简介
                                             {% else %}
-                                             {{ course.d_detail }}
-                                        {% endif %}
-                                    </td>
-                                    {% load str_time %}
-                                    <td class="warning">
-                                        {{ course.d_create_time|strf_time }}
-                                    </td>
+                                                {{ course.c_detail }}
+                                            {% endif %}
+                                        </td>
+                                        {% load str_time %}
+                                        <td class="warning">
+                                            {{ course.c_create_time|strf_time }}
+                                        </td>
 
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="info">
+                                    <td align="center" colspan="4">暂无课程信息</td>
                                 </tr>
-                            {% endfor %}
+                            {% endif %}
+
                             </tbody>
                         </table>
                     </div>
@@ -251,6 +455,19 @@
                 <div style="clear: both"></div>
             </div>
         </div>
+        <script src="/static/plug/bootstrap/js/bootstrap.min.js"></script>
+        <script>
+            $('.t_info_detail').click(function () {
+                $('#myModal').modal('show');
+                $(this).parent().prevAll().each(function () {
+                    var v = $(this).html();
+                    {#console.log(v);#}
+                    var n = $(this).attr('sxy');
+                    {#console.log(n);#}
+                    $("#myModal input[name='" + n + "']").val(v)
+                })
+            });
+        </script>
     {% endif %}
 
 {% endblock %}

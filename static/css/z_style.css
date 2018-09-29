@@ -1840,12 +1840,15 @@ h1, h2, h3, h4, h5, h6, figure {
 /*下面是模态框的样式*/
 .modal_data {
     width: 500px;
-    margin: 100px auto;
+    left: 50%;
+    margin-left: -250px;
+    top: 100px;
     background-color: rgba(113, 129, 127, 1);
     border: 1px solid #000;
     padding: 15px;
     text-align: center;
     opacity: 0.8;
+    position: absolute;
 
 }
 
@@ -1897,13 +1900,15 @@ h1, h2, h3, h4, h5, h6, figure {
 .mod-register {
     width: 500px;
     background-color: rgba(113, 129, 127, 0.8);
-    width: 500px;
-    margin: 100px auto;
+    left: 50%;
+    margin-left: -250px;
+    top: 100px;
     border: 1px solid #000;
     padding: 15px;
     /*opacity: 0.8;*/
     text-align: left;
     color: black;
+    position: absolute;
 }
 
 .mod-register div {
@@ -2033,11 +2038,7 @@ input[type="radio"], input[type="checkbox"] {
     color: white;
 }
 
-/*.more{*/
-/*width: 100%;*/
-/*margin-right: 250px;*/
-/*font-size: 12px;*/
-/*}*/
+
 .blog_title {
     margin-top: 20px;
     font-family: "STxingkai";
@@ -2057,4 +2058,65 @@ input[type="radio"], input[type="checkbox"] {
 
 .img_hover:hover {
     transform: scale(1.1);
+}
+
+#forget_btn {
+    position: absolute;
+    right: 54px;
+    bottom: 26px;
+}
+
+.forget_pwd {
+    width: 500px;
+    border: 1px solid red;
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    top: 100px;
+    display: none;
+    color: white;
+    padding-left: 150px;
+
+}
+
+.forget_pwd h3 {
+    width: 100px;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+.forget_pwd div {
+    position: relative;
+}
+
+.forget_pwd i {
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    color: black;
+    font-size: 16px;
+}
+
+.forget_pwd input {
+
+    margin-bottom: 15px;
+    text-indent: 20px;
+    color: black;
+}
+
+.forget_pwd input[type=password] {
+
+}
+
+.forget_pwd input[name=confirm_code] {
+    width: 100px;
+    text-indent: 1px;
+}
+
+.forget_pwd button[name=get_code] {
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: white;
+    border: 1px solid #eee;
+
 }

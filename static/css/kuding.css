@@ -22,7 +22,7 @@ body{
 }
 
 a{
-    color: #27b4f7;
+    color: black;
 }
 
 a:link {
@@ -61,7 +61,7 @@ a:hover {
 }
 
 .msg div {
-    color: cyan;
+    color: black;
     padding: 10px 0 10px 30px;
 }
 

@@ -111,7 +111,7 @@
                                 <h3 class="blog_title"><a href="/article/{{ article.s_id }}">{{ article.s_title }}</a>
                                 </h3>
                                 <span class="posted_on">{{ article.t_createtime }}</span>
-                                <p class="blog_content">{{ article.s_summary }}</p>
+                                <p class="blog_content">{{ article.s_summary|slice:":16 " }}</p>
                             </div>
                         </div>
                     </div>

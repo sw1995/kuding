@@ -7,7 +7,7 @@
 {% block content %}
 
     {% if role == "student" %}
-         <div id="container">
+        <div id="container">
             <div class="connent">
                 <div class="left_menu left">
                     <div class="leftmenu">
@@ -75,19 +75,9 @@
                             </tr>
                             </thead>
                             <tbody>
-
-                                <tr>
-                                    <td class="success">
-
-                                    </td>
-                                    <td class="info">
-                                        暂无订单
-                                    </td>
-                                    <td class="danger">
-
-                                    </td>
-                                </tr>
-
+                            <tr class="info">
+                                <td align="center" colspan="3">暂无订单详情</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -113,16 +103,18 @@
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
                                 {% else %}
-                                    <label for=""><input type="radio" name="sex"  value="1"> 男</label>
+                                    <label for=""><input type="radio" name="sex" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" checked="checked" value="0"> 女</label>
                                 {% endif %}
                             </p>
                             <p>
-                               <span>年级：</span> <input type="text" style="margin-left: 27px" id="grade" value={{ stu_obj.s_grade }}>
+                                <span>年级：</span> <input type="text" style="margin-left: 27px" id="grade"
+                                                        value={{ stu_obj.s_grade }}>
                             </p>
                             <p>
                                 {% load str_time %}
-                                <span>创建时间：</span><input type="text" disabled id="create_time" value={{ stu_obj.s_create_time|strf_time }}>
+                                <span>创建时间：</span><input type="text" disabled id="create_time"
+                                                         value={{ stu_obj.s_create_time|strf_time }}>
                             </p>
                             <p>
                                 <span>邮箱：</span><input type="email" id="email" value={{ stu_obj.s_email }}>
@@ -256,17 +248,9 @@
                             </thead>
                             <tbody>
 
-                                <tr>
-                                    <td class="success">
-
-                                    </td>
-                                    <td class="info">
-                                        暂无订单
-                                    </td>
-                                    <td class="danger">
-
-                                    </td>
-                                </tr>
+                            <tr class="info">
+                                <td align="center" colspan="3">暂无订单详情</td>
+                            </tr>
 
                             </tbody>
                         </table>
@@ -282,18 +266,18 @@
                             {% csrf_token %}
                             个人信息：
                             <p>
-                               <span>账号：</span><input type="text" disabled value={{ tea_obj.t_account }}>
+                                <span>账号：</span><input type="text" disabled value={{ tea_obj.t_account }}>
                             </p>
                             <p>
                                 <span>姓名：</span><input name="username" type="text" value={{ tea_obj.t_name }}>
                             </p>
                             <p>
-                               <span>性别：</span>
+                                <span>性别：</span>
                                 {% if tea_obj.t_sex == 1 %}
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
                                 {% else %}
-                                    <label for=""><input type="radio" name="sex"  value="1"> 男</label>
+                                    <label for=""><input type="radio" name="sex" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" checked="checked" value="0"> 女</label>
                                 {% endif %}
                             </p>
@@ -302,16 +286,17 @@
                             </p>
                             <p>
                                 {% load str_time %}
-                                <span>创建时间：</span><input type="text" disabled value={{ tea_obj.t_create_time|strf_time }}>
+                                <span>创建时间：</span><input type="text" disabled
+                                                         value={{ tea_obj.t_create_time|strf_time }}>
                             </p>
                             <p>
-                               <span>学历：</span><input type="text" disabled value={{ tea_obj.t_degre }}>
+                                <span>学历：</span><input type="text" disabled value={{ tea_obj.t_degre }}>
                             </p>
                             <p>
                                 <span>备注：</span><input type="text" id="remark" value={{ tea_obj.t_remark }}>
                             </p>
                             <p>
-                                <input type="button" class="btn btn-success"  id="save" value="点击保存">
+                                <input type="button" class="btn btn-success" id="save" value="点击保存">
                             </p>
 
                         </form>
@@ -332,7 +317,7 @@
                                 <span>确认密码：</span><input name="conf_pwd" type="password" placeholder="请再次输入密码">
                             </p>
                             <p>
-                                <input type="button" class="btn btn-success"  id="confirm_pwd" value="确认修改">
+                                <input type="button" class="btn btn-success" id="confirm_pwd" value="确认修改">
                             </p>
                         </form>
                     </div>
@@ -363,7 +348,7 @@
 
 
     <div class="info">
-    {% csrf_token %}
+        {% csrf_token %}
     </div>
     <script>
         $('.leftmenu').click(function () {
@@ -401,58 +386,58 @@
         });
 
         var gentle = $("[checked='checked']").val();
-     $("[name='sex']").click(function () {
+        $("[name='sex']").click(function () {
             gentle = $(this).val();
-         });
+        });
 
-    $("#save").click(function () {
-        var username = $("[name='username']").val();
-        var email = $("#email").val();
-        var remark = $("#remark").val();
-        $.ajax({
-            url: '/confirm_center/',
-            type: "POST",
-            dataType: "json",
-            data: {
-                username:username,
-                sex: gentle,
-                email:email,
-                remark:remark,
-                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
-                grade: $("#grade").val(),
-                age: $("#age").val()
-            },
-            success: function (arg) {
-               if(arg.status){
-                    alert(arg.msg)
+        $("#save").click(function () {
+            var username = $("[name='username']").val();
+            var email = $("#email").val();
+            var remark = $("#remark").val();
+            $.ajax({
+                url: '/confirm_center/',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    username: username,
+                    sex: gentle,
+                    email: email,
+                    remark: remark,
+                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+                    grade: $("#grade").val(),
+                    age: $("#age").val()
+                },
+                success: function (arg) {
+                    if (arg.status) {
+                        alert(arg.msg)
+                    }
                 }
-            }
-        })
-    });
+            })
+        });
 
-    $("#confirm_pwd").click(function () {
-        var pwd = $("[name='pwd']").val();
-        var new_pwd = $("[name='new_pwd']").val();
-        var conf_pwd = $("[name='conf_pwd']").val();
-        $.ajax({
-            url:'/confirm_pwd/',
-            type: "POST",
-            dataType: "json",
-            data: {
-                pwd: pwd,
-                new_pwd: new_pwd,
-                conf_pwd: conf_pwd,
-                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-            },
-            success: function (arg) {
-               if(arg.status){
-                    alert(arg.msg)
-                }else {
-                   alert(arg.msg)
-               }
-            }
+        $("#confirm_pwd").click(function () {
+            var pwd = $("[name='pwd']").val();
+            var new_pwd = $("[name='new_pwd']").val();
+            var conf_pwd = $("[name='conf_pwd']").val();
+            $.ajax({
+                url: '/confirm_pwd/',
+                type: "POST",
+                dataType: "json",
+                data: {
+                    pwd: pwd,
+                    new_pwd: new_pwd,
+                    conf_pwd: conf_pwd,
+                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                },
+                success: function (arg) {
+                    if (arg.status) {
+                        alert(arg.msg)
+                    } else {
+                        alert(arg.msg)
+                    }
+                }
+            })
         })
-    })
 
     </script>
 

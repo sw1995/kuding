@@ -155,10 +155,8 @@ class WebEvaluate(models.Model):
     e_ttos_score = models.IntegerField(blank=True, null=True)
     e_stot_score = models.IntegerField(blank=True, null=True)
     e_remark = models.CharField(max_length=255, blank=True, null=True)
-    e_create_time = models.BigIntegerField()
-    e_did = models.ForeignKey(WebDetail, models.DO_NOTHING, blank=True, null=True)
-    e_sid = models.ForeignKey('WebStudent', models.DO_NOTHING, blank=True, null=True)
-    e_tid = models.ForeignKey('WebTeacher', models.DO_NOTHING, blank=True, null=True)
+    e_create_time = models.BigIntegerField(blank=True, null=True)
+    e_gid = models.ForeignKey('WebGrant', models.DO_NOTHING, unique=True, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -169,7 +167,7 @@ class WebGrant(models.Model):
     g_id = models.CharField(primary_key=True, max_length=36)
     g_record = models.CharField(max_length=12)
     g_time = models.BigIntegerField(blank=True, null=True)
-    g_url = models.CharField(max_length=1000)
+    g_url = models.CharField(max_length=1000, blank=True, null=True)
     g_remark = models.CharField(max_length=255, blank=True, null=True)
     g_did = models.ForeignKey(WebDetail, models.DO_NOTHING, blank=True, null=True)
     g_sid = models.ForeignKey('WebStudent', models.DO_NOTHING, blank=True, null=True)
@@ -178,6 +176,22 @@ class WebGrant(models.Model):
     class Meta:
         managed = False
         db_table = 'web_grant'
+
+
+class WebLogsheet(models.Model):
+    l_id = models.CharField(primary_key=True, max_length=36)
+    l_action = models.CharField(max_length=255)
+    l_user_id = models.CharField(max_length=36)
+    l_ip = models.CharField(max_length=20)
+    l_create_time = models.BigIntegerField()
+    l_state = models.CharField(max_length=1)
+    l_remark = models.CharField(max_length=255, blank=True, null=True)
+    l_sid = models.CharField(max_length=36, blank=True, null=True)
+    l_tid = models.CharField(max_length=36, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'web_logsheet'
 
 
 class WebStudent(models.Model):

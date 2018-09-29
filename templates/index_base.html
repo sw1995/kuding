@@ -21,6 +21,7 @@
             margin-bottom: 0px;
         }
     </style>
+    <link rel="shortcut icon" href="/static/img/kuding.ico">
     <!--font awesome图标引用地址-->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <!-- Animate.css -->
@@ -49,6 +50,8 @@
 </head>
 <body>
 <!--这里是模态框的内容-->
+
+<!-- 登陆 -->
 <div class="motai_con fadeIn ">
     <div class="modal_data fadeIn">
         <h3>登陆</h3>
@@ -82,8 +85,11 @@
             </div>
             <button type="button" class="btn btn-primary">取消</button>
             <button type="button" id="login" class="btn btn-success">登陆</button>
+            <a href="#" id="forget_btn">忘记密码</a>
         </form>
     </div>
+
+    <!-- 注册 -->
     <div class="mod-register">
         <h3>注册</h3>
         <form action="" novalidate method="post">
@@ -119,6 +125,36 @@
             </div>
         </form>
     </div>
+
+    <!-- 找回密码 -->
+    <div class="forget_pwd">
+        <h3>忘记密码</h3>
+
+        <div>
+            <i class="fa fa-mobile" aria-hidden="true"></i>
+            <input type="text" name="forget_account" placeholder="请输入注册时的手机号">
+            <span></span>
+        </div>
+
+        <div>
+            <i class="fa fa-key" aria-hidden="true"></i>
+            <input type="password" name="forget_pwd" placeholder="请输入密码">
+            <span></span>
+        </div>
+
+        <div>
+            <i class="fa fa-key" aria-hidden="true"></i>
+            <input type="password" name="forget_re_pwd" placeholder="请重复上面输入的密码">
+            <span></span>
+        </div>
+
+        <div><input type="text" placeholder="验证码" name="confirm_code">
+            <button type="button" name="get_code">获取验证码</button>
+            <span name="confirm_code_error"></span>
+        </div>
+        <button type="button" class="btn btn-danger reset">取消</button>
+        <button type="button" class="btn btn-success" name="forget_change_pwd">修改</button>
+    </div>
 </div>
 
 <div id="page">
@@ -127,7 +163,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-right">
-                        <p class="num">电话: +86 158-5610-9425</p>
+                        <p class="num">电话: xxx xxxx xxxx</p>
                         <!--	<ul class="fh5co-social">
                                 <li><a href="#"><i class="icon-twitter"></i></a></li>
                                 <li><a href="#"><i class="icon-dribbble"></i></a></li>
@@ -339,55 +375,188 @@
     });
 
 
-    {#<!--注册验证-->#}
-    $("[name='reg']").click(function () {
-        var code1 = $(".message-check").val();
-        var account1 = $("#id_account").val();
-        console.log(code1);
-        console.log(account1);
+    //忘记密码倒计时
+    $("[name='get_code']").click(function () {
+        var forget_account = $("[name='forget_account']").val();
+        {#console.log(account);#}
+        $.ajax({
+            url: '/get_code/',
+            type: "post",
+            data: {
+                account: forget_account,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            success: function (data) {
+                {#console.log(data);#}
+                if (data.status == 0) {
+                    code = data.code;
+                    account = data.account;
+                    $("[name='get_code']").attr('disabled', true);
+                    // 倒计时60s
+                    var t = 60;
+                    var i = setInterval(function () {
+                        t--;
+                        if (t > 0) {
+                            $("[name='get_code']").text(t + '秒后重试');
+                        } else {
+                            $("[name='get_code']").text('获取登陆密码');
+                            $("[name='get_code']").removeAttr('disabled');
+                            clearInterval(i);
+                        }
+                    }, 1000);
+                } else {
+                    $("[name='forget_account']").next("span").html(data.error);
+                    setTimeout(function () {
+                        $("[name='forget_account']").next("span").html("");
+                    }, 3000);
+                }
+            }
+        })
+    });
+    //忘记密码 验证码失去焦点验证
+    //验证码失去焦点时验证
+    $("[name='confirm_code']").blur(function () {
+        var code1 = $("[name='confirm_code']").val();
+        var account1 = $("[name='forget_account']").val();
+        {#console.log(code1);#}
+        {#console.log(account1);#}
         console.log(code);
-        console.log(account);
-        var formData = new FormData();
-        formData.append("name", $("#id_name").val());
-        formData.append("password", $("#id_password").val());
-        formData.append("re_password", $("#id_re_password").val());
-        formData.append("account", $("#id_account").val());
-        formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+        {#console.log(account);#}
 
         if (code1 == code && account1 == account) {
-            $.ajax({
-                url: "/reg/",
-                type: "post",
-                processData: false,
-                contentType: false,
-                data: formData,
-                success: function (data) {
-                    if (data.status == 0) {
-                        // 有错误就展示错误
-                        {#// console.log(data.msg);#}
-                        // 将报错信息填写到页面上
-                        $.each(data.msg, function (k, v) {
-                            // console.log("id_"+k, v[0]);
-                            // console.log($("#id_"+k));
-                            $("#id_" + k).next("span").text(v[0]);
-                            setTimeout(function () {
-                                $("#id_" + k).next("span").html("");
-                            }, 3000);
-                        })
+
+            $(".erro-check").html("验证成功！");
+            setTimeout(function () {
+                $("[name='confirm_code_error']").html("");
+            }, 3000);
+        } else {
+            $("[name='confirm_code_error']").html("验证码不正确！");
+            setTimeout(function () {
+                $("[name='confirm_code_error']").html("");
+            }, 3000);
+        }
+    });
+
+
+    //忘记密码验证
+    $("[name='forget_change_pwd']").click(function () {
+        var forget_account = $("[name='forget_account']").val();
+        var forget_pwd = $("[name='forget_pwd']").val();
+        var forget_re_pwd = $("[name='forget_re_pwd']").val();
+        {#console.log(forget_pwd);#}
+        {#console.log(forget_re_pwd);#}
+        if (forget_pwd.length == 0) {
+            $("[name='forget_pwd']").next("span").html("密码不能为空！");
+            setTimeout(function () {
+                $("[name='forget_pwd']").next("span").html("");
+            }, 3000);
+        } else {
+            if (forget_pwd.length < 6) {
+                $("[name='forget_pwd']").next("span").html("密码不能低于6位！");
+                setTimeout(function () {
+                    $("[name='forget_pwd']").next("span").html("");
+                }, 3000);
+            } else {
+                if (forget_re_pwd.length == 0) {
+                    $("[name='forget_pwd']").next("span").html("确认密码不能为空！");
+                    setTimeout(function () {
+                        $("[name='forget_pwd']").next("span").html("");
+                    }, 3000);
+                } else {
+                    if (forget_pwd.length < 6) {
+                        $("[name='forget_re_pwd']").next("span").html("确认密码不能低于6位！");
+                        setTimeout(function () {
+                            $("[name='forget_pwd']").next("span").html("");
+                        }, 3000);
                     } else {
-                        // 没有错误就跳转到指定页面
-                        {#console.log("hmp");#}
-                        location.href = data.msg;
+                        if (forget_pwd != forget_re_pwd) {
+                            $("[name='forget_re_pwd']").next("span").html("两次密码输入不同，请重新输入！");
+                            setTimeout(function () {
+                                $("[name='forget_re_pwd']").next("span").html("");
+                            }, 3000);
+                        } else {
+                            $.ajax({
+                                url: '/change_pwd/',
+                                type: "post",
+                                data: {
+                                    account: forget_account,
+                                    pwd: forget_pwd,
+                                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                                },
+                                success: function (data) {
+                                    if (data.status) {
+                                        location.href = data.href
+                                    }
+                                }
+                            })
+
+                        }
                     }
                 }
-            })
+            }
+        }
+    });
+
+
+    //验证码失去焦点时验证
+    $(".message-check").blur(function () {
+        var code1 = $(".message-check").val();
+        var account1 = $("#id_account").val();
+        //console.log(code1);
+        //console.log(account1);
+        //console.log(code);
+        //console.log(account);
+
+        if (code1 == code && account1 == account) {
+
+            $(".erro-check").html("验证成功！");
+            setTimeout(function () {
+                $(".erro-check").html("");
+            }, 3000);
         } else {
             $(".erro-check").html("验证码不正确！");
             setTimeout(function () {
                 $(".erro-check").html("");
             }, 3000);
         }
+    });
 
+    //注册验证
+    $("[name='reg']").click(function () {
+        var code1 = $(".message-check").val();
+        var account1 = $("#id_account").val();
+        //console.log(code1);
+        //console.log(account1);
+        //console.log(code);
+        //console.log(account);
+        var formData = new FormData();
+        formData.append("name", $("#id_name").val());
+        formData.append("password", $("#id_password").val());
+        formData.append("re_password", $("#id_re_password").val());
+        formData.append("account", $("#id_account").val());
+        formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+        $.ajax({
+            url: "/reg/",
+            type: "post",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.status == 0) {
+                    // 有错误就展示错误
+                    {#// console.log(data.msg);#}
+                    // 将报错信息填写到页面上
+                    $.each(data.msg, function (k, v) {
+                        // console.log("id_"+k, v[0]);
+                        // console.log($("#id_"+k));
+                        $("#id_" + k).next("span").text(v[0]);
+                        setTimeout(function () {
+                            $("#id_" + k).next("span").html("");
+                        }, 3000);
+                    })
+                }
+            }
+        })
     });
 
     //登陆验证
@@ -410,8 +579,8 @@
             success: function (data) {
                 if (data.status == 0) {
                     $.each(data.msg, function (k, v) {
-                        console.log("id_" + k, v[0]);
-                        console.log($("#id_" + k));
+                        {#console.log("id_" + k, v[0]);#}
+                        {#console.log($("#id_" + k));#}
                         $("#id_" + k).parents().next("span").html(v[0]);
                         setTimeout(function () {
                             $("#id_" + k).parents().next("span").html("");

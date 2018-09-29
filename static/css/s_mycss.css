@@ -35,8 +35,10 @@ a{
     margin: 15px;
     width: 800px;
     height: 700px;
-    background-color: white;
+    background-color: rgba(243, 245, 249);
     border-radius: 5px;
+    box-shadow: 0 0 50px gray;
+    overflow: hidden;
 }
 
 .right_menu{
@@ -225,4 +227,31 @@ a{
 .little_person_img {
     height: 20px;
     width: 20px;
+}
+
+/*教师信息模态框*/
+.s_t_info {
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    background-color: #eee;
+    height: 450px;
+    top: 120px;
+    display: none;
+    border: 2px solid red;
+    z-index: 1000;
+}
+
+/*遮罩层*/
+.s_shadow {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #eee;
+    opacity: 0.6;
+    z-index: 999;
+    display: none;
 }

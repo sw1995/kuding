@@ -1054,7 +1054,7 @@
     </column>
     <column id="259" parent="234" name="S_SUMMARY">
       <Position>6</Position>
-      <DataType>varchar(200)|0</DataType>
+      <DataType>text|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="260" parent="234" name="S_CONTENT">

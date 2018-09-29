@@ -14,8 +14,10 @@
 }
 
 .su{
-    width: 180px;
+    width: 187.5px;
+    border: 1px solid rgb(223, 240, 216);
 }
+
 
 .m_header{
     width: 1200px;
@@ -49,4 +51,5 @@
     border: 1px solid #66afe9;
     border-radius: 10px;
     text-align: center;
+    overflow: auto;
 }

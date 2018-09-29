@@ -4,8 +4,27 @@ from web.form.student import Student_to_teacher
 from web.form.reg import RegForm
 # from web.form import reg
 from article.models import TArticles
-from web.models import WebTeacher, WebStudent, WebGrant, WebDetail, WebCourse, WebEvaluate
+from web.models import WebTeacher, WebStudent, WebGrant, WebDetail, WebCourse, WebEvaluate, WebLogsheet
 from web.form.login_form import LoginForm
+
+
+# 获取ip
+def get_ip():
+    import socket
+    host_name = socket.gethostname()
+    # print(" Host name: %s" %host_name)
+    # print(" IP address: %s" % socket.gethostbyname(host_name))
+    ip_address = socket.gethostbyname(host_name)
+    return ip_address
+
+
+# 生成uuid
+def create_uuid():
+    import uuid
+    s_uuid = str(uuid.uuid1())
+    l_uuid = s_uuid.split('-')
+    uid = ''.join(l_uuid)
+    return uid
 
 
 # 首页
@@ -109,7 +128,6 @@ def class_type(request):
 def login(request):
     ret = {}
     if request.method == "POST":
-
         form_obj = LoginForm(request.POST)
         # print("-" * 120)
         # print(form_obj)
@@ -118,13 +136,12 @@ def login(request):
             account = request.POST.get("log_account")
             password = request.POST.get("log_password")
             role = request.POST.get("log_role")
-            print(account, role, password)
+            # print(account, role, password)
             # print(type(role))
             # print("-" * 120)
-
             if role == "1":
                 stu_obj = WebStudent.objects.filter(s_account=account, s_password=password).first()
-                print(stu_obj)
+                # print(stu_obj)
                 if stu_obj:
                     # 确认学生账号存在
                     if stu_obj.s_state == 1:
@@ -148,9 +165,6 @@ def login(request):
                 else:
                     ret["status"] = 4
                     ret["msg"] = "账号或密码不正确，请重新输入！"
-                    print(
-                        "lalalalallallaal"
-                    )
 
             elif role == "2":
                 tea_obj = WebTeacher.objects.filter(t_account=account, t_password=password).first()
@@ -172,8 +186,6 @@ def login(request):
                 else:
                     ret["status"] = 4
                     ret["msg"] = "账号或密码不正确，请重新输入！"
-
-
         else:
             ret['status'] = 0
             ret['msg'] = form_obj.errors
@@ -197,10 +209,8 @@ def reg(request):
         # 做校验
         if form_obj.is_valid():
             # 校验通过 在数据库中保存信息
-            import uuid
-            s_uuid = str(uuid.uuid1())
-            l_uuid = s_uuid.split('-')
-            s_id = ''.join(l_uuid)
+
+            s_id = create_uuid()
             sex = 1
             state = 1
             grade = "一年级"
@@ -213,8 +223,15 @@ def reg(request):
             s_password = form_obj.cleaned_data["password"]
             # form_obj.cleaned_data.pop("re_password")
             # avatar_img = request.FILES.get("avatar")
-            WebStudent.objects.create(s_id=s_id, s_account=s_account, s_password=s_password, s_name=s_name, s_sex=sex,
-                                      s_state=state, s_grade=grade, s_create_time=create_time)
+            stu_obj = WebStudent.objects.create(s_id=s_id, s_account=s_account, s_password=s_password, s_name=s_name,
+                                                s_sex=sex,
+                                                s_state=state, s_grade=grade, s_create_time=create_time)
+            l_id = create_uuid()
+            ip = get_ip()
+            create_time = int(time.time())
+            action = "注册用户"
+            WebLogsheet.objects.create(l_id=l_id, l_action=action, l_user_id=stu_obj.s_name,
+                                       l_create_time=create_time, l_state=0, l_ip=ip)
             ret["status"] = 1
             ret["msg"] = '/index/'
             return JsonResponse(ret)
@@ -236,6 +253,7 @@ import random
 import re
 
 
+#注册验证码
 def verify_code(request):
     # 生成随机验证码
     l = []
@@ -245,6 +263,7 @@ def verify_code(request):
     ret = {}
     if request.method == "POST":
         account = request.POST.get("account")
+        # print(account)
         if account:
             match = re.findall((r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$'), account)
             print(match)
@@ -265,11 +284,50 @@ def verify_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        mobile = '{}'.format(account)  # 短信接受者的手机号码
-        tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+        # mobile = '{}'.format(account)  # 短信接受者的手机号码
+        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
+        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
+        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+        return JsonResponse(ret)
+
+
+# 登陆验证码
+def get_code(request):
+    # 生成随机验证码
+    l = []
+    for i in range(6):
+        l.append(random.randint(0, 9))
+    code = "".join([str(l[i]) + str(l[i + 1]) for i in range(0, len(l), 2)])
+    ret = {}
+    if request.method == "POST":
+        account = request.POST.get("account")
+        # print(account)
+        if account:
+            match = re.findall((r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$'), account)
+            print(match)
+            if match:
+                stu_obj = WebStudent.objects.filter(s_account=account)
+                if stu_obj:
+                    ret["status"] = 0
+                    ret["account"] = account
+                    ret["code"] = code
+                    print(code)
+                else:
+                    ret["status"] = 1
+                    ret["error"] = "该号码未注册！"
+            else:
+                ret["status"] = 0
+                ret["error"] = "请输入正确的号码！"
+        else:
+            ret["status"] = 0
+            ret["error"] = "手机号码不能为空！"
+
+        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+        # mobile = '{}'.format(account)  # 短信接受者的手机号码
+        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
+        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
+        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
         return JsonResponse(ret)
 
 
@@ -303,6 +361,7 @@ def sendsms(appkey, mobile, tpl_id, tpl_value):
 #注销(退出登陆)
 def logout(request):
     account = request.session.get("account")
+    role = request.session.get("role")
     if account:
         del request.session["account"]
     return redirect('/index/')
@@ -323,7 +382,13 @@ def home(request):
         if role == "student":
             # 学生
             stu_obj = WebStudent.objects.filter(s_account=account).first()
+            stu_info = WebLogsheet.objects.filter(l_user_id=stu_obj.pk).values("l_create_time").order_by(
+                "l_create_time").first()
             # print(stu_obj)
+            # print(type(stu_info), stu_info)
+
+            # for i in stu_info:
+            #     print(i)
 
             # 查找班主任
             teachers = WebGrant.objects.filter(g_sid=stu_obj.pk).first()
@@ -339,7 +404,17 @@ def home(request):
                     for course_id in course_ids:
                         # print(course_id)
                         course = WebDetail.objects.filter(d_id=course_id).first()
-                        course_list.append(course)
+                        cid = WebDetail.objects.filter(d_id=course_id).values("d_cid_id").distinct()
+                        course_table = WebCourse.objects.filter(c_id=cid).first()
+                        # print(course_table)
+                        if course_table not in course_list:
+                            course_list.append(course_table)
+                print(course_list)
+
+                if course_list:
+                    course_list.sort(key=lambda course_list: course_list.c_create_time, reverse=True)
+
+                # course_list.sort(WebDetail.d_create_time)
                 # print(course_list)
 
             return render(request, 'home.html', locals())
@@ -368,8 +443,18 @@ def home(request):
                 for course_id in course_ids:
                     # print(course_id)
                     course = WebDetail.objects.filter(d_id=course_id).first()
-                    course_list.append(course)
-            # print(course_list)
+                    cid = WebDetail.objects.filter(d_id=course_id).values("d_cid_id").distinct()
+                    course_table = WebCourse.objects.filter(c_id=cid).first()
+                    # print(course_table)
+                    if course_table not in course_list:
+                        course_list.append(course_table)
+                print(course_list)
+
+                if course_list:
+                    course_list.sort(key=lambda course_list: course_list.c_create_time, reverse=True)
+                    # course_list.append(course)
+            tea_info = WebLogsheet.objects.filter(l_user_id=tea_obj.pk).values("l_create_time").order_by(
+                "l_create_time").first()
 
             return render(request, 'home.html', locals())
 
@@ -440,6 +525,12 @@ def confirm_pwd(request):
             if stu_obj:
                 if new_pwd == conf_pwd:
                     WebStudent.objects.filter(s_account=account).update(s_password=new_pwd)
+                    l_id = create_uuid()
+                    ip = get_ip()
+                    create_time = int(time.time())
+                    action = "学生修改个人信息"
+                    WebLogsheet.objects.create(l_id=l_id, l_action=action, l_user_id=stu_obj.s_name,
+                                               l_create_time=create_time, l_state=0, l_ip=ip)
                     ret["status"] = 1
                     ret["msg"] = "保存成功"
                 else:
@@ -453,6 +544,13 @@ def confirm_pwd(request):
             if tea_obj and new_pwd == conf_pwd:
                 if new_pwd == conf_pwd:
                     WebTeacher.objects.filter(t_account=account).update(t_password=new_pwd)
+
+                    l_id = create_uuid()
+                    ip = get_ip()
+                    create_time = int(time.time())
+                    action = "教师修改个人信息"
+                    WebLogsheet.objects.create(l_id=l_id, l_action=action, l_user_id=tea_obj.t_name,
+                                               l_create_time=create_time, l_state=0, l_ip=ip)
                     ret["status"] = 1
                     ret["msg"] = "保存成功"
                 else:
@@ -474,63 +572,161 @@ def m_student(request):
         # 将格式字符串转换为时间戳
         times = time.mktime(time.strptime(times, "%a %b %d %H:%M:%S %Y"))
         location_time = (times + 300.0)
-        obj_form = Student_to_teacher()
+        # location_time = 1537856766.0
         account = request.session["account"]
         role = request.session.get("role", None)
-        sid = WebStudent.objects.filter(s_account=account).values("s_id")
-        sid_id = str(WebStudent.objects.filter(s_account=account).values_list("s_id")[0][0])
+        sid = WebStudent.objects.filter(s_account=account).values("s_id").first()
         stu_obj = WebStudent.objects.filter(s_account=account).first()
-        course_list = WebCourse.objects.filter(webdetail__webgrant__g_sid_id=sid).values().distinct()
-        detail_list = WebDetail.objects.filter(webgrant__g_sid=sid).values().distinct()
-        grent_list = WebGrant.objects.filter(g_sid=sid).values().distinct()
-        evaluate_list = WebEvaluate.objects.filter(e_did__webevaluate__e_sid=sid).values().distinct()
-        teacher_list = WebTeacher.objects.filter(webgrant__g_sid=sid).values().distinct()
+        sid_id = sid['s_id']
+        detail_list = WebDetail.objects.filter(webgrant__g_sid=sid_id).values().distinct()
+        detail_evaluate = WebDetail.objects.filter(webgrant__g_sid=sid_id, webgrant__g_record='1').values()
+        course_list = WebCourse.objects.filter(webdetail__webgrant__g_sid_id=sid_id).values().distinct()
+        evaluate_list = WebEvaluate.objects.filter(e_gid__g_sid_id=sid_id).values().distinct()
+        teacher_list = WebTeacher.objects.filter(webgrant__g_sid=sid_id).values().distinct()
+        grent_list = WebGrant.objects.filter(g_sid=sid_id).values().distinct()
+        # grent_url = WebGrant.objects.filter(g_sid=sid_id).values_list('g_url')[0][0]
+
+        # 评价
+        informations = []
+        for detail in detail_list:
+            infor = {}
+            d_id = detail['d_id']
+            d_name = detail['d_name']
+            infor['d_id'] = d_id
+            infor['d_name'] = d_name
+            infor['s_id'] = sid_id
+            teacher_id = WebTeacher.objects.filter(webgrant__g_sid=sid_id, webgrant__g_did=d_id).values().distinct()
+            for teacher in teacher_id:
+                t_id = teacher['t_id']
+                t_name = teacher['t_name']
+                infor['t_id'] = t_id
+                infor['t_name'] = t_name
+            informations.append(infor)
+
+        # 我的课程计划
+        course_infor = []
+        for grent_urls in grent_list:
+            gr = {}
+            grent_ur = grent_urls['g_url']
+            grent_time = grent_urls['g_time']
+            grent_sid = grent_urls['g_sid_id']
+            grent_did = grent_urls['g_did_id']
+            grent_tid = grent_urls['g_tid_id']
+            grent_record = grent_urls['g_record']
+            gr['url'] = grent_ur
+            gr['grent_time'] = grent_time
+            gr['grent_sid'] = grent_sid
+            gr['grent_record'] = grent_record
+            teacher_lists = WebTeacher.objects.filter(webgrant__g_sid=sid_id,
+                                                      webgrant__g_tid=grent_tid).values().distinct()
+            for teacher in teacher_lists:
+                t_id = teacher['t_id']
+                t_name = teacher['t_name']
+                gr['t_id'] = t_id
+                gr['t_name'] = t_name
+            detail_lists = WebDetail.objects.filter(webgrant__g_sid=sid_id,
+                                                    webgrant__g_did=grent_did).values().distinct()
+            for detail in detail_lists:
+                d_id = detail['d_id']
+                d_name = detail['d_name']
+                gr['d_id'] = d_id
+                gr['d_name'] = d_name
+
+            course_infor.append(gr)
+
+        grent_join_url = []
+        for i in course_infor:
+            join_url = {}
+
+            grent_time = i['grent_time']
+            grent_sid = i['grent_sid']
+            grent_record = i['grent_record']
+            grent_t_name = i['t_name']
+            grent_d_name = i['d_name']
+
+            join_url['grent_time'] = grent_time
+            join_url['grent_sid'] = grent_sid
+            join_url['grent_record'] = grent_record
+            join_url['grent_d_name'] = grent_d_name
+            join_url['grent_t_name'] = grent_t_name
+            if eval(i['url'])['error']:
+                join_url['grent_j_url'] = 'error'
+            else:
+                grent_j_url = eval(i['url'])['join_url']
+                join_url['grent_j_url'] = grent_j_url
+            grent_join_url.append(join_url)
+
+
         return render(
-            request,'m_student.html',
+            request, 'm_student.html',
             {
-                'course_list':course_list,
-                'detail_list':detail_list,
-                'grent_list':grent_list,
-                'evaluate_list':evaluate_list,
-                'teacher_list':teacher_list,
-                "stu_obj":stu_obj,
-                "role":role,
-                "sid_id":sid_id,
-                "obj_form": obj_form,
-                'location_time':location_time
+                'course_list': course_list,
+                'detail_list': detail_list,
+                'grent_list': grent_list,
+                'evaluate_list': evaluate_list,
+                'detail_evaluate': detail_evaluate,
+                'teacher_list': teacher_list,
+                "stu_obj": stu_obj,
+                "role": role,
+                "sid_id": sid_id,
+                'location_time': location_time,
+                'grent_join_url': grent_join_url,
+                'informations': informations,
+
             }
         )
 
     else:
-        obj_form = Student_to_teacher(request.POST)
-        sid = request.POST.get('g_sid_id')
-        # print(sid)
-        # account = request.session["account"]
-        tid = WebGrant.objects.filter(g_sid_id=sid).values_list("g_tid_id")[0][0]
-        did = WebGrant.objects.filter(g_sid_id=sid).values_list("g_did_id")[0][0]
-        # print( tid, did)
-        # print("-" * 120)
-        tea_obj = WebTeacher.objects.filter(t_id=tid).first()
-        stu_obj = WebStudent.objects.filter(s_id=sid).first()
-        det_obj = WebDetail.objects.filter(d_id=did).first()
+        show_inf = {'status': True, 'inf': None}
 
-        # print("-" * 120 )
-        # print()
-        if obj_form.is_valid():
-            # 用户提交的数据
-            # print('验证成功：', obj_form.cleaned_data)
-            obj_form.cleaned_data["e_sid"] = stu_obj
-            obj_form.cleaned_data["e_tid"] = tea_obj
-            obj_form.cleaned_data["e_did"] = det_obj
-            obj_form.cleaned_data["e_create_time"] = int(obj_form.cleaned_data["e_create_time"])
-            # print("-" * 120)
-            # print(obj_form)
-            WebEvaluate.objects.create(**obj_form.cleaned_data)
+        try:
 
-            return HttpResponse('评价成功')
-        else:
-            # print('验证失败：', obj_form.errors)
-            return render(request, 'm_student.html', {'obj_form': obj_form})
+            e_stot_evaluate = request.POST.get('e_stot_evaluate')
+            e_stot_score = request.POST.get('e_stot_score')
+
+            # 创建e_gid_id
+            e_sid_id = request.POST.get('e_sid_id')
+            e_tid_id = request.POST.get('e_tid_id')
+            e_did_id = request.POST.get('e_did_id')
+            e_gid = WebGrant.objects.filter(g_tid=e_tid_id, g_sid=e_sid_id, g_did=e_did_id, ).values("g_id").first()
+            e_gid_id = e_gid['g_id']
+
+            import uuid
+            s_uuid = str(uuid.uuid1())
+            l_uuid = s_uuid.split('-')
+            e_id = ''.join(l_uuid)
+            # 创建时间
+            times = time.ctime()
+            e_create_time = time.mktime(time.strptime(times, "%a %b %d %H:%M:%S %Y"))
+            if e_gid_id != '':
+                evaluate_count = WebEvaluate.objects.filter(e_gid_id=e_gid_id).count()
+                evaluate_t = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_ttos_score')
+                if evaluate_count == 0:
+                    show_inf['inf'] = '评价成功，谢谢！'
+                    WebEvaluate.objects.create(
+                        e_id=e_id,
+                        e_stot_evaluate=e_stot_evaluate,
+                        e_stot_score=e_stot_score,
+                        e_create_time=e_create_time,
+                        e_gid_id=e_gid_id
+                    )
+                elif evaluate_count != 0 and evaluate_t != None:
+                    show_inf['inf'] = '评价老师成功，谢谢！'
+                    WebEvaluate.objects.update(
+                        e_id=e_id,
+                        e_stot_evaluate=e_stot_evaluate,
+                        e_stot_score=e_stot_score,
+                        e_create_time=e_create_time,
+                        e_gid_id=e_gid_id
+                    )
+                else:
+                    show_inf['inf'] = '您已经评价过该老师，无需重复评价，谢谢'
+        except Exception as e:
+            show_inf['status'] = False
+            show_inf['inf'] = '对不起，您的评价出现了错误，请确定老师和课程是否匹配，请重新评价，谢谢！'
+
+        res = json.dumps(show_inf)
+        return HttpResponse(res)
 import time
 def editdetail(request):
     show_inf = {'status': True, 'inf': None}
@@ -540,7 +736,7 @@ def editdetail(request):
         # d_number = request.POST.get('d_number')
         # d_time_length = request.POST.get('d_time_length')
         g_time = request.POST.get('data')
-        print(g_time)
+        # print(g_time)
         timeArray = time.strptime(g_time, "%Y-%m-%dT%H:%M")
         timeStamp = int(time.mktime(timeArray))
         # print(timeStamp)
@@ -575,29 +771,56 @@ def m_evaluate(request):
     """
     account = request.session["account"]
     role = request.session.get("role", None)
-    # sid = WebStudent.objects.filter(s_account=account).values("s_id")
     stu_obj = WebStudent.objects.filter(s_account=account).first()
-    # evaluate_list = WebEvaluate.objects.filter(e_sid_id=sid).values().distinct()
-    # teacher_name = WebTeacher.objects.filter(webgrant__g_sid_id=sid).values_list('t_name').first()
-    # detail_name = WebDetail.objects.filter(webgrant__g_sid_id=sid).values_list('d_name').first()
 
     sid_id = request.GET.get('sid')
-    # print(sid_id)
-    evaluate_list = WebEvaluate.objects.filter(e_sid_id=sid_id).values().distinct()
-    teacher_name = WebTeacher.objects.filter(webevaluate__e_sid_id=sid_id).values().distinct()
-    detail_name = WebDetail.objects.filter(webevaluate__e_sid_id=sid_id).values().distinct()
+    evaluate_list = WebEvaluate.objects.filter(e_gid__g_sid_id=sid_id).values().distinct()
 
-    return render(
-        request,
-        'm_evaluate.html',
-        {
-            'evaluate_list':evaluate_list,
-            'detail_name':detail_name,
-            'teacher_name':teacher_name,
-            "role": role,
-            "stu_obj": stu_obj,
+    evaluate_count = WebEvaluate.objects.filter(e_gid__g_sid_id=sid_id).count()
 
-        })
+    if evaluate_count != 0:
+        evaluate_gid = WebEvaluate.objects.filter(e_gid__g_sid_id=sid_id).values()
+        eve_list = []
+        for evaluate in evaluate_gid:
+            eve = {}
+            e_gid_id = evaluate['e_gid_id']
+            e_ttos_evaluate = evaluate['e_ttos_evaluate']
+            e_stot_evaluate = evaluate['e_stot_evaluate']
+            e_ttos_score = evaluate['e_ttos_score']
+            e_stot_score = evaluate['e_stot_score']
+            e_remark = evaluate['e_remark']
+            e_create_time = evaluate['e_create_time']
+            eve = {
+                'e_gid_id': e_gid_id,
+                'e_ttos_evaluate': e_ttos_evaluate,
+                'e_stot_evaluate': e_stot_evaluate,
+                'e_ttos_score': e_ttos_score,
+                'e_stot_score': e_stot_score,
+                'e_remark': e_remark,
+            }
+            teacher_name = WebTeacher.objects.filter(webgrant__g_id=e_gid_id).values().distinct()
+            for teacher in teacher_name:
+                t_name = teacher['t_name']
+                t_id = teacher['t_id']
+                eve['t_name'] = t_name
+                detail_name = WebDetail.objects.filter(webgrant__g_id=e_gid_id,
+                                                       webgrant__g_tid=t_id).values().distinct()
+                for detail in detail_name:
+                    d_name = detail['d_name']
+                    eve['d_name'] = d_name
+                eve_list.append(eve)
+
+        # print(eve_list)
+
+        return render(
+            request,
+            'm_evaluate.html',
+            {
+                'eve_list': eve_list
+
+            })
+    else:
+        return redirect('/student/')
 
 import json
 def m_teacher(request):
@@ -607,59 +830,134 @@ def m_teacher(request):
     :param request:
     :return:
     """
-    account = request.session["account"]
-    role = request.session.get("role", None)
-    tea_obj = WebTeacher.objects.filter(t_account=account).first()
-    # print("-"* 120)
-    # print(tea_obj)
-    tid = WebTeacher.objects.filter(t_account=account).values("t_id")
-    course_list = WebCourse.objects.filter(webdetail__webgrant__g_tid=tid).values().distinct()
-    student_list = WebStudent.objects.filter(webgrant__g_tid=tid).values().distinct()
-    detail_list = WebDetail.objects.filter(webgrant__g_tid_id=tid).values().distinct()
-    grent_list = WebGrant.objects.filter(g_tid=tid).values('g_did_id', 'g_url', 'g_time').distinct()
+    if request.method == 'GET':
+        account = request.session["account"]
+        role = request.session.get("role", None)
+        tea_obj = WebTeacher.objects.filter(t_account=account).first()
+        tid = str(WebTeacher.objects.filter(t_account=account).values_list("t_id")[0][0])
+        course_list = WebCourse.objects.filter(webdetail__webgrant__g_tid=tid).values().distinct()
+        student_list = WebStudent.objects.filter(webgrant__g_tid=tid).values().distinct()
+        detail_list = WebDetail.objects.filter(webgrant__g_tid_id=tid).values().distinct()
+        grent_list = WebGrant.objects.filter(g_tid=tid).values('g_sid_id', 'g_did_id', 'g_url', 'g_time').distinct()
 
-    # print(grent_list)
+        informations = []
+        for detail in detail_list:
+            infor = {}
+            d_id = detail['d_id']
+            d_name = detail['d_name']
+            infor['d_id'] = d_id
+            infor['d_name'] = d_name
+            infor['t_id'] = tid
+            student_id = WebStudent.objects.filter(webgrant__g_tid=tid, webgrant__g_did=d_id).values().distinct()
+            for student in student_id:
+                s_id = student['s_id']
+                s_name = student['s_name']
+                infor['s_id'] = s_id
+                infor['s_name'] = s_name
+            informations.append(infor)
 
+        return render(request, 'm_teacher.html',
+                      {
+                          'course_list': course_list,
+                          'student_list': student_list,
+                          'detail_list': detail_list,
+                          'grent_list': grent_list,
+                          'informations': informations,
+                          "role": role,
+                          "tea_obj": tea_obj,
+                          'tid': tid,
 
-    return render(request,'m_teacher.html',
-                  {
-                      'course_list':course_list,
-                      'student_list':student_list,
-                      'detail_list':detail_list,
-                      'grent_list':grent_list,
-                      "role": role,
-                      "tea_obj":tea_obj,
+                      })
+    else:
+        show_inf = {'status': True, 'inf': None}
 
-                  })
+        try:
+            e_ttos_evaluate = request.POST.get('e_ttos_evaluate')
+            e_ttos_score = request.POST.get('e_ttos_score')
 
+            # 创建e_gid_id
+            e_sid_id = request.POST.get('e_sid_id')
+            e_tid_id = request.POST.get('e_tid_id')
+            e_did_id = request.POST.get('e_did_id')
+            e_gid_id = str(
+                WebGrant.objects.filter(g_tid=e_tid_id, g_sid=e_sid_id, g_did=e_did_id, ).values_list("g_id")[0][0])
+
+            # 创建评价id
+            import uuid
+            s_uuid = str(uuid.uuid1())
+            l_uuid = s_uuid.split('-')
+            e_id_id = ''.join(l_uuid)
+            # 创建时间
+            times = time.ctime()
+            e_create_time = time.mktime(time.strptime(times, "%a %b %d %H:%M:%S %Y"))
+            if e_gid_id != '':
+                evaluate_count = WebEvaluate.objects.filter(e_gid_id=e_gid_id).count()
+                evaluate_t = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_stot_score')
+
+                if evaluate_count == 0:
+                    show_inf['inf'] = '评价成功，谢谢！'
+                    # WebEvaluate.objects.create(
+                    #     e_id=e_id_id,
+                    #     e_ttos_evaluate=e_ttos_evaluate,
+                    #     e_ttos_score=e_ttos_score,
+                    #     e_create_time=e_create_time,
+                    #     e_gid_id=e_gid_id
+                    # )
+                elif evaluate_count != 0 and evaluate_t != None:
+                    show_inf['inf'] = '评价学生成功，谢谢！'
+                    # WebEvaluate.objects.filter(e_gid_id=e_gid_id).update(
+                    #
+                    #     e_ttos_evaluate=e_ttos_evaluate,
+                    #     e_ttos_score=e_ttos_score,
+                    #     e_create_time=e_create_time,
+                    #     # e_gid_id=e_gid_id
+                    # )
+                else:
+                    show_inf['inf'] = '您已经评价过该老师，无需重复评价，谢谢'
+        except Exception as e:
+            show_inf['status'] = False
+            show_inf['inf'] = '对不起，您的评价出现了错误，请确定老师和课程是否匹配，请重新评价，谢谢！'
+
+        res = json.dumps(show_inf)
+        return HttpResponse(res)
 
 #吴家贵
 # 通知
-from django.db.models import F, Q
 import time
 def notice(request):
     # 后台读取当前登录用户的相关信息并返回给前台显示
     account = request.session.get("account", None)
     role = request.session.get("role", None)
-    stu_obj = WebStudent.objects.filter(s_account=account).first()
-    tea_obj = WebTeacher.objects.filter(t_account=account).first()
-    s_id = WebStudent.objects.filter(s_account=account).values("s_id")
-    s_name = WebStudent.objects.filter(s_account=account).values("s_name")
-    g_record = WebGrant.objects.filter(g_sid_id=s_id).values("g_record")
-    # print(g_record)
-    ret = []
-    for i in g_record:
-        record = i["g_record"]
-        ret1 = WebGrant.objects.filter(Q(g_sid__s_name=s_name) & Q(g_record=record)).values_list("g_record",
-                                                                                                 "g_sid__s_name",
-                                                                                       "g_did__d_name", "g_time")
-        ret.append(ret1)
-    # print(ret)
-    #
-    # for i in ret:
-    #     # print(i)
-    #     for j in i:
-    #         print(j)
+    if role == "student":
+        stu_obj = WebStudent.objects.filter(s_account=account).first()
+        s_id = WebStudent.objects.filter(s_account=account).values("s_id")
+        s_log_obj = WebLogsheet.objects.filter(l_sid=s_id).values()
+        all_s_log_obj = WebLogsheet.objects.filter(l_sid="all_student").values()
+        if s_log_obj:
+            l_state_obj = WebLogsheet.objects.filter(l_sid=s_id).first()
+            l_state = l_state_obj.l_state
+            # print(type(l_state), l_state)
+            # if l_state == "0":
+            #     print("hahhaha")
+            if l_state == "0" or l_state == "2":
+                s_log_state = WebLogsheet.objects.filter(l_sid=s_id).update(l_state=2)
+            else:
+                s_log_state = WebLogsheet.objects.filter(l_sid=s_id).update(l_state=3)
+
+    if role == "teacher":
+        tea_obj = WebTeacher.objects.filter(t_account=account).first()
+        t_id = WebTeacher.objects.filter(t_account=account).values("t_id")
+        t_log_obj = WebLogsheet.objects.filter(l_sid=t_id).values()
+        all_t_log_obj = WebLogsheet.objects.filter(l_sid="all_teacher").values()
+        if t_log_obj:
+            l_state_obj = WebLogsheet.objects.filter(l_sid=t_id).first()
+            l_state = l_state_obj.l_state
+            # print(type(l_state), l_state)
+            if l_state == "0" or l_state == "1":
+                s_log_state = WebLogsheet.objects.filter(l_sid=t_id).update(l_state=1)
+            else:
+                s_log_state = WebLogsheet.objects.filter(l_sid=t_id).update(l_state=3)
+
     return render(request, "notice.html", locals())
 
 
@@ -694,19 +992,58 @@ def test(request):
 def article_detail(request, id):
     if request.method == "POST":
         keyword = request.POST.get("keyword")
-
         article_sea = TArticles.objects.filter()
     article_list = TArticles.objects.all().order_by("-t_createtime")
-    print(article_list)
+    # print(article_list)
     article_obj = TArticles.objects.filter(s_id=id).first()
     return render(request, 'article_detail.html', locals())
 
 
 # 文章列表
 def article_list(request):
+
     return render(request, 'article_list.html')
 
 #测试
 # def test2(request):
 #
 #     return render(request, 'test2_html.html')
+
+
+# 忘记密码
+def change_pwd(request):
+    ret = {}
+    if request.method == "POST":
+        account = request.POST.get("account")
+        pwd = request.POST.get("pwd")
+        flag = WebStudent.objects.filter(s_account=account).update(s_password=pwd)
+        stu_obj = WebStudent.objects.filter(s_account=account).first()
+        if flag:
+            l_id = create_uuid()
+            ip = get_ip()
+            create_time = int(time.time())
+            action = "忘记密码，修改密码成功"
+            WebLogsheet.objects.create(l_id=l_id, l_action=action, l_user_id=stu_obj.s_name, l_create_time=create_time,
+                                       l_state=0, l_ip=ip)
+            # print(account, pwd)
+            ret["status"] = 1
+            ret["href"] = '/index/'
+    return JsonResponse(ret)
+
+# 显示教师详情
+# def t_info_detail(request):
+#     if request.method == "POST":
+#         t_account = request.POST.get("t_account")
+#         tea_detail_obj = WebTeacher.objects.filter(t_account=t_account).first()
+#         ret = {}
+#         ret["t_name"] = tea_detail_obj.t_name
+#         ret["t_account"] = tea_detail_obj.t_account
+#         ret["t_age"] = tea_detail_obj.t_age
+#         ret["t_sex"] = tea_detail_obj.t_sex
+#         ret["t_state"] = tea_detail_obj.t_state
+#         ret["t_create_time"] = tea_detail_obj.t_create_time
+#         ret["t_degree"] = tea_detail_obj.t_degree
+#         ret["t_detail"] = tea_detail_obj.t_detail
+#         ret["t_hera_img"] = tea_detail_obj.t_hera_img
+#         ret["t_remark"] = tea_detail_obj.t_remark
+#     return JsonResponse(ret)
