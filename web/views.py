@@ -37,9 +37,12 @@ def index(request):
     # else:
     #     pass
     # print(article_list[0],article_list[1],article_list[2])
-    article_list2.append(article_list[0])
-    article_list2.append(article_list[1])
-    article_list2.append(article_list[2])
+    if len(article_list) > 3:
+        article_list2.append(article_list[0])
+        article_list2.append(article_list[1])
+        article_list2.append(article_list[2])
+    else:
+        article_list2 = article_list
     # for i in range(3):
 
     loginForm = LoginForm()
@@ -80,6 +83,14 @@ def Teachers_lineup(request):
             tea_obj = WebTeacher.objects.filter(t_account=account).first()
 
     tea_list = WebTeacher.objects.all()
+    tea_list2 = []
+    print(len(tea_list))
+    if len(tea_list) > 3:
+        tea_list2.append(tea_list[0])
+        tea_list2.append(tea_list[1])
+        tea_list2.append(tea_list[2])
+    else:
+        tea_list2 = tea_list
     return render(request, 'Teachers_lineup.html', locals())
 
 
