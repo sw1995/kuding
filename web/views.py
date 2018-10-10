@@ -850,7 +850,10 @@ def m_evaluate(request):
 
             })
     else:
-        return redirect('/student/')
+        return render(
+            request,
+            'm_evaluate.html',
+        )
 
 
 def m_evaluatestudent(request):
@@ -910,7 +913,10 @@ def m_evaluatestudent(request):
 
             })
     else:
-        return redirect('/teacher/')
+        return render(
+            request,
+            'm_evaluatestudent.html',
+        )
 
 import json
 def m_teacher(request):

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/static/css/m_student.css">
     <style>
         .sut {
-            width: 225px;
+            width: 223px;
         }
 
         .su {
@@ -134,9 +134,7 @@
                             <td na="d_name" class=" kb">{{ d.d_name }}</td>
                             <td na="d_number" class=" kb">{{ d.d_number }}</td>
                             <td na="d_time_length" class=" kb">{{ d.d_time_length }}</td>
-
                             <td na="d_create_time" class=" kb">{{ g.g_time|strd_time }}</td>
-
                             <td na="d_cid_id" class=" kb" style="display: none">{{ d.d_cid_id }}</td>
                             <td na="d_detail" class="wth">{{ d.d_detail }}</td>
                             <td na="d_remark" class="wth">{{ d.d_remark }}</td>
@@ -306,7 +304,7 @@
                                 {% else %}
                                     <a href="#" class="noevaluate fa fa-ban" style="color: red"></a>&nbsp;&nbsp;|&nbsp;
                                     &nbsp;
-                                    <a href="/evaluatestudent?tid={{ row.grent_tid }}" class="fa fa-search-plus"></a>
+                                    <a href="#" class="noclick fa fa-search-plus" style="color: red"></a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -435,6 +433,9 @@
         function bindEvaluatestudent() {
             $('.noevaluate').click(function () {
                 alert('课程还未上完或已取消，暂不可评价')
+            });
+            $('.noclick').click(function () {
+                alert('无法查看评价！')
             });
             $('.td').on('click', '.evaluate', function () {
                 $('#EvaluateStudent').modal('show');

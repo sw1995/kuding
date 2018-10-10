@@ -23,7 +23,7 @@
         }
 
         .su {
-            width: 237px;
+            width: 236px;
             border: 1px solid rgb(223, 240, 216);
         }
 
@@ -38,7 +38,7 @@
         }
 
         .sus {
-            width: 185px;
+            width: 198.5px;
             border: 1px solid rgb(223, 240, 216);
         }
 
@@ -195,7 +195,7 @@
                                 {% else %}
                                     <a href="#" class="noevaluate fa fa-ban" style="color: red"></a>&nbsp;&nbsp;|&nbsp;
                                     &nbsp;
-                                    <a href="/evaluate?sid={{ row.grent_sid }}" class="fa fa-search-plus"></a>
+                                    <a href="#" class="noclick fa fa-search-plus" style="color: red"></a>
                                 {% endif %}
                             </td>
                         </tr>
@@ -328,8 +328,8 @@
                         <td class="success sus">课程名称</td>
                         <td class="success sus">课程章节</td>
                         <td class="success sus">课程时长</td>
-                        <td class="success wth">简介</td>
-                        <td class="success wth">课堂反馈</td>
+                        <td class="success sus wth">简介</td>
+                        <td class="success sus wth">课堂反馈</td>
                     </tr>
                     </thead>
                     <tbody>
@@ -341,11 +341,11 @@
                                     {% if row.d_id == e.e_did_id %}
                                         {% if e.e_ttos_evaluate == null %}
                                             <tr>
-                                                <td class="">{{ row.d_name }}</td>
-                                                <td class="">{{ row.d_number }}</td>
-                                                <td class="">{{ row.d_time_length }}</td>
-                                                <td class="wth">{{ row.d_remark }}</td>
-                                                <td class="wth">{{ e.e_stot_evaluate }}</td>
+                                                <td class="sus ">{{ row.d_name }}</td>
+                                                <td class="sus ">{{ row.d_number }}</td>
+                                                <td class="sus ">{{ row.d_time_length }}</td>
+                                                <td class="sus wth">{{ row.d_remark }}</td>
+                                                <td class="sus wth">{{ e.e_stot_evaluate }}</td>
                                             </tr>
                                         {% endif %}
                                     {% endif %}
@@ -485,6 +485,9 @@
         function bindEvaluateteacher() {
             $('.noevaluate').click(function () {
                 alert('课程还未上完或已取消，暂不可评价')
+            });
+            $('.noclick').click(function () {
+                alert('无法查看评价！')
             });
             $('.td').on('click', '.evaluate', function () {
                 $('#EvaluateTeacher').modal('show');
