@@ -6,109 +6,25 @@
 
 {% block css %}
     <link rel="stylesheet" href="/static/css/kuding.css">
+    <link rel="stylesheet" href="/static/css/notice.css">
 {% endblock %}
 
 {% block content %}
 
-
     {% if role == "student" %}
-        <div class="container-fluid" style="background-color: #eef3fa;">
-            <div class="row">
-                <div class="col-md-2 col-xs-2" style="padding-left: 0;padding-right: 0;width: 20%">
-                    <div class="bord"
-                         style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px;background-color: #ffffff">
-                        <ul style="padding-left: 0">
-                            <li class="li_notice" style="background-color: #e3f4fb;;list-style-type: none">系统通知</li>
-                        </ul>
-                        <ul style="list-style: none">
-                            {% if all_t_log_obj %}
+
+        <div class="content">
+            <div class="left_menu_notice">
+                <ul class="ul_all_notice">
+                    <li class="li_all_notice">全体通知</li>
+                </ul>
+                <ul class="sc_notice">
+                    {% if all_s_log_obj %}
                                 {% for all_s_log in all_s_log_obj %}
-                                    <p>
-                                    <li>{{ all_s_log.l_action }}</li>
-                                    </p>
-                                {% endfor %}
-                            {% else %}
-                                <p>
-                                <li>暂无全体通知</li>
-                                </p>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-8 col-xs-2" style="padding-left: 0;padding-right: 0;width: 60%">
-                    <div class="bord"
-                         style="background: #ffffff;box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 20px;padding-left: 0;padding-right: 0;height: 680px">
-                        <div style="padding-right: 40px;padding-top: 40px">
-                            <ul class="sc">
-                                {% if s_log_obj %}
-                                    {% for s_log in s_log_obj %}
-                                        <li style="list-style-type: none;">
-                                            <div class="main">
-                                                {% load str_time %}
-                                                <div class="time"> {{ s_log.l_create_time | strf_time }}</div>
-                                                <div class="ico">
-                                                    <i class="fa fa-lg fa-hand-o-right"
-                                                       style="color: #2aabd2"
-                                                       aria-hidden="true">
-                                                    </i>
-                                                </div>
-                                            </div>
-                                            <div class="msg">
-                                                <div class="hidden">{{ s_log.l_action }}</div>
-                                            </div>
-                                        </li>
-                                    {% endfor %}
-                                {% else %}
-                                    <p>
-                                    <li>暂无数据</li>
-                                    </p>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% endif %}
-
-
-
-
-
-    {% if role == "teacher" %}
-        <div class="container-fluid" style="background-color: #eef3fa;">
-        <div class="row">
-            <div class="col-md-2 col-xs-2" style="padding-left: 0;padding-right: 0;width: 20%">
-                <div class="bord"
-                     style="box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 15px;padding-left: 0;padding-right: 0;height: 680px;background-color: #ffffff">
-                    <ul style="padding-left: 0">
-                        <li class="li_notice" style="background-color: #e3f4fb;;list-style-type: none">系统通知</li>
-                    </ul>
-                    {% if all_t_log_obj %}
-                        {% for all_t_log in all_s_log_obj %}
-
-                            <p>
-                            <li>{{ all_t_log.l_action }}</li>
-                            </p>
-                        {% endfor %}
-                    {% else %}
-                        <p>
-                        <li>暂无全体通知</li>
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
-            <div class="col-md-8 col-xs-2" style="padding-left: 0;padding-right: 0;width: 60%">
-                <div class="bord"
-                     style="background: #ffffff;box-shadow: 0 0 30px 8px rgba(222,239,252,.9);margin: 20px;padding-left: 0;padding-right: 0;height: 680px">
-                    <div style="padding-right: 40px;padding-top: 40px">
-                        <ul class="sc">
-                            {% if t_log_obj %}
-                                {% for t_log in t_log_obj %}
                                     <li style="list-style-type: none;">
                                         <div class="main">
                                             {% load str_time %}
-                                            <div class="time"> {{ t_log.l_create_time | strf_time }}</div>
+                                            <div class="time"> {{ all_s_log.l_create_time | strf_time }}</div>
                                             <div class="ico">
                                                 <i class="fa fa-lg fa-hand-o-right"
                                                    style="color: #2aabd2"
@@ -117,16 +33,102 @@
                                             </div>
                                         </div>
                                         <div class="msg">
-                                            <div class="hidden">{{ t_log.l_action }}</div>
+                                            <div class="hidden">{{ all_s_log.l_action }}</div>
                                         </div>
                                     </li>
                                 {% endfor %}
                             {% else %}
-                                <div>暂无数据</div>
+                        <div class="notice_none">暂无全体通知</div>
                             {% endif %}
-                        </ul>
-                    </div>
-                </div>
+                </ul>
+
+                <ul class="ul_all_notice">
+                    <li class="li_all_notice">个人通知</li>
+                </ul>
+                <ul class="sc">
+                    {% if s_log_obj %}
+                        {% for s_log in s_log_obj %}
+                            <li style="list-style-type: none;">
+                                <div class="main">
+                                    {% load str_time %}
+                                    <div class="time"> {{ s_log.l_create_time | strf_time }}</div>
+                                    <div class="ico">
+                                        <i class="fa fa-lg fa-hand-o-right"
+                                           style="color: #2aabd2"
+                                           aria-hidden="true">
+                                        </i>
+                                    </div>
+                                </div>
+                                <div class="msg">
+                                    <div class="hidden">{{ s_log.l_action }}</div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <div class="notice_none">暂无数据</div>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% if role == "teacher" %}
+        <div class="content">
+            <div class="left_menu_notice">
+                <ul class="ul_all_notice">
+                    <li class="li_all_notice">全体通知</li>
+                </ul>
+                <ul class="sc_notice">
+                    {% if all_t_log_obj %}
+                        {% for all_t_log in all_t_log_obj %}
+                            <li style="list-style-type: none;">
+                                <div class="main">
+                                    {% load str_time %}
+                                    <div class="time"> {{ all_t_log.l_create_time | strf_time }}</div>
+                                    <div class="ico">
+                                        <i class="fa fa-lg fa-hand-o-right"
+                                           style="color: #2aabd2"
+                                           aria-hidden="true">
+                                        </i>
+                                    </div>
+                                </div>
+                                <div class="msg">
+                                    <div class="hidden">{{ all_t_log.l_action }}</div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <div class="notice_none">暂无全体通知</div>
+                    {% endif %}
+                </ul>
+
+                <ul class="ul_all_notice">
+                    <li class="li_all_notice">个人通知</li>
+                </ul>
+                <ul class="sc">
+                    {% if t_log_obj %}
+                        {% for t_log in t_log_obj %}
+                            <li style="list-style-type: none;">
+                                <div class="main">
+                                    {% load str_time %}
+                                    <div class="time"> {{ t_log.l_create_time | strf_time }}</div>
+                                    <div class="ico">
+                                        <i class="fa fa-lg fa-hand-o-right"
+                                           style="color: #2aabd2"
+                                           aria-hidden="true">
+                                        </i>
+                                    </div>
+                                </div>
+                                <div class="msg">
+                                    <div class="hidden">{{ t_log.l_action }}</div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <div class="notice_none">暂无数据</div>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     {% endif %}

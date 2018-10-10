@@ -177,15 +177,19 @@
                          <p style="color: black;">个人中心</p>
                      </a>
                  </li>
-                 <li {% if request.path == "/man/" %}class="action"{% endif %}>
-                     <a href="">
+                 <li {% if request.path == "/notice/" %}class="action"{% endif %}>
+                     <a href="/notice/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
-                                  <use xlink:href="#icon-shoucang"></use>
+                             <use xlink:href="#icon-zixun"></use>
                             </svg>
+                             {% if t_l_state == "0" or t_l_state == "2" %}
+                                 <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i>
+                             {% endif %}
                          </p>
-                         <p style="color: black;">试题管理</p>
+                         <p style="color: black;">通知中心</p>
                      </a>
                  </li>
+
                  <li {% if request.path == "/test/" %}class="action"{% endif %}>
                      <a href="/test/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">

@@ -148,3 +148,20 @@
 # })
 #
 # });
+
+# <li {% if request.path == "/man/" %}class="action"{% endif %}>
+#                      <a href="">
+#                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
+#                                   <use xlink:href="#icon-shoucang"></use>
+#                             </svg>
+#                          </p>
+#                          <p style="color: black;">试题管理</p>
+#                      </a>
+#                  </li>
+
+
+# {% for s_l_state in s_l_state_obj %}
+#                             {% if l_state.s_state == "0" or s_l_state == "1" %}
+#                                 <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i>
+#                             {% endif %}
+#                          {% endfor %}

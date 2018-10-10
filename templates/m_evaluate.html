@@ -33,7 +33,11 @@
                             </td>
                             <td class="su ">{{ row.e_stot_score }}</td>
                             <td class="su  wth">{{ row.e_stot_evaluate }}</td>
-                            <td class="su  wth">{{ row.e_remark }}</td>
+                            {% if row.e_remark == None %}
+                                <td class="su  wth">暂无备注</td>
+                            {% else %}
+                                <td class="su  wth">{{ row.e_remark }}</td>
+                            {% endif %}
                         </tr>
                     {% endif %}
                 {% endfor %}
@@ -60,7 +64,11 @@
                             <td class="su">{{ row.t_name }}</td>
                             <td class="su">{{ row.e_ttos_score }}</td>
                             <td class="su wth">{{ row.e_ttos_evaluate }}</td>
-                            <td class="su wth">{{ row.e_remark }}</td>
+                            {% if row.e_remark == None %}
+                                <td class="su  wth">暂无备注</td>
+                            {% else %}
+                                <td class="su  wth">{{ row.e_remark }}</td>
+                            {% endif %}
                         </tr>
                     {% endif %}
                 {% endfor %}

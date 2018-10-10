@@ -11,6 +11,11 @@
         .sut {
             width: 225px;
         }
+
+        .su {
+            width: 150px;
+            border: 1px solid rgb(223, 240, 216);
+        }
     </style>
 {% endblock %}
 
@@ -43,10 +48,9 @@
                 <a href="#">发布测试</a>
             </div>
             <div class="m_menu">
-                <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
-                <a href="#">评价</a>
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;
+                <a href="#">评价学生</a>
             </div>
-
 
         </div>
         <div class="content">
@@ -254,63 +258,157 @@
             <di class="m_7 m m_hide">
                 <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
             </di>
-            <div class="m_8 m m_hide">
-                <div class="form_box">
-                    <form action="/student/" method="POST" id="fm">
-                        {% csrf_token %}
-                        <div class="form-group m_hide">
-                            <label for="inpute_tid_id" class="col-sm-2 control-label ttes">老师姓名:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="e_tid_id" class="form-control tte" placeholder="老师姓名"
-                                       value="{{ tid }}">
-                            </div>
-                        </div>
+            <div class="m m_8 m_hide">
+                <table class="m_2_table table table-hover">
+                    <thead>
+                    <tr>
+                        <td class="success su">课程名称</td>
+                        <td class="success su" style="width: 100px;">学生姓名</td>
+                        <td class="success su" style="width: 100px;">上课时间</td>
+                        <td class="success su">课程链接</td>
+                        <td class="success su" style="width: 50px;">状态</td>
+                        <td class="success wth">操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="class_tbody" class="td">
+                    {% load str_time %}
+                    {% for row in grent_join_url %}
+                        <tr nid="{{ row.grent_tid }}">
+                            <td class=" su" na="grent_d_name">{{ row.grent_d_name }}</td>
+                            <td class=" su" na="grent_s_name">{{ row.grent_s_name }}</td>
 
-                        <div class="form-group">
-                            <label for="inpute_ttos_evaluate" class="col-sm-2 control-label ttes">老师对学生的评价:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="e_ttos_evaluate" class="form-control tte" id="e_ttos_evaluate"
-                                       placeholder="老师对学生的评价">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inpute_ttos_score" class="col-sm-2 control-label ttes">老师对学生的打分:</label>
-                            <div class="col-sm-10">
-                                <input type="text" name="e_ttos_score" class="form-control tte" id="e_ttos_score"
-                                       placeholder="老师对学生的打分">
-                            </div>
-                        </div>
+                            {% if  row.grent_time == location_time %}
+                                <td class=" su" na="grent_time">{{ row.grent_time }}</td>
+                                {% if  row.grent_j_url != 'error' %}
+                                    <td class=" su" na="grent_j_url"><a
+                                            href="http://{{ grent_join_urlstrd_time }}">点击上课</a></td>
+                                {% else %}
+                                    <td class=" su" na="grent_j_url">暂无连接</td>
+                                {% endif %}
+                            {% else %}
+                                <td class=" su" na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                <td class=" su" na="grent_j_url">暂无连接</td>
+                            {% endif %}
+                            {% if row.grent_record == '0' %}
+                                <td class=" su" na="grent_record">未上课</td>
+                            {% elif row.grent_record == '1' %}
+                                <td class=" su" na="grent_record">已完成</td>
+                            {% else %}
+                                <td class=" su" na="grent_record">已取消</td>
+                            {% endif %}
 
-                        <div class="form-group">
-                            <label for="inpute_sid" class="col-sm-2 control-label ttes">学生姓名:</label>
-                            <div class="col-sm-10">
-                                <select name="e_sid_id" class="form-control tte" id="steudent">
-                                    {% for infor in informations %}
-                                        <option value="{{ infor.s_id }}">{{ infor.s_name }}</option>
-                                    {% endfor %}
-                                </select>
-                                {#                                <input type="text" class="form-control te" id="e_tid" placeholder="老师姓名">#}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="inpute_ttos_score" class="col-sm-2 control-label ttes">课程名:</label>
-                            <div class="col-sm-10">
-                                <select name="e_did_id" class="form-control tte" id="detail">
-                                    {% for infor in informations %}
-                                        <option value="{{ infor.d_id }}">{{ infor.d_name }}</option>
-                                    {% endfor %}
-                                </select>
-                                {#                                <input type="text" class="form-control te" id="e_ttos_score" placeholder="课程名">#}
-                            </div>
-                        </div>
+                            <td class="">
+                                {% if row.grent_record == '1' %}
+                                    <a href="#" class="evaluate fa fa-comments" style="color: dodgerblue"></a>&nbsp;
+                                    &nbsp;|&nbsp;
+                                    &nbsp;
+                                    <a href="/evaluatestudent?tid={{ row.grent_tid }}" class="fa fa-search-plus"></a>
+                                {% else %}
+                                    <a href="#" class="noevaluate fa fa-ban" style="color: red"></a>&nbsp;&nbsp;|&nbsp;
+                                    &nbsp;
+                                    <a href="/evaluatestudent?tid={{ row.grent_tid }}" class="fa fa-search-plus"></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
 
-                        <p id="stu_error"></p>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <p class="tbtns btn btn-default">评价</p>
+                    </tbody>
+                </table>
+
+                <!-- 评价学生 -->
+                <div class="modal fade" id="EvaluateStudent" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                        aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">评价学生</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" id="tforms">
+                                    {% csrf_token %}
+                                    <div class="form-group m_hide">
+                                        <label for="inpute_tid_id" class="col-sm-2 control-label tes">老师姓名:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="e_tid_id" class="form-control te"
+                                                   placeholder="老师姓名"
+                                                   value="{{ tid }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group m_hide">
+                                        <label for="inputgrent_record"
+                                               class="col-sm-2 control-label tes">状态:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="grent_record" class="form-control te"
+                                                   id="e_stot_score"
+                                                   placeholder="状态">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group  m_hide">
+                                        <label for="inputgrent_j_url"
+                                               class="col-sm-2 control-label tes">课程链接:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="grent_j_url" class="form-control te"
+                                                   id="grent_j_url"
+                                                   placeholder="课程链接">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputgrent_time"
+                                               class="col-sm-2 control-label tes">上课时间:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="grent_time" class="form-control te"
+                                                   id="grent_time"
+                                                   placeholder="上课时间">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputgrent_s_name" class="col-sm-2 control-label tes">学生姓名:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control te" name="grent_s_name" id="e_sid"
+                                                   placeholder="学生姓名">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputgrent_d_name" class="col-sm-2 control-label tes">课程名:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control te" name="grent_d_name"
+                                                   id="e_ttos_score"
+                                                   placeholder="课程名">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inpute_ttos_evaluate"
+                                               class="col-sm-2 control-label tes">老师对学生的评价:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="e_ttos_evaluate" class="form-control te"
+                                                   id="e_ttos_evaluate"
+                                                   placeholder="老师对学生的评价">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inpute_ttos_score"
+                                               class="col-sm-2 control-label tes">老师对学生的打分:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="e_ttos_score" class="form-control te"
+                                                   id="e_ttos_score"
+                                                   placeholder="老师对学生的打分">
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary" id="evaluatestudent">保存</button>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -322,13 +420,71 @@
 
     <script>
         $(function () {
+            bindEvaluatestudent();
+            bindEvaluteConfirm();
             bindEvent();
             bindEvaluate();
             bindEdit();
             bindEditConfirm();
-            bindEval();
+
         });
 
+
+        {#评价#}
+
+        function bindEvaluatestudent() {
+            $('.noevaluate').click(function () {
+                alert('课程还未上完或已取消，暂不可评价')
+            });
+            $('.td').on('click', '.evaluate', function () {
+                $('#EvaluateStudent').modal('show');
+
+                $(this).parent().prevAll().each(function () {
+                    var v = $(this).text();
+                    var n = $(this).attr('na');
+                    $("#EvaluateStudent input[name='" + n + "']").val(v)
+
+                })
+            });
+
+        }
+
+        function bindEvaluteConfirm() {
+            $('#evaluatestudent').click(function () {
+                var portData = {};
+                $('#tforms').find('input').each(function () {
+                    var v = $(this).val();
+                    var n = $(this).attr('name');
+                    portData[n] = v;
+                });
+
+                console.log(portData);
+                $.ajax({
+                    url: '/teacher/',
+                    type: 'POST',
+                    dataType: 'JSON',
+                    data: portData,
+                    success: function (arg) {
+                        if (arg.status) {
+                            {#createRow(portData, arg.data);#}
+                            alert(arg.inf);
+                            window.location.reload();
+                            $('#myModal').modal('hide');
+
+                        }
+                        else {
+                            {#$('#class_error').text(arg.inf);#}
+                            alert(arg.inf);
+                        }
+                    }
+                })
+
+
+            })
+
+        }
+
+        {#评价结束#}
 
         function bindEvaluate() {
             $('.tbtns').click(function () {

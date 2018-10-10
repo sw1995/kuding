@@ -197,6 +197,8 @@
                             </li>
                             <li {% if request.path == "/contact/" %}class="active"{% endif %}><a
                                     href="/contact/">联系我们</a></li>
+                            <li {% if request.path == "#" %}class="active"{% endif %}><a
+                                    href="#">Scrach</a></li>
 
                             {% if account %}
                                 {% if role == "student" %}
@@ -383,7 +385,13 @@
     $("[name='get_code']").click(function () {
         var forget_account = $("[name='forget_account']").val();
         {#console.log(account);#}
-        $.ajax({
+        if (forget_account.length == 0) {
+            $("[name='forget_account']").next("span").html("手机号不能为空！");
+            setTimeout(function () {
+                $("[name='forget_account']").next("span").html("");
+            }, 3000);
+        } else {
+            $.ajax({
             url: '/get_code/',
             type: "post",
             data: {
@@ -416,6 +424,7 @@
                 }
             }
         })
+        }
     });
     //忘记密码 验证码失去焦点验证
     //验证码失去焦点时验证
@@ -424,7 +433,7 @@
         var account1 = $("[name='forget_account']").val();
         {#console.log(code1);#}
         {#console.log(account1);#}
-        console.log(code);
+        {#console.log(code);#}
         {#console.log(account);#}
 
         if (code1 == code && account1 == account) {

@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^logout/$',views.logout),
     url(r'^get_code/$', views.get_code),
     url(r'^change_pwd/$', views.change_pwd),
+    url(r'^build/$', views.build_index),
     # url(r'^t_info_detail/$',views.t_info_detail),
 
 
@@ -51,6 +52,7 @@ urlpatterns = [
     url(r'^student/$', views.m_student),
     url(r'^teacher/$', views.m_teacher),
     url(r'^evaluate/$', views.m_evaluate),
+    url(r'^evaluatestudent/$', views.m_evaluatestudent),
     url(r'^editdetail/$', views.editdetail),
 
 

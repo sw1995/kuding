@@ -65,6 +65,12 @@ a:hover {
     padding: 10px 0 10px 30px;
 }
 
+.all_notice {
+    /*background-color: #7AE9F3;*/
+    margin: 10px auto;
+    /*font-size: 16px;*/
+    overflow: auto;
+}
 /*通知图标样式*/
 .ico {
     float: right;

@@ -295,11 +295,11 @@ def verify_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        # mobile = '{}'.format(account)  # 短信接受者的手机号码
-        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+        appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+        mobile = '{}'.format(account)  # 短信接受者的手机号码
+        tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
+        tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
+        sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
         return JsonResponse(ret)
 
 
@@ -334,11 +334,11 @@ def get_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        # mobile = '{}'.format(account)  # 短信接受者的手机号码
-        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+        appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+        mobile = '{}'.format(account)  # 短信接受者的手机号码
+        tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
+        tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
+        sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
         return JsonResponse(ret)
 
 
@@ -401,6 +401,11 @@ def home(request):
             # for i in stu_info:
             #     print(i)
 
+            # 通知
+            # s_l_state_obj = WebLogsheet.objects.filter(l_sid=stu_obj.pk).values()
+            # print(l_state_obj)
+            # s_l_state = l_state_obj.l_state
+
             # 查找班主任
             teachers = WebGrant.objects.filter(g_sid=stu_obj.pk).first()
             # print(teachers)
@@ -434,6 +439,11 @@ def home(request):
             # 教师
             tea_obj = WebTeacher.objects.filter(t_account=account).first()
             # print(tea_obj)
+
+            # 通知
+            # l_state_obj = WebLogsheet.objects.filter(l_tid=tea_obj.pk).first()
+            # s_l_state = l_state_obj.l_state
+
             # 查找学生
             student_list = WebGrant.objects.filter(g_tid_id=tea_obj.pk).values_list("g_sid_id").distinct()
             # print(student_list)
@@ -482,8 +492,13 @@ def center(request):
     tea_obj = WebTeacher.objects.filter(t_account=account).first()
     # print(tea_obj)
 
+    # 通知
+    # s_state_obj = WebLogsheet.objects.filter(l_sid=stu_obj.pk).first()
+    # s_l_state = s_state_obj.l_state
+    # t_state_obj = WebLogsheet.objects.filter(l_tid=tea_obj.pk).first()
+    # t_l_state = t_state_obj.l_state
     # 获取排行榜
-    stu_rank_obj = WebStudent.objects.all().order_by("s_id")
+    # stu_rank_obj = WebStudent.objects.all().order_by("s_id")
     # print(stu_rank_obj)
 # print(stu_obj.s_create_time)
     return render(request, 'center.html', locals())
@@ -612,6 +627,13 @@ def m_student(request):
                 t_name = teacher['t_name']
                 infor['t_id'] = t_id
                 infor['t_name'] = t_name
+            # grent_id = WebGrant.objects.filter(g_sid_id=sid_id,g_did_id=d_id).values().distinct()
+            # for grent in grent_id:
+            #     g_time = grent['g_time']
+            #     g_record = grent['g_record']
+            #     infor['g_time'] = g_time
+            #     infor['g_record'] = g_record
+
             informations.append(infor)
 
         # 我的课程计划
@@ -625,8 +647,8 @@ def m_student(request):
             grent_tid = grent_urls['g_tid_id']
             grent_record = grent_urls['g_record']
             gr['url'] = grent_ur
-            gr['grent_time'] = grent_time
             gr['grent_sid'] = grent_sid
+            gr['grent_time'] = grent_time
             gr['grent_record'] = grent_record
             teacher_lists = WebTeacher.objects.filter(webgrant__g_sid=sid_id,
                                                       webgrant__g_tid=grent_tid).values().distinct()
@@ -691,27 +713,28 @@ def m_student(request):
         show_inf = {'status': True, 'inf': None}
 
         try:
-
             e_stot_evaluate = request.POST.get('e_stot_evaluate')
             e_stot_score = request.POST.get('e_stot_score')
 
             # 创建e_gid_id
             e_sid_id = request.POST.get('e_sid_id')
-            e_tid_id = request.POST.get('e_tid_id')
-            e_did_id = request.POST.get('e_did_id')
-            e_gid = WebGrant.objects.filter(g_tid=e_tid_id, g_sid=e_sid_id, g_did=e_did_id, ).values("g_id").first()
+            e_tid_name = request.POST.get('grent_t_name')
+            e_did_name = request.POST.get('grent_d_name')
+
+            e_gid = WebGrant.objects.filter(g_tid__t_name=e_tid_name, g_sid=e_sid_id,
+                                            g_did__d_name=e_did_name, ).values("g_id").first()
             e_gid_id = e_gid['g_id']
 
             import uuid
             s_uuid = str(uuid.uuid1())
             l_uuid = s_uuid.split('-')
             e_id = ''.join(l_uuid)
+
             # 创建时间
             times = time.ctime()
             e_create_time = time.mktime(time.strptime(times, "%a %b %d %H:%M:%S %Y"))
             if e_gid_id != '':
                 evaluate_count = WebEvaluate.objects.filter(e_gid_id=e_gid_id).count()
-                evaluate_t = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_ttos_score')
                 if evaluate_count == 0:
                     show_inf['inf'] = '评价成功，谢谢！'
                     WebEvaluate.objects.create(
@@ -721,24 +744,24 @@ def m_student(request):
                         e_create_time=e_create_time,
                         e_gid_id=e_gid_id
                     )
-                elif evaluate_count != 0 and evaluate_t != None:
-                    show_inf['inf'] = '评价老师成功，谢谢！'
-                    WebEvaluate.objects.update(
-                        e_id=e_id,
-                        e_stot_evaluate=e_stot_evaluate,
-                        e_stot_score=e_stot_score,
-                        e_create_time=e_create_time,
-                        e_gid_id=e_gid_id
-                    )
                 else:
-                    show_inf['inf'] = '您已经评价过该老师，无需重复评价，谢谢'
+                    evaluate_t = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_ttos_score').first()
+                    evaluate_s = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_stot_score').first()
+                    if evaluate_t['e_ttos_score'] != None and evaluate_s['e_stot_score'] == None:
+                        show_inf['inf'] = '评价老师成功，谢谢！'
+                        WebEvaluate.objects.filter(e_gid_id=e_gid_id).update(
+                            e_stot_evaluate=e_stot_evaluate,
+                            e_stot_score=e_stot_score,
+                        )
+                    else:
+                        show_inf['inf'] = '您已经评价过该老师，无需重复评价，谢谢'
         except Exception as e:
             show_inf['status'] = False
             show_inf['inf'] = '对不起，您的评价出现了错误，请确定老师和课程是否匹配，请重新评价，谢谢！'
 
         res = json.dumps(show_inf)
         return HttpResponse(res)
-import time
+
 def editdetail(request):
     show_inf = {'status': True, 'inf': None}
     try:
@@ -747,13 +770,13 @@ def editdetail(request):
         # d_number = request.POST.get('d_number')
         # d_time_length = request.POST.get('d_time_length')
         g_time = request.POST.get('data')
-        # print(g_time)
+
         timeArray = time.strptime(g_time, "%Y-%m-%dT%H:%M")
         timeStamp = int(time.mktime(timeArray))
         # print(timeStamp)
         # d_cid_id = request.POST.get('d_cid_id'    )
         # d_detail = request.POST.get('d_detail')
-        d_remark =request.POST.get('remark')
+        d_remark = request.POST.get('remark')
         if not d_remark:
             d_remark = ""
         # print(d_id, d_create_time, d_remark)
@@ -770,8 +793,6 @@ def editdetail(request):
 
     res = json.dumps(show_inf)
     return HttpResponse(res)
-
-
 
 def m_evaluate(request):
     """
@@ -821,8 +842,6 @@ def m_evaluate(request):
                     eve['d_name'] = d_name
                 eve_list.append(eve)
 
-        # print(eve_list)
-
         return render(
             request,
             'm_evaluate.html',
@@ -833,6 +852,66 @@ def m_evaluate(request):
     else:
         return redirect('/student/')
 
+
+def m_evaluatestudent(request):
+    """
+    autor:孟浩
+    老师评价学生
+    :param request:
+    :return:评价列表
+    """
+    account = request.session["account"]
+    role = request.session.get("role", None)
+    tea_obj = WebTeacher.objects.filter(t_account=account).first()
+
+    tid_id = request.GET.get('tid')
+    evaluate_list = WebEvaluate.objects.filter(e_gid__g_tid_id=tid_id).values().distinct()
+
+    evaluate_count = WebEvaluate.objects.filter(e_gid__g_tid_id=tid_id).count()
+
+    if evaluate_count != 0:
+        evaluate_gid = WebEvaluate.objects.filter(e_gid__g_tid_id=tid_id).values()
+        eve_list = []
+        for evaluate in evaluate_gid:
+            eve = {}
+            e_gid_id = evaluate['e_gid_id']
+            e_ttos_evaluate = evaluate['e_ttos_evaluate']
+            e_stot_evaluate = evaluate['e_stot_evaluate']
+            e_ttos_score = evaluate['e_ttos_score']
+            e_stot_score = evaluate['e_stot_score']
+            e_remark = evaluate['e_remark']
+            print('e_remark', e_remark)
+            print('e_remark', type(e_remark))
+            eve = {
+                'e_gid_id': e_gid_id,
+                'e_ttos_evaluate': e_ttos_evaluate,
+                'e_stot_evaluate': e_stot_evaluate,
+                'e_ttos_score': e_ttos_score,
+                'e_stot_score': e_stot_score,
+                'e_remark': e_remark,
+            }
+            student_name = WebStudent.objects.filter(webgrant__g_id=e_gid_id).values().distinct()
+            for student in student_name:
+                s_name = student['s_name']
+                s_id = student['s_id']
+                eve['s_name'] = s_name
+                detail_name = WebDetail.objects.filter(webgrant__g_id=e_gid_id,
+                                                       webgrant__g_sid=s_id).values().distinct()
+                for detail in detail_name:
+                    d_name = detail['d_name']
+                    eve['d_name'] = d_name
+                eve_list.append(eve)
+
+        return render(
+            request,
+            'm_evaluatestudent.html',
+            {
+                'eve_list': eve_list
+
+            })
+    else:
+        return redirect('/teacher/')
+
 import json
 def m_teacher(request):
     """
@@ -842,6 +921,12 @@ def m_teacher(request):
     :return:
     """
     if request.method == 'GET':
+
+        times = time.ctime()
+        # 将格式字符串转换为时间戳
+        times = time.mktime(time.strptime(times, "%a %b %d %H:%M:%S %Y"))
+        location_time = (times + 300.0)
+        # location_time = 1537856766.0
         account = request.session["account"]
         role = request.session.get("role", None)
         tea_obj = WebTeacher.objects.filter(t_account=account).first()
@@ -849,23 +934,65 @@ def m_teacher(request):
         course_list = WebCourse.objects.filter(webdetail__webgrant__g_tid=tid).values().distinct()
         student_list = WebStudent.objects.filter(webgrant__g_tid=tid).values().distinct()
         detail_list = WebDetail.objects.filter(webgrant__g_tid_id=tid).values().distinct()
-        grent_list = WebGrant.objects.filter(g_tid=tid).values('g_sid_id', 'g_did_id', 'g_url', 'g_time').distinct()
+        grent_list = WebGrant.objects.filter(g_tid=tid).values().distinct()
 
-        informations = []
-        for detail in detail_list:
-            infor = {}
-            d_id = detail['d_id']
-            d_name = detail['d_name']
-            infor['d_id'] = d_id
-            infor['d_name'] = d_name
-            infor['t_id'] = tid
-            student_id = WebStudent.objects.filter(webgrant__g_tid=tid, webgrant__g_did=d_id).values().distinct()
-            for student in student_id:
+        # 评价学生
+        course_infor = []
+        for grent_urls in grent_list:
+            gr = {}
+            grent_ur = grent_urls['g_url']
+            grent_time = grent_urls['g_time']
+            grent_sid = grent_urls['g_sid_id']
+            grent_did = grent_urls['g_did_id']
+            grent_tid = grent_urls['g_tid_id']
+            grent_record = grent_urls['g_record']
+            gr['url'] = grent_ur
+            gr['grent_sid'] = grent_sid
+            gr['grent_tid'] = grent_tid
+            gr['grent_time'] = grent_time
+            gr['grent_record'] = grent_record
+            student_lists = WebStudent.objects.filter(webgrant__g_tid=tid,
+                                                      webgrant__g_sid=grent_sid).values().distinct()
+            for student in student_lists:
                 s_id = student['s_id']
                 s_name = student['s_name']
-                infor['s_id'] = s_id
-                infor['s_name'] = s_name
-            informations.append(infor)
+                gr['s_id'] = s_id
+                gr['s_name'] = s_name
+            detail_lists = WebDetail.objects.filter(webgrant__g_tid=tid,
+                                                    webgrant__g_did=grent_did).values().distinct()
+            for detail in detail_lists:
+                d_id = detail['d_id']
+                d_name = detail['d_name']
+                gr['d_id'] = d_id
+                gr['d_name'] = d_name
+
+            course_infor.append(gr)
+
+        grent_join_url = []
+        for i in course_infor:
+            join_url = {}
+
+            grent_time = i['grent_time']
+            grent_tid = i['grent_tid']
+            grent_record = i['grent_record']
+            grent_s_name = i['s_name']
+            grent_d_name = i['d_name']
+
+            join_url['grent_time'] = grent_time
+            join_url['grent_tid'] = grent_tid
+            join_url['grent_record'] = grent_record
+            join_url['grent_d_name'] = grent_d_name
+            join_url['grent_s_name'] = grent_s_name
+
+            if eval(i['url'])['error']:
+                join_url['grent_j_url'] = 'error'
+            else:
+                grent_j_url = eval(i['url'])['start_url']
+                join_url['grent_j_url'] = grent_j_url
+
+            grent_join_url.append(join_url)
+        # 评价学生结束
+
 
         return render(request, 'm_teacher.html',
                       {
@@ -873,10 +1000,11 @@ def m_teacher(request):
                           'student_list': student_list,
                           'detail_list': detail_list,
                           'grent_list': grent_list,
-                          'informations': informations,
                           "role": role,
                           "tea_obj": tea_obj,
                           'tid': tid,
+                          'grent_join_url': grent_join_url,
+                          'location_time': location_time,
 
                       })
     else:
@@ -887,50 +1015,53 @@ def m_teacher(request):
             e_ttos_score = request.POST.get('e_ttos_score')
 
             # 创建e_gid_id
-            e_sid_id = request.POST.get('e_sid_id')
             e_tid_id = request.POST.get('e_tid_id')
-            e_did_id = request.POST.get('e_did_id')
-            e_gid_id = str(
-                WebGrant.objects.filter(g_tid=e_tid_id, g_sid=e_sid_id, g_did=e_did_id, ).values_list("g_id")[0][0])
+            e_sid_name = request.POST.get('grent_s_name')
+            e_did_name = request.POST.get('grent_d_name')
 
-            # 创建评价id
+            e_gid = WebGrant.objects.filter(g_sid__s_name=e_sid_name, g_tid=e_tid_id,
+                                            g_did__d_name=e_did_name, ).values("g_id").first()
+            e_gid_id = e_gid['g_id']
+            print('e_gid_id', e_gid_id)
+
             import uuid
             s_uuid = str(uuid.uuid1())
             l_uuid = s_uuid.split('-')
-            e_id_id = ''.join(l_uuid)
+            e_id = ''.join(l_uuid)
+
             # 创建时间
             times = time.ctime()
             e_create_time = time.mktime(time.strptime(times, "%a %b %d %H:%M:%S %Y"))
             if e_gid_id != '':
                 evaluate_count = WebEvaluate.objects.filter(e_gid_id=e_gid_id).count()
-                evaluate_t = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_stot_score')
 
                 if evaluate_count == 0:
                     show_inf['inf'] = '评价成功，谢谢！'
-                    # WebEvaluate.objects.create(
-                    #     e_id=e_id_id,
-                    #     e_ttos_evaluate=e_ttos_evaluate,
-                    #     e_ttos_score=e_ttos_score,
-                    #     e_create_time=e_create_time,
-                    #     e_gid_id=e_gid_id
-                    # )
-                elif evaluate_count != 0 and evaluate_t != None:
-                    show_inf['inf'] = '评价学生成功，谢谢！'
-                    # WebEvaluate.objects.filter(e_gid_id=e_gid_id).update(
-                    #
-                    #     e_ttos_evaluate=e_ttos_evaluate,
-                    #     e_ttos_score=e_ttos_score,
-                    #     e_create_time=e_create_time,
-                    #     # e_gid_id=e_gid_id
-                    # )
+                    WebEvaluate.objects.create(
+                        e_id=e_id,
+                        e_ttos_evaluate=e_ttos_evaluate,
+                        e_ttos_score=e_ttos_score,
+                        e_create_time=e_create_time,
+                        e_gid_id=e_gid_id
+                    )
                 else:
-                    show_inf['inf'] = '您已经评价过该老师，无需重复评价，谢谢'
+                    evaluate_s = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_stot_score').first()
+                    evaluate_t = WebEvaluate.objects.filter(e_gid_id=e_gid_id).values('e_ttos_score').first()
+                    if evaluate_s['e_stot_score'] != None and evaluate_t['e_ttos_score'] == None:
+                        show_inf['inf'] = '评价学生成功，谢谢！'
+                        WebEvaluate.objects.filter(e_gid_id=e_gid_id).update(
+                            e_ttos_evaluate=e_ttos_evaluate,
+                            e_ttos_score=e_ttos_score,
+                        )
+                    else:
+                        show_inf['inf'] = '您已经评价过该学生，无需重复评价，谢谢'
         except Exception as e:
             show_inf['status'] = False
-            show_inf['inf'] = '对不起，您的评价出现了错误，请确定老师和课程是否匹配，请重新评价，谢谢！'
+            show_inf['inf'] = '对不起，您的评价出现了错误，请确定学生和课程是否匹配，请重新评价，谢谢！'
 
         res = json.dumps(show_inf)
         return HttpResponse(res)
+
 
 #吴家贵
 # 通知
@@ -942,32 +1073,45 @@ def notice(request):
     if role == "student":
         stu_obj = WebStudent.objects.filter(s_account=account).first()
         s_id = WebStudent.objects.filter(s_account=account).values("s_id")
-        s_log_obj = WebLogsheet.objects.filter(l_sid=s_id).values()
-        all_s_log_obj = WebLogsheet.objects.filter(l_sid="all_student").values()
+        s_log_obj = WebLogsheet.objects.filter(l_sid=s_id).values().order_by("-l_create_time")
+        all_s_log_obj = WebLogsheet.objects.filter(l_sid="all_student").values().order_by("-l_create_time")
         if s_log_obj:
-            l_state_obj = WebLogsheet.objects.filter(l_sid=s_id).first()
-            l_state = l_state_obj.l_state
-            # print(type(l_state), l_state)
-            # if l_state == "0":
-            #     print("hahhaha")
-            if l_state == "0" or l_state == "2":
-                s_log_state = WebLogsheet.objects.filter(l_sid=s_id).update(l_state=2)
-            else:
-                s_log_state = WebLogsheet.objects.filter(l_sid=s_id).update(l_state=3)
+            l_state_obj = WebLogsheet.objects.filter(l_sid=s_id).values()
+            # print("-" * 120)
+            # print(l_state_obj)
+            if l_state_obj:
+                for l_state in l_state_obj:
+                    # l_state = l_state_obj.l_state
+                    # print("-" * 120)
+                    # print(l_state["l_state"])
+                    if l_state["l_state"] == "0" or l_state["l_state"] == "2":
+                        s_log_state = WebLogsheet.objects.filter(l_sid=s_id).update(l_state=2)
+                    else:
+                        s_log_state = WebLogsheet.objects.filter(l_sid=s_id).update(l_state=3)
 
     if role == "teacher":
         tea_obj = WebTeacher.objects.filter(t_account=account).first()
         t_id = WebTeacher.objects.filter(t_account=account).values("t_id")
-        t_log_obj = WebLogsheet.objects.filter(l_sid=t_id).values()
-        all_t_log_obj = WebLogsheet.objects.filter(l_sid="all_teacher").values()
+        t_log_obj = WebLogsheet.objects.filter(l_tid=t_id).values().order_by("-l_create_time")
+        all_t_log_obj = WebLogsheet.objects.filter(l_tid="all_teacher").values().order_by("-l_create_time")
+        # print("-" * 120)
+        # print(all_t_log_obj)
+        # print("-" * 120)
         if t_log_obj:
-            l_state_obj = WebLogsheet.objects.filter(l_sid=t_id).first()
-            l_state = l_state_obj.l_state
+            l_state_obj = WebLogsheet.objects.filter(l_tid=t_id).values()
+            # l_state = l_state_obj.l_state
+
+            if l_state_obj:
+                for l_state in l_state_obj:
+                    # l_state = l_state_obj.l_state
+                    # print("-" * 120)
+                    # print(l_state["l_state"])
+                    if l_state["l_state"] == "0" or l_state["l_state"] == "1":
+                        s_log_state = WebLogsheet.objects.filter(l_tid=t_id).update(l_state=2)
+                    else:
+                        s_log_state = WebLogsheet.objects.filter(l_tid=t_id).update(l_state=3)
+
             # print(type(l_state), l_state)
-            if l_state == "0" or l_state == "1":
-                s_log_state = WebLogsheet.objects.filter(l_sid=t_id).update(l_state=1)
-            else:
-                s_log_state = WebLogsheet.objects.filter(l_sid=t_id).update(l_state=3)
 
     return render(request, "notice.html", locals())
 
@@ -1058,3 +1202,24 @@ def change_pwd(request):
 #         ret["t_hera_img"] = tea_detail_obj.t_hera_img
 #         ret["t_remark"] = tea_detail_obj.t_remark
 #     return JsonResponse(ret)
+
+
+def build_index(request):
+    # print(render(request, "/build/index.html"))
+    print("../static/build/index.html")
+    return render(request, "index.html")
+
+
+def build_login(request):
+    if request.method == "POST":
+        account = request.POST.get("log_account")
+        password = request.POST.get("log_password")
+        role = 1
+        stu_obj = WebStudent.objects.filter(s_account=account, s_password=password).first()
+        ret = {}
+        if stu_obj:
+            ret["status"] = 1
+        else:
+            ret["status"] = 0
+
+        return JsonResponse(ret)

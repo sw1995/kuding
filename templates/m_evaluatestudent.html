@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}评价{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/m_s_evaluate.css">
+{% endblock %}
+
+{% block content %}
+    <div class="m_body">
+        <div class="m_back">
+            <a href="/teacher/" class="btn btn-info">返回首页</a>
+        </div>
+        <div class="m_content">
+            <p class="btn btn-info">我对学生的评价</p>
+            <table class="m_1_table table table-hover">
+                <thead>
+                <tr>
+                    <td class="su success">课程名称</td>
+                    <td class="su success">学生姓名</td>
+                    <td class="su success">得分</td>
+                    <td class="su success wth">评价</td>
+                    <td class="su success wth">备注</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in eve_list %}
+                    {% if row.e_stot_score != None %}
+                        <tr>
+                            <td class="su ">{{ row.d_name }}</td>
+                            <td class="su ">
+                                {{ row.s_name }}
+                            </td>
+                            <td class="su ">{{ row.e_ttos_score }}</td>
+                            <td class="su  wth">{{ row.e_ttos_evaluate }}</td>
+                            {% if row.e_remark == None %}
+                                <td class="su  wth">暂无备注</td>
+                            {% else %}
+                                <td class="su  wth">{{ row.e_remark }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="m_content">
+            <p class="btn btn-info">学生对我的评价</p>
+            <table class="m_1_table table table-hover">
+                <thead>
+                <tr>
+                    <td class="su success">课程名称</td>
+                    <td class="su success">学生姓名</td>
+                    <td class="su success">得分</td>
+                    <td class="su success wth">评价</td>
+                    <td class="su success wth">备注</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in eve_list %}
+                    {% if row.e_ttos_score != None %}
+                        <tr>
+                            <td class="su">{{ row.d_name }}</td>
+                            <td class="su">{{ row.s_name }}</td>
+                            <td class="su">{{ row.e_stot_score }}</td>
+                            <td class="su wth">{{ row.e_stot_evaluate }}</td>
+                            {% if row.e_remark == None %}
+                                <td class="su  wth">暂无备注</td>
+                            {% else %}
+                                <td class="su  wth">{{ row.e_remark }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+{% endblock %}
