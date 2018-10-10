@@ -13,12 +13,11 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="fh5co-blog animate-box">
                         <a href="#"><img class="img-responsive" style="border-radius: 50%;width:251px;margin: 0 auto; "
-                                         src="/static/img/tea.png" alt=""></a>
+                                         src="{{ teacher.t_head_image }}" alt=""></a>
                         <div class="blog-text">
                             <h3 class="text-center">{{ teacher.t_name }}</h3>
                             {% load str_time %}
                             <span class="posted_on">入职时间；{{ teacher.t_create_time|strd_time }}</span>
-
                             <!--<span class="comment"><a href="">21<i class="icon-speech-bubble"></i></a></span>-->
                             <p>简要介绍:{{ teacher.t_detail }}</p>
                             <!--<a href="#" class="btn btn-primary"></a>-->
@@ -26,7 +25,6 @@
                     </div>
                 </div>
                 {% endfor %}
-
             </div>
         </div>
     </div>

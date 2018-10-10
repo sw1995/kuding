@@ -29,6 +29,12 @@ def create_uuid():
 
 # 首页
 def index(request):
+    # print(request.path)
+    # print(request.path_info)
+    # print(request.get_all_path())
+    # print(﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿request.get_all_path())
+
+    # print(request.get_host())
     article_list = TArticles.objects.using("articles").all().order_by("-t_createtime")
     article_list2 = []
     # print(len(article_list))
@@ -158,6 +164,9 @@ def login(request):
                     if stu_obj.s_state == 1:
                         request.session["account"] = account
                         request.session["role"] = "student"
+                        request.session["name"] = stu_obj.s_name
+                        request.session["password"] = stu_obj.s_password
+                        request.session["head_img"] = stu_obj.s_head_image
                         # print("-" * 120)
                         # print(request.session["account"])
                         # print(request.session["role"])
@@ -169,10 +178,6 @@ def login(request):
                         print("已注销")
                         ret["status"] = 3
                         ret["msg"] = "该学生已被注销"
-                        print(
-                            "hahahhahaha"
-                        )
-
                 else:
                     ret["status"] = 4
                     ret["msg"] = "账号或密码不正确，请重新输入！"
@@ -187,6 +192,9 @@ def login(request):
                         ret["status"] = 1
                         request.session["account"] = account
                         request.session["role"] = "teacher"
+                        request.session["name"] = tea_obj.t_name
+                        request.session["password"] = tea_obj.t_password
+                        request.session["head_img"] = tea_obj.t_head_image
                         ret["msg"] = "/home/"
 
                     else:
@@ -209,6 +217,8 @@ def login(request):
 
 
 # 注册
+import os
+from django.conf import settings
 def reg(request):
     if request.method == "POST":
         ret = {}
@@ -232,11 +242,26 @@ def reg(request):
             s_name = form_obj.cleaned_data["name"]
             s_account = form_obj.cleaned_data["account"]
             s_password = form_obj.cleaned_data["password"]
+
+            avatar_img = request.FILES.get("avatar")
+            # print("avatar_img", type(avatar_img), avatar_img)
             # form_obj.cleaned_data.pop("re_password")
             # avatar_img = request.FILES.get("avatar")
+            avatar_uid = create_uuid()
+            avatar_img_name = avatar_uid + "." + avatar_img.name.split(".")[1]
+            path = os.path.join(settings.MEDIA_ROOT, 'avatars', avatar_img_name)
+
+            with open(path, "wb") as f:
+                for line in avatar_img:
+                    f.write(line)
+
+            avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
+            # print(avatar_url)
+
+
             stu_obj = WebStudent.objects.create(s_id=s_id, s_account=s_account, s_password=s_password, s_name=s_name,
-                                                s_sex=sex,
-                                                s_state=state, s_grade=grade, s_create_time=create_time)
+                                                s_sex=sex, s_state=state, s_grade=grade, s_create_time=create_time,
+                                                s_head_image=avatar_url)
             l_id = create_uuid()
             ip = get_ip()
             create_time = int(time.time())
@@ -277,7 +302,7 @@ def verify_code(request):
         # print(account)
         if account:
             match = re.findall((r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$'), account)
-            print(match)
+            # print(match)
             if match:
                 stu_obj = WebStudent.objects.filter(s_account=account)
                 if stu_obj:
@@ -295,15 +320,15 @@ def verify_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        mobile = '{}'.format(account)  # 短信接受者的手机号码
-        tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+        # mobile = '{}'.format(account)  # 短信接受者的手机号码
+        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
+        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
+        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
         return JsonResponse(ret)
 
 
-# 登陆验证码
+# 注册验证码
 def get_code(request):
     # 生成随机验证码
     l = []
@@ -316,7 +341,7 @@ def get_code(request):
         # print(account)
         if account:
             match = re.findall((r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$'), account)
-            print(match)
+            # print(match)
             if match:
                 stu_obj = WebStudent.objects.filter(s_account=account)
                 if stu_obj:
@@ -334,11 +359,11 @@ def get_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        mobile = '{}'.format(account)  # 短信接受者的手机号码
-        tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+        # mobile = '{}'.format(account)  # 短信接受者的手机号码
+        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
+        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
+        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
         return JsonResponse(ret)
 
 
@@ -425,7 +450,7 @@ def home(request):
                         # print(course_table)
                         if course_table not in course_list:
                             course_list.append(course_table)
-                print(course_list)
+                # print(course_list)
 
                 if course_list:
                     course_list.sort(key=lambda course_list: course_list.c_create_time, reverse=True)
@@ -469,7 +494,7 @@ def home(request):
                     # print(course_table)
                     if course_table not in course_list:
                         course_list.append(course_table)
-                print(course_list)
+                # print(course_list)
 
                 if course_list:
                     course_list.sort(key=lambda course_list: course_list.c_create_time, reverse=True)
@@ -518,15 +543,30 @@ def confirm_center(request):
         age = request.POST.get("age")
         email = request.POST.get("email")
         remark = request.POST.get("remark")
+
+        avatar_img = request.FILES.get("avatar")
+        # print("avatar_img", type(avatar_img), avatar_img)
+        # form_obj.cleaned_data.pop("re_password")
+        # avatar_img = request.FILES.get("avatar")
+        avatar_uid = create_uuid()
+        avatar_img_name = avatar_uid + "." + avatar_img.name.split(".")[1]
+        path = os.path.join(settings.MEDIA_ROOT, 'avatars', avatar_img_name)
+
+        with open(path, "wb") as f:
+            for line in avatar_img:
+                f.write(line)
+
+        avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
         # print(username, email, grade, sex,remark)
         # print("- " * 120)
         # create_time = time.localtime(request.POST.get("create_time"))
         if role == "student":
             WebStudent.objects.filter(s_account=account).update(s_name=username, s_email=email, s_sex=sex,
-                                                                s_grade=grade, s_remark=remark)
+                                                                s_grade=grade, s_remark=remark, s_head_image=avatar_url)
             # print("ok")
         else:
-            WebTeacher.objects.filter(t_account=account).update(t_sex=sex, t_age=age, t_name=username, t_remark=remark)
+            WebTeacher.objects.filter(t_account=account).update(t_sex=sex, t_age=age, t_name=username, t_remark=remark,
+                                                                t_head_image=avatar_url)
             # print("ok")
         ret["status"] = 1
         ret["msg"] = "保存成功"
@@ -586,6 +626,16 @@ def confirm_pwd(request):
                 ret["status"] = 0
                 ret["msg"] = "旧密码不正确，请重新输入！"
     return JsonResponse(ret)
+
+
+def points(request):
+    # 取当前登陆人的账号和身份
+    account = request.session.get("account", None)
+    role = request.session.get("role", None)
+    stu_obj = WebStudent.objects.filter(s_account=account).first()
+    tea_obj = WebTeacher.objects.filter(t_account=account).first()
+
+    return render(request, 'points.html', locals())
 
 
 def m_student(request):
@@ -1131,7 +1181,7 @@ def help(request):
     return render(request, "help.html", locals())
 
 
-# 代码工具（暂空）
+# 代码工具
 def tool(request):
     account = request.session.get("account", None)
     role = request.session.get("role", None)

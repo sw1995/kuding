@@ -77,8 +77,8 @@
                 </h1>
                 <div class="article-meta"> <span class="item article-meta-time">
 	    <time class="time" data-toggle="tooltip" data-placement="bottom" title=""
-              data-original-title="发表时间：{{ article_obj.s_createtime }}"><i
-                class="glyphicon glyphicon-time"></i> {{ article_obj.t_createtime }}</time>
+              data-original-title="发表时间：{{ article_obj.s_createtime|date:"Y-m-d H:i" }}"><i
+                class="glyphicon glyphicon-time"></i> {{ article_obj.t_createtime|date:"Y-m-d H:i" }}</time>
 	    </span> <span class="item article-meta-source" data-toggle="tooltip" data-placement="bottom" title=""
                       data-original-title="来源：{{ article_obj.s_cateno }}"><i
                         class="glyphicon glyphicon-globe"></i> {{ article_obj.s_cateno }}</span>
@@ -162,10 +162,15 @@
                     <span class="thumbnail">
                         <img class="thumb" src="{{ article.s_imgurl }}" alt="" style="display: block;">
                     </span>
-                            <span class="text">{{ article.s_summary }}</span>
+                            {% if article.s_summary|length >= 16 %}
+                                <span class="text">{{ article.s_summary|slice:":16 " }}...</span>
+                            {% else %}
+                                <p class="blog_content">{{ article.s_summary }}</p>
+                            {% endif %}
+
                             <span class="muted">
                         <i class="glyphicon glyphicon-time"></i>
-                         {{ article.t_createtime }}
+                         {{ article.t_createtime|date:"Y-m-d H:i" }}
                     </span>
                             <span style="display: none" class="muted"><i
                                     class="glyphicon glyphicon-eye-open"></i>88</span>

@@ -1902,7 +1902,7 @@ h1, h2, h3, h4, h5, h6, figure {
     background-color: rgba(113, 129, 127, 0.8);
     left: 50%;
     margin-left: -250px;
-    top: 100px;
+    top: 60px;
     border: 1px solid #000;
     padding: 15px;
     /*opacity: 0.8;*/
@@ -1918,7 +1918,7 @@ h1, h2, h3, h4, h5, h6, figure {
 .mod-register i {
     position: absolute;
     top: 7px;
-    left: 140px;
+    left: 210px;
 }
 
 .mod-register h3 {
@@ -1926,14 +1926,14 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 
 .mod-register label {
-    margin-left: 70px;
-    display: inline-block;
-    width: 90px;
+    margin-left: 90px;
+    /*display: inline-block;*/
+    width: 100px;
     /*border: 1px solid red;*/
 }
 
 .mod-register input {
-    margin-left: 135px;
+    margin-left: 9px;
     border-radius: 8px;
     border: 1px solid #cccccc;
     text-indent: 22px;
@@ -1943,14 +1943,14 @@ h1, h2, h3, h4, h5, h6, figure {
     display: inline-block;
     width: 150px;
     /*visibility: hidden;*/
-    margin-left: 140px;
+    margin-left: 210px;
     font-size: 12px;
     color: red;
     /*text-alig: left;*/
 }
 
 .mod-register .message-check {
-    margin-left: 132px;
+    margin-left: 5px;
     width: 92px;
     height: 31px;
     margin-right: 0px;
@@ -2118,5 +2118,8 @@ input[type="radio"], input[type="checkbox"] {
     background-color: rgba(0, 0, 0, 0.3);
     color: white;
     border: 1px solid #eee;
+}
 
+#id_account {
+    margin-left: 5px;
 }

@@ -123,6 +123,12 @@
                                 <span>备注：</span><input type="text" id="remark" value={{ stu_obj.s_remark }}>
                             </p>
                             <p>
+                                <span>头像：</span><label for="id_avatar"><img
+                                    style="margin-left: 32px;width: 100px;height: 100px;" id="avatar-img"
+                                    src="{{ stu_obj.s_head_image }}" alt=""></label>
+                                <input accept="image/*" type="file" name="avatar" id="id_avatar" style="display: none">
+                            </p>
+                            <p>
                                 <input type="button" class="btn btn-success" id="save" value="点击保存">
                             </p>
 
@@ -296,6 +302,12 @@
                                 <span>备注：</span><input type="text" id="remark" value={{ tea_obj.t_remark }}>
                             </p>
                             <p>
+                                <span>头像：</span><label for="id_avatar"><img
+                                    style="margin-left: 32px;width: 100px;height: 100px;" id="avatar-img"
+                                    src="{{ tea_obj.t_head_image }}" alt=""></label>
+                                <input accept="image/*" type="file" name="avatar" id="id_avatar" style="display: none">
+                            </p>
+                            <p>
                                 <input type="button" class="btn btn-success" id="save" value="点击保存">
                             </p>
 
@@ -385,28 +397,42 @@
             })
         });
 
+
+        // 找到头像的input标签绑定change事件
+        $("#id_avatar").change(function () {
+            // 1. 创建一个读取文件的对象
+            var fileReader = new FileReader();
+            // 取到当前选中的头像文件
+            // console.log(this.files[0]);
+            // 读取你选中的那个文件
+            fileReader.readAsDataURL(this.files[0]);  // 读取文件是需要时间的
+            fileReader.onload = function () {
+                // 2. 等上一步读完文件之后才 把图片加载到img标签中
+                $("#avatar-img").attr("src", fileReader.result);
+            };
+        });
+
         var gentle = $("[checked='checked']").val();
         $("[name='sex']").click(function () {
             gentle = $(this).val();
         });
 
         $("#save").click(function () {
-            var username = $("[name='username']").val();
-            var email = $("#email").val();
-            var remark = $("#remark").val();
+            var formData = new FormData();
+            formData.append("username", $("[name='username']").val());
+            formData.append("email", email = $("#email").val());
+            formData.append("remark", remark = $("#remark").val());
+            formData.append("sex", gentle);
+            formData.append("grade", grade = $("#grade").val());
+            formData.append("age", age = $("#age").val());
+            formData.append("avatar", $("#id_avatar")[0].files[0]);
+            formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
             $.ajax({
                 url: '/confirm_center/',
                 type: "POST",
-                dataType: "json",
-                data: {
-                    username: username,
-                    sex: gentle,
-                    email: email,
-                    remark: remark,
-                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
-                    grade: $("#grade").val(),
-                    age: $("#age").val()
-                },
+                processData: false,
+                contentType: false,
+                data: formData,
                 success: function (arg) {
                     if (arg.status) {
                         alert(arg.msg)
@@ -437,7 +463,8 @@
                     }
                 }
             })
-        })
+        });
+
 
     </script>
 

@@ -112,8 +112,14 @@
                                                                            src="{{ article.s_imgurl }}" alt=""></a>
                                 <h3 class="blog_title"><a href="/article/{{ article.s_id }}">{{ article.s_title }}</a>
                                 </h3>
-                                <span class="posted_on">{{ article.t_createtime }}</span>
-                                <p class="blog_content">{{ article.s_summary|slice:":16 " }}</p>
+                                <i class="glyphicon glyphicon-time"></i>
+                                <span class="posted_on">{{ article.t_createtime|date:"Y-m-d H:i" }}</span>
+                                {% if article.s_summary|length >= 16 %}
+                                    <p class="blog_content">{{ article.s_summary|slice:":16 " }}...</p>
+                                {% else %}
+                                    <p class="blog_content">{{ article.s_summary }}</p>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>

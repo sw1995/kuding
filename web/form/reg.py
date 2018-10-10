@@ -16,7 +16,7 @@ def mobile_validate(value):
 class RegForm(forms.Form):
     name = forms.CharField(
         max_length=32,
-        label="用户名",
+        label="用户名：",
         error_messages={
             "max_length": "用户名最长为32位",
             "required": "用户名不能为空",

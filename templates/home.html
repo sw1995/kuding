@@ -91,11 +91,7 @@
 
                     <!--头像 -->
                     <div class="avatar">
-                        {% if stu_obj.s_sex == 1 %}
-                            <img class="left_img" src="/static/img/stu_boy.png" alt="头像">
-                        {% else %}
-                            <img class="left_img" src="/static/img/stu_girl.png" alt="头像">
-                        {% endif %}
+                        <img class="left_img" src="{{ stu_obj.s_head_image }}" alt="头像">
                     </div>
                     <p>
                         <span class="name"> {{ stu_obj.s_name }}同学 你好 </span>
@@ -321,7 +317,7 @@
                 <div class="left_menu left">
                     <!--头像 -->
                     <div class="avatar">
-                        <img class="left_img" src="/static/img/tea.png" alt="头像">
+                        <img class="left_img" src="{{ tea_obj.t_head_image }}" alt="头像">
                     </div>
                     <p>
                         <span class="name"> {{ tea_obj.t_name }} 老师! 你好 </span>

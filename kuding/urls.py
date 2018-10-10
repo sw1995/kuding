@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 from web import views
-
+from django.views.static import serve
+from django.conf import settings
 # from article import urls as article_urls
 
 urlpatterns = [
@@ -40,7 +41,11 @@ urlpatterns = [
     url(r'^get_code/$', views.get_code),
     url(r'^change_pwd/$', views.change_pwd),
     url(r'^build/$', views.build_index),
+    url(r'^points/$', views.points),
     # url(r'^t_info_detail/$',views.t_info_detail),
+
+    # media 相关的路由设置
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": settings.MEDIA_ROOT}),
 
 
     # 文章相关

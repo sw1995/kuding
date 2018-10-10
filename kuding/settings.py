@@ -25,8 +25,8 @@ SECRET_KEY = 'iq06t^3+dzqp%z3pw33l646xc$c)p&c8*uepyr=*)p7nk#u35^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", ]
-# ALLOWED_HOSTS = ["192.168.0.107", ]
+# ALLOWED_HOSTS = ["*", ]
+ALLOWED_HOSTS = ["192.168.0.107", ]
 
 
 # Application definition
@@ -160,5 +160,11 @@ DATABASE_ROUTERS = ['kuding.database_router.DatabaseAppsRouter']
 DATABASE_APPS_MAPPING = {
     # 'app_name':'database_name',
     'article': 'articles',
-
 }
+
+# 用户上传的media 文件
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# 自定义配置登陆验证返回路径
+# LOGIN_URL = '/login/'

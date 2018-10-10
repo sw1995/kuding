@@ -60,8 +60,8 @@
                          <p style="color: black;">课时管理</p>
                      </a>
                  </li>
-                 <li {% if request.path == "/soc/" %}class="action"{% endif %}>
-                     <a href="">
+                 <li {% if request.path == "/points/" %}class="action"{% endif %}>
+                     <a href="#" onclick="alert('该功能正在开发中，敬请期待！！！')">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon--gouwuche"></use>
                             </svg>
@@ -88,7 +88,7 @@
                      </a>
                  </li>
                  <li {% if request.path == "/test/" %}class="action"{% endif %}>
-                     <a href="/test/">
+                     <a href="#" onclick="alert('该功能正在开发中，敬请期待！！！')">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tounaosiwei"></use>
                             </svg>
@@ -110,12 +110,7 @@
          </div>
          <div class="guestshow">
              <div class="user-img">
-                 {% if stu_obj.s_sex == 0 %}
-                     <img src="/static/img/stu_girl.png" alt="用户头像">
-                 {% else %}
-                     <img src="/static/img/stu_boy.png" alt="用户头像">
-                 {% endif %}
-
+                 <img src="{{ stu_obj.s_head_image }}" alt="用户头像">
              </div>
              <div class="user-inf">
                  <p class="stu_name">{{ stu_obj.s_name }}同学</p>
@@ -159,8 +154,8 @@
                          <p style="color: black;">课时管理</p>
                      </a>
                  </li>
-                 <li {% if request.path == "/soc/" %}class="action"{% endif %}>
-                     <a href="">
+                 <li {% if request.path == "/points/" %}class="action"{% endif %}>
+                     <a href="#" onclick="alert('该功能正在开发中，敬请期待！！！')">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon--gouwuche"></use>
                             </svg>
@@ -191,7 +186,7 @@
                  </li>
 
                  <li {% if request.path == "/test/" %}class="action"{% endif %}>
-                     <a href="/test/">
+                     <a href="#" onclick="alert('该功能正在开发中，敬请期待！！！')">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tounaosiwei"></use>
                             </svg>
@@ -213,7 +208,7 @@
          </div>
          <div class="guestshow">
              <div class="user-img">
-                 <img src="/static/img/tea.png" alt="用户头像">
+                 <img src="{{ tea_obj.t_head_image }}" alt="用户头像">
              </div>
              <div class="user-inf">
                  <p class="stu_name">{{ tea_obj.t_name }}老师</p>
@@ -240,7 +235,6 @@
     <a target="_blank" href="/contact/">联系我们</a>
     <p style="font-size: 12px;">©淮北麒麟信息科技有限公司    All Rights Reserved | <a href="http://www.qilinxx.com/">备案号</a></p>
 </div>
-
 
 
 </body>

@@ -165,3 +165,7 @@
 #                                 <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i>
 #                             {% endif %}
 #                          {% endfor %}
+#
+# avatar_img = "584e680118bf7.jpg"
+# print(avatar_img.split(".")[0])
+# print(avatar_img.split(".")[1])

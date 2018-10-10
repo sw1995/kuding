@@ -262,24 +262,29 @@
 }());
 
 $(function () {
-    $('.top-menu li:eq(5)').click(function () {
+    $('.btn_login').click(function () {
+        //alert('123');
         $('.motai_con').css('display', 'block');
-        $('.motai_con .mod-register').css('display', 'none')
+        $('.motai_con .mod-register').css('display', 'none');
         $('.motai_con .modal_data').css('display', 'block');
         $('.forget_pwd').css('display', 'none');
     });
     $('.modal_data button:first').click(function () {
         $('.motai_con').css('display', 'none');
     });
-    $('.top-menu li:eq(6)').click(function () {
+    $('.btn_register').click(function () {
         $('.motai_con').css('display', 'block');
-        $('.motai_con .modal_data').css('display', 'none')
+        $('.motai_con .modal_data').css('display', 'none');
         $('.motai_con .mod-register').css('display', 'block');
+        $('.forget_pwd').css('display', 'none');      //
+
     });
     $('.mod-register button').eq(1).click(function () {
         $('.motai_con').css('display', 'none');
     });
 });
+
+
 $(function () {
     $('#forget_btn ').click(function () {
         // alert("123");

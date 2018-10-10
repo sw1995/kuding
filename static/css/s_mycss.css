@@ -56,10 +56,10 @@ a{
 }
 
 .left_img{
-    width: 100px;
-    height: 135px;
-    border-radius: 30px;
-    margin-left: 75px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-left: 57px;
     margin-top: 50px;
 }
 .left_menu p{
@@ -254,4 +254,8 @@ a{
     opacity: 0.6;
     z-index: 999;
     display: none;
+}
+
+.points {
+    height: 800px;
 }
