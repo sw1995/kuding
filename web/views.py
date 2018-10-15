@@ -192,9 +192,9 @@ def login(request):
                         ret["status"] = 1
                         request.session["account"] = account
                         request.session["role"] = "teacher"
-                        request.session["name"] = tea_obj.t_name
-                        request.session["password"] = tea_obj.t_password
-                        request.session["head_img"] = tea_obj.t_head_image
+                        # request.session["name"] = tea_obj.t_name
+                        # request.session["password"] = tea_obj.t_password
+                        # request.session["head_img"] = tea_obj.t_head_image
                         ret["msg"] = "/home/"
 
                     else:
@@ -516,7 +516,25 @@ def center(request):
     stu_obj = WebStudent.objects.filter(s_account=account).first()
     tea_obj = WebTeacher.objects.filter(t_account=account).first()
     # print(tea_obj)
+    grant_obj = WebGrant.objects.filter(g_sid=stu_obj.pk).values_list()
+    book_list = []
+    course_list = []
+    for i in grant_obj:
+        book_info = WebDetail.objects.filter(d_id=i[5]).first()
+        if book_info not in book_list:
+            book_list.append(book_info)
+            for book in book_list:
+                # print(book.d_cid_id)
+                course_id = book.d_cid_id
+                if course_id not in course_list:
+                    course_list.append(course_id)
 
+    course_obj_list = []
+    for c_id in course_list:
+        course_obj = WebCourse.objects.filter(c_id=c_id)
+        course_obj_list.append(course_obj)
+    # print(course_obj_list)
+    # print(i[5])
     # 通知
     # s_state_obj = WebLogsheet.objects.filter(l_sid=stu_obj.pk).first()
     # s_l_state = s_state_obj.l_state
@@ -525,7 +543,7 @@ def center(request):
     # 获取排行榜
     # stu_rank_obj = WebStudent.objects.all().order_by("s_id")
     # print(stu_rank_obj)
-# print(stu_obj.s_create_time)
+    # print(stu_obj.s_create_time)
     return render(request, 'center.html', locals())
 
 
@@ -1270,11 +1288,12 @@ def build_login(request):
     if request.method == "POST":
         account = request.POST.get("log_account")
         password = request.POST.get("log_password")
-        role = 1
         stu_obj = WebStudent.objects.filter(s_account=account, s_password=password).first()
         ret = {}
         if stu_obj:
             ret["status"] = 1
+            ret["name"] = stu_obj.s_name
+            ret["head_img"] = stu_obj.s_head_img
         else:
             ret["status"] = 0
 

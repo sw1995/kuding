@@ -75,9 +75,21 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="info">
-                                <td align="center" colspan="3">暂无订单详情</td>
-                            </tr>
+                            {% if course_obj_list %}
+                                {% for course_obj in course_obj_list %}
+                                    {% for course in course_obj %}
+                                        <tr>
+                                            <td class="success">{{ course.c_name }}</td>
+                                            <td class="info">{{ course.c_count }}</td>
+                                            <td class="danger">{{ course.c_detail }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endfor %}
+                            {% else %}
+                                <tr class="info">
+                                    <td align="center" colspan="3">暂无订单详情</td>
+                                </tr>
+                            {% endif %}
                             </tbody>
                         </table>
                     </div>
@@ -254,9 +266,20 @@
                             </thead>
                             <tbody>
 
-                            <tr class="info">
-                                <td align="center" colspan="3">暂无订单详情</td>
-                            </tr>
+                            {% if book_list %}
+                                {% for book in book_list %}
+                                    <tr>
+                                        <td class="success">{{ book.d_name }}</td>
+                                        <td class="info">{{ book.d_number }}</td>
+                                        <td class="danger">{{ book.d_detail }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr class="info">
+                                    <td align="center" colspan="3">暂无订单详情</td>
+                                </tr>
+                            {% endif %}
+
 
                             </tbody>
                         </table>

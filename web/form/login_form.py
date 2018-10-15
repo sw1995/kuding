@@ -41,7 +41,7 @@ class LoginForm(forms.Form):
     )
     log_role = forms.ChoiceField(
         choices=((1, u"学生"), (2, u"教师")),
-        label="角色",
+        label="用户角色",
         initial=1,
         widget=forms.widgets.RadioSelect()
     )

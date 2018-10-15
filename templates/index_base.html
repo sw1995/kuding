@@ -59,17 +59,15 @@
         <form action="" method="post">
             <div class="info">{% csrf_token %}</div>
             <div>
-                {#                    <label>账号</label>#}
+                <label for="{{ loginForm.log_account.id_for_label }}">{{ loginForm.log_account.label }}</label>
                 <i class="fa fa-user" aria-hidden="true"></i>
                 {{ loginForm.log_account }}
-                {#                    <input name="account" autofocus type="text" placeholder="请输入手机号">#}
             </div>
             <span class="notice-erro">{{ loginForm.log_account.errors.0 }}</span><br>
             <div>
-                {#                    <label>账号</label>#}
+                <label for="{{ loginForm.log_password.id_for_label }}">{{ loginForm.log_password.label }}</label>
                 <i class="fa fa-key" aria-hidden="true"></i>
                 {{ loginForm.log_password }}
-                {#                    <input name="account" autofocus type="text" placeholder="请输入手机号">#}
             </div>
             <span class="notice-erro">{{ loginForm.log_password.errors.0 }}</span><br>
             {#                <div class="identify">#}
@@ -138,26 +136,30 @@
     <!-- 找回密码 -->
     <div class="forget_pwd">
         <h3>忘记密码</h3>
-
         <div>
+            <label for="forget_account">手机号：</label>
             <i class="fa fa-mobile" aria-hidden="true"></i>
-            <input type="text" name="forget_account" placeholder="请输入注册时的手机号">
+            <input type="text" id="forget_account" name="forget_account" placeholder="请输入注册时的手机号">
             <span></span>
         </div>
 
         <div>
+            <label for="forget_pwd">新密码：</label>
             <i class="fa fa-key" aria-hidden="true"></i>
-            <input type="password" name="forget_pwd" placeholder="请输入密码">
+            <input type="password" id="forget_pwd" name="forget_pwd" placeholder="请输入密码">
             <span></span>
         </div>
 
         <div>
+            <label for="forget_re_pwd">确认密码：</label>
             <i class="fa fa-key" aria-hidden="true"></i>
-            <input type="password" name="forget_re_pwd" placeholder="请重复上面输入的密码">
+            <input type="password" id="forget_re_pwd" name="forget_re_pwd" placeholder="请重复上面输入的密码">
             <span></span>
         </div>
 
-        <div><input type="text" placeholder="验证码" name="confirm_code">
+        <div>
+            <label for="confirm_code">验证码：</label>
+            <input type="text" placeholder="验证码" id="confirm_code" name="confirm_code">
             <button type="button" name="get_code">获取验证码</button>
             <span name="confirm_code_error"></span>
         </div>
@@ -204,22 +206,25 @@
                                     href="/contact/">联系我们</a></li>
                             {#                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a#}
                             {#                                    href="/static/build/index.html">Scrach</a></li>#}
-                            <li {% if request.path == "#" %}class="active"{% endif %}><a
-                                    href="#">Scratch</a></li>
+                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a
+                                    href="/static/build/index.html">Scratch</a></li>
 
                             {% if account %}
-                                {% if role == "student" %}
-                                    <span class="user_name">{{ stu_obj.s_name }}</span>
-                                {% endif %}
-                                {% if role == "teacher" %}
-                                    <span class="user_name">{{ tea_obj.t_name }}</span>
-                                {% endif %}
-                                <a href="/home/"><span>个人中心</span></a>
-                                <a href="/logout/"><span>退出</span></a>
+                                <li>
+                                    {% if role == "student" %}
+                                        <span class="user_name">{{ stu_obj.s_name }}</span>
+                                    {% endif %}
+                                    {% if role == "teacher" %}
+                                        <span class="user_name">{{ tea_obj.t_name }}</span>
+                                    {% endif %}
+                                    <a href="/home/"><span>个人中心</span></a>
+                                    <a href="/logout/"><span>退出</span></a>
+                                </li>
                             {% else %}
                                 <li class="btn-cta btn_login"><a href="#"><span>登陆</span></a></li>
                                 <li class="btn-cta btn_register"><a href="#"><span>注册</span></a></li>
                             {% endif %}
+
                         </ul>
                     </div>
                 </div>

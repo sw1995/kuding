@@ -263,11 +263,12 @@
 
 $(function () {
     $('.btn_login').click(function () {
-        //alert('123');
+        // alert('123');
         $('.motai_con').css('display', 'block');
         $('.motai_con .mod-register').css('display', 'none');
         $('.motai_con .modal_data').css('display', 'block');
         $('.forget_pwd').css('display', 'none');
+        $('.js-fh5co-nav-toggle').click();   //这个是导航栏隐藏
     });
     $('.modal_data button:first').click(function () {
         $('.motai_con').css('display', 'none');
@@ -277,6 +278,8 @@ $(function () {
         $('.motai_con .modal_data').css('display', 'none');
         $('.motai_con .mod-register').css('display', 'block');
         $('.forget_pwd').css('display', 'none');      //
+        $('.js-fh5co-nav-toggle').click();   //这个是导航栏隐藏
+
 
     });
     $('.mod-register button').eq(1).click(function () {
@@ -297,3 +300,31 @@ $(function () {
     })
 
 });
+
+//下面是修改头部背景的js
+$(function () {
+    if ($('.top-menu li:eq(1)').hasClass('active')) {
+        $('#fh5co-header').css('background-image', 'url(/static/img/stu_show.jpg)');
+    }
+});
+//下面是修改课程类型的背景
+$(function () {
+    if ($('.top-menu li:eq(2)').hasClass('active')) {
+        $('#fh5co-header').css('background-image', 'url(/static/img/class_type.jpg)');
+    }
+});
+
+// 下面是修改师资阵容背景
+$(function () {
+    if ($('.top-menu li:eq(3)').hasClass('active')) {
+        $('#fh5co-header').css('background-image', 'url(/static/img/teacher_lineup.jpg)');
+    }
+});
+//下面是修改联系我们的背景
+$(function () {
+    if ($('.top-menu li:eq(4)').hasClass('active')) {
+        $('#fh5co-header').css('background-image', 'url(/static/img/contact.jpg)');
+    }
+});
+
+

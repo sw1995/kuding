@@ -36,6 +36,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="inputt_head_image" class="col-sm-2 control-label">头像</label>
+                                    <div class="col-sm-10">
+                                        <input accept="image/*" type="file" name="t_head_image" style="display: none">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="inputt_account" class="col-sm-2 control-label">手机号</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="t_account" disabled>
@@ -59,7 +65,7 @@
                                         <input type="text" class="form-control" name="t_sex" disabled>
                                     </div>
                                 </div>
-                                <div class="form-group" style="display: none">
+                                <div class="form-group">
                                     <label for="inputt_degree" class="col-sm-2 control-label">学历</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="t_degree" disabled>
@@ -141,11 +147,17 @@
                             {% if t_info_obj %}
                                 {% for t_info in t_info_obj %}
                                     <tr>
+                                        <td sxy="t_id" class="success hidden">
+                                            {{ t_info.t_id }}
+                                        </td>
                                         <td sxy="t_name" class="success">
                                             {{ t_info.t_name }}
                                         </td>
                                         <td sxy="t_account" class="info">
                                             {{ t_info.t_account }}
+                                        </td>
+                                        <td sxy="t_head_image" class="info hidden">
+                                            <img src="{{ t_info.t_head_image }}" alt="">
                                         </td>
                                         <td sxy="t_sex" class="warning">
                                             {% if t_info.t_sex == 1 %}
@@ -157,10 +169,10 @@
                                         <td sxy="t_age" class="info">
                                             {{ t_info.t_age }}
                                         </td>
-                                        <td sxy="t_degree" class="info hidden ">
+                                        <td sxy="t_degree" class="info hidden">
                                             {{ t_info.t_degree }}
                                         </td>
-                                        <td sxy="t_detail" class="info hidden ">
+                                        <td sxy="t_detail" class="info hidden">
                                             {{ t_info.t_detail }}
                                         </td>
                                         <td class="danger">
@@ -236,15 +248,30 @@
             </div>
         </div>
         <script src="/static/plug/bootstrap/js/bootstrap.min.js"></script>
+
         <script>
             $('.t_info_detail').click(function () {
                 $('#myModal').modal('show');
-                $(".t_info_detail").parent().prevAll().each(function () {
+                $(this).parent().prevAll().each(function () {
+
                     var v = $(this).html();
-                    {#console.log(v);#}
+                    //console.log($.trim(v));
                     var n = $(this).attr('sxy');
-                    {#console.log(v);#}
-                    $("#myModal input[name='" + n + "']").val(v)
+                    //console.log(n);
+
+                    if (v.search("<img") != -1) {
+                        //console.log(v.search("<img"));
+                        //console.log('lalalla');
+                        $("#myModal input[name='" + n + "']").next("img").remove();
+                        $("#myModal input[name='" + n + "']").after($.trim(v)).next("img").css({
+                            "width": "100px",
+                            "height": "100px",
+                            "margin-left": "150px"
+                        });
+                    } else {
+                        // console.log('hahahahha');
+                        $("#myModal input[name='" + n + "']").val($.trim(v)).css("text-align", "center;");
+                    }
                 })
             });
         </script>
@@ -273,6 +300,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="inputs_head_image" class="col-sm-2 control-label">头像</label>
+                                    <div class="col-sm-10" style="width: 100px;height: 100px;">
+                                        <input accept="image/*" type="file" name="s_head_image" style="display: none">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="inputs_account" class="col-sm-2 control-label">手机号</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="s_account" disabled>
@@ -290,7 +323,7 @@
                                         <input type="text" class="form-control" name="s_sex" disabled>
                                     </div>
                                 </div>
-                                <div class="form-group" style="display: none">
+                                <div class="form-group">
                                     <label for="inputs_grade" class="col-sm-2 control-label">年级</label>
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" name="s_grade" disabled>
@@ -369,6 +402,9 @@
                                         <td sxy="s_id" class="success hidden">
                                             {{ s_info.s_id }}
                                         </td>
+                                        <td sxy="s_head_image" class="success hide">
+                                            <img src="{{ s_info.s_head_image }}" alt="">
+                                        </td>
                                         <td sxy="s_name" class="success">
                                             {{ s_info.s_name }}
                                         </td>
@@ -386,10 +422,10 @@
                                             {{ s_info.s_grade }}
                                         </td>
                                         <td sxy="s_email" class="hidden danger">
-                                            {{ s_info.s_grade }}
+                                            {{ s_info.s_email }}
                                         </td>
                                         <td class="danger">
-                                            <a href="#" class="t_info_detail"> 查看详请 </a>
+                                            <a href="#" class="s_info_detail"> 查看详请 </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -453,14 +489,29 @@
         </div>
         <script src="/static/plug/bootstrap/js/bootstrap.min.js"></script>
         <script>
-            $('.t_info_detail').click(function () {
+
+            $('.s_info_detail').click(function () {
                 $('#myModal').modal('show');
                 $(this).parent().prevAll().each(function () {
+
                     var v = $(this).html();
-                    {#console.log(v);#}
+
                     var n = $(this).attr('sxy');
-                    {#console.log(n);#}
-                    $("#myModal input[name='" + n + "']").val(v)
+
+
+                    if (v.search("<img") != -1) {
+                        console.log(v.search("<img"));
+                        //console.log('lalalla');
+                        $("#myModal input[name='" + n + "']").next("img").remove();
+                        $("#myModal input[name='" + n + "']").after($.trim(v)).next("img").css({
+                            "width": "100px",
+                            "height": "100px",
+                            "margin-left": "150px"
+                        });
+                    } else {
+                        console.log('hahahahha');
+                        $("#myModal input[name='" + n + "']").val($.trim(v)).css("text-align", "center;");
+                    }
                 })
             });
         </script>
