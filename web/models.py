@@ -208,6 +208,8 @@ class WebLogsheet(models.Model):
 
 class WebRelation(models.Model):
     r_id = models.CharField(primary_key=True, max_length=36)
+    r_state = models.IntegerField()
+    r_remark = models.CharField(max_length=255, blank=True, null=True)
     c_id = models.ForeignKey(WebClasses, models.DO_NOTHING)
     s_id = models.ForeignKey('WebStudent', models.DO_NOTHING)
     t_id = models.ForeignKey('WebTeacher', models.DO_NOTHING)

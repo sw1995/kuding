@@ -1222,7 +1222,7 @@ def tool(request):
     return render(request, "tool.html", locals())
 
 
-# 考试（暂空）
+# 班级信息
 def test(request):
     account = request.session.get("account", None)
     role = request.session.get("role", None)
@@ -1236,7 +1236,7 @@ def test(request):
         for t in t_obj:
             t_list.append(t)
 
-    print(t_list)
+    # print(t_list)
 
     return render(request, "test.html", locals())
 
@@ -1307,17 +1307,15 @@ def join_classes(request):
         t_id = request.POST.get("t_id")
         c_id = request.POST.get("c_id")
         s_id = request.POST.get("s_id")
-
         u_id = create_uuid()
-        WebRelation.objects.create(r_id=u_id, s_id=s_id, c_id=c_id, t_id=t_id)
-        return HttpResponse("ok")
+        WebRelation.objects.create(r_id=u_id, s_id=s_id, c_id=c_id, t_id=t_id, r_state=0)
+        ret = {}
+        ret["msg"] = "已加入，待审核！"
+        return JsonResponse(ret)
 
 
 def class_inquiry(request):
     ret = {}
-    ret["status"] = ""
-    ret["msg"] = ""
-
     if request.method == "POST":
         c_name = request.POST.get("c_name")
         classes_list = WebClasses.objects.filter(c_name__contains=c_name).all()
@@ -1332,7 +1330,7 @@ def class_inquiry(request):
 
             ret["status"] = 1
             ret["msg"] = htmls
-            print(htmls)
+            # print(htmls)
         else:
             ret["status"] = 0
             ret["msg"] = "未找到相关班级，请重输入！"
