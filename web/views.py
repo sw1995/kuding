@@ -1,10 +1,11 @@
-from django.shortcuts import render,HttpResponse,redirect
+from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirect
 from django.http import JsonResponse
 from web.form.student import Student_to_teacher
 from web.form.reg import RegForm
 # from web.form import reg
 from article.models import TArticles
-from web.models import WebTeacher, WebStudent, WebGrant, WebDetail, WebCourse, WebEvaluate, WebLogsheet
+from web.models import WebTeacher, WebStudent, WebGrant, WebDetail, WebCourse, WebEvaluate, WebLogsheet, WebClasses, \
+    WebRelation
 from web.form.login_form import LoginForm
 
 
@@ -29,30 +30,28 @@ def create_uuid():
 
 # 首页
 def index(request):
-    # print(request.path)
-    # print(request.path_info)
-    # print(request.get_all_path())
-    # print(﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿request.get_all_path())
 
-    # print(request.get_host())
     article_list = TArticles.objects.using("articles").all().order_by("-t_createtime")
     article_list2 = []
-    # print(len(article_list))
-    # if len(article_list) < 3:
-    #     article_list2 = article_list
-    # else:
-    #     pass
-    # print(article_list[0],article_list[1],article_list[2])
+
     if len(article_list) > 3:
         article_list2.append(article_list[0])
         article_list2.append(article_list[1])
         article_list2.append(article_list[2])
     else:
         article_list2 = article_list
-    # for i in range(3):
 
     loginForm = LoginForm()
     reg = RegForm()
+
+    tea_list2 = []
+    tea_list = WebTeacher.objects.all().order_by("-t_create_time")
+    if len(tea_list) > 3:
+        tea_list2.append(tea_list[0])
+        tea_list2.append(tea_list[1])
+        tea_list2.append(tea_list[2])
+    else:
+        tea_list2 = tea_list
 
     account = request.session.get("account")
     role = request.session.get("role")
@@ -90,7 +89,7 @@ def Teachers_lineup(request):
 
     tea_list = WebTeacher.objects.all()
     tea_list2 = []
-    print(len(tea_list))
+    # print(len(tea_list))
     if len(tea_list) > 3:
         tea_list2.append(tea_list[0])
         tea_list2.append(tea_list[1])
@@ -146,36 +145,25 @@ def login(request):
     ret = {}
     if request.method == "POST":
         form_obj = LoginForm(request.POST)
-        # print("-" * 120)
-        # print(form_obj)
-        # print("-" * 120)
         if form_obj.is_valid():
             account = request.POST.get("log_account")
             password = request.POST.get("log_password")
             role = request.POST.get("log_role")
-            # print(account, role, password)
-            # print(type(role))
-            # print("-" * 120)
             if role == "1":
                 stu_obj = WebStudent.objects.filter(s_account=account, s_password=password).first()
-                # print(stu_obj)
                 if stu_obj:
                     # 确认学生账号存在
                     if stu_obj.s_state == 1:
                         request.session["account"] = account
+                        ret["s_id"] = stu_obj.s_id
                         request.session["role"] = "student"
                         request.session["name"] = stu_obj.s_name
                         request.session["password"] = stu_obj.s_password
                         request.session["head_img"] = stu_obj.s_head_image
-                        # print("-" * 120)
-                        # print(request.session["account"])
-                        # print(request.session["role"])
                         ret["status"] = 1
-                        ret["msg"] = "/home/"
-
+                        ret["msg"] = '/home/'
                     else:
                         # 判断学生状态
-                        print("已注销")
                         ret["status"] = 3
                         ret["msg"] = "该学生已被注销"
                 else:
@@ -184,7 +172,6 @@ def login(request):
 
             elif role == "2":
                 tea_obj = WebTeacher.objects.filter(t_account=account, t_password=password).first()
-                # print(tea_obj)
                 if tea_obj:
                     # 确认教师账号存在
                     if tea_obj.t_state == 1:
@@ -198,7 +185,6 @@ def login(request):
                         ret["msg"] = "/home/"
 
                     else:
-                        # print("已注销")
                         ret["status"] = 3
                         ret["msg"] = "该教师已被注销"
 
@@ -208,8 +194,6 @@ def login(request):
         else:
             ret['status'] = 0
             ret['msg'] = form_obj.errors
-            # print(form_obj.errors)
-            # print("-" * 120)
         return JsonResponse(ret)
     # 生成一个form对象
     loginForm = LoginForm()
@@ -223,10 +207,7 @@ def reg(request):
     if request.method == "POST":
         ret = {}
         form_obj = RegForm(request.POST)
-        # print(request.POST)
 
-        # print("-" * 120)
-        # print(form_obj)
         # 做校验
         if form_obj.is_valid():
             # 校验通过 在数据库中保存信息
@@ -236,27 +217,28 @@ def reg(request):
             state = 1
             grade = "一年级"
             create_time = int(time.time())
-            # print("-" * 120)
-            # print(form_obj.cleaned_data)
-            # print("-" * 120)
+
             s_name = form_obj.cleaned_data["name"]
             s_account = form_obj.cleaned_data["account"]
             s_password = form_obj.cleaned_data["password"]
 
             avatar_img = request.FILES.get("avatar")
-            # print("avatar_img", type(avatar_img), avatar_img)
-            # form_obj.cleaned_data.pop("re_password")
-            # avatar_img = request.FILES.get("avatar")
-            avatar_uid = create_uuid()
-            avatar_img_name = avatar_uid + "." + avatar_img.name.split(".")[1]
-            path = os.path.join(settings.MEDIA_ROOT, 'avatars', avatar_img_name)
+            # print(avatar_img)
 
-            with open(path, "wb") as f:
-                for line in avatar_img:
-                    f.write(line)
+            if avatar_img:
+                avatar_uid = create_uuid()
+                avatar_img_name = avatar_uid + "." + avatar_img.name.split(".")[1]
+                path = os.path.join(settings.MEDIA_ROOT, 'avatars', avatar_img_name)
 
-            avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
-            # print(avatar_url)
+                with open(path, "wb") as f:
+                    for line in avatar_img:
+                        f.write(line)
+
+                avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
+
+
+            else:
+                avatar_url = "http://" + request.get_host() + "/media/avatars/deflaut.png"
 
 
             stu_obj = WebStudent.objects.create(s_id=s_id, s_account=s_account, s_password=s_password, s_name=s_name,
@@ -299,20 +281,30 @@ def verify_code(request):
     ret = {}
     if request.method == "POST":
         account = request.POST.get("account")
-        # print(account)
+
         if account:
             match = re.findall((r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$'), account)
-            # print(match)
+
             if match:
                 stu_obj = WebStudent.objects.filter(s_account=account)
                 if stu_obj:
                     ret["status"] = 0
                     ret["error"] = "手机号码已注册！"
                     return JsonResponse(ret)
-                ret["status"] = 1
-                ret["account"] = account
-                ret["code"] = code
-                print(code)
+
+                else:
+
+                    appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+                    mobile = '{}'.format(account)  # 短信接受者的手机号码
+                    tpl_id = '108018'  # 申请的短信模板ID,根据实际情况修改
+                    tpl_value = '#code#={}&#company#=酷丁编程'.format(code)  # 短信模板变量,根据实际情况修改
+                    sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+
+                    ret["status"] = 1
+                    ret["account"] = account
+                    ret["code"] = code
+                    print(code)
+
             else:
                 ret["status"] = 0
                 ret["error"] = "请输入正确的号码！"
@@ -320,15 +312,11 @@ def verify_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        # mobile = '{}'.format(account)  # 短信接受者的手机号码
-        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+
         return JsonResponse(ret)
 
 
-# 注册验证码
+# 忘记密码验证码
 def get_code(request):
     # 生成随机验证码
     l = []
@@ -338,17 +326,25 @@ def get_code(request):
     ret = {}
     if request.method == "POST":
         account = request.POST.get("account")
-        # print(account)
+
         if account:
             match = re.findall((r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$'), account)
-            # print(match)
+
             if match:
                 stu_obj = WebStudent.objects.filter(s_account=account)
                 if stu_obj:
+
+                    appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
+                    mobile = '{}'.format(account)  # 短信接受者的手机号码
+                    tpl_id = '108018'  # 申请的短信模板ID,根据实际情况修改
+                    tpl_value = '#code#={}&#company#=酷丁编程'.format(code)  # 短信模板变量,根据实际情况修改
+                    sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+
                     ret["status"] = 0
                     ret["account"] = account
                     ret["code"] = code
                     print(code)
+
                 else:
                     ret["status"] = 1
                     ret["error"] = "该号码未注册！"
@@ -359,11 +355,7 @@ def get_code(request):
             ret["status"] = 0
             ret["error"] = "手机号码不能为空！"
 
-        # appkey = '337b85164bdc1bfd18b111a17b5a3478'  # 您申请的短信服务appkey
-        # mobile = '{}'.format(account)  # 短信接受者的手机号码
-        # tpl_id = '102599'  # 申请的短信模板ID,根据实际情况修改
-        # tpl_value = '#code#={}&#company#=麒麟信息'.format(code)  # 短信模板变量,根据实际情况修改
-        # sendsms(appkey, mobile, tpl_id, tpl_value)  # 请求发送短信
+
         return JsonResponse(ret)
 
 
@@ -410,8 +402,7 @@ def home(request):
     #取当前登陆人的账号和身份
     account = request.session.get("account", None)
     role = request.session.get("role",None)
-    # print(account)
-    # print(role)
+
 
     #判断身份
     if account:
@@ -420,20 +411,13 @@ def home(request):
             stu_obj = WebStudent.objects.filter(s_account=account).first()
             stu_info = WebLogsheet.objects.filter(l_user_id=stu_obj.pk).values("l_create_time").order_by(
                 "l_create_time").first()
-            # print(stu_obj)
-            # print(type(stu_info), stu_info)
 
-            # for i in stu_info:
-            #     print(i)
 
-            # 通知
-            # s_l_state_obj = WebLogsheet.objects.filter(l_sid=stu_obj.pk).values()
-            # print(l_state_obj)
-            # s_l_state = l_state_obj.l_state
+
 
             # 查找班主任
             teachers = WebGrant.objects.filter(g_sid=stu_obj.pk).first()
-            # print(teachers)
+
             if teachers:
                 t_info_obj = WebTeacher.objects.filter(t_id=teachers.g_tid_id).all().values()
 
@@ -513,37 +497,48 @@ def center(request):
     #取当前登陆人的账号和身份
     account = request.session.get("account", None)
     role = request.session.get("role", None)
-    stu_obj = WebStudent.objects.filter(s_account=account).first()
-    tea_obj = WebTeacher.objects.filter(t_account=account).first()
-    # print(tea_obj)
-    grant_obj = WebGrant.objects.filter(g_sid=stu_obj.pk).values_list()
+
     book_list = []
     course_list = []
-    for i in grant_obj:
-        book_info = WebDetail.objects.filter(d_id=i[5]).first()
-        if book_info not in book_list:
-            book_list.append(book_info)
-            for book in book_list:
-                # print(book.d_cid_id)
-                course_id = book.d_cid_id
-                if course_id not in course_list:
-                    course_list.append(course_id)
+    if role == "student":
 
-    course_obj_list = []
-    for c_id in course_list:
-        course_obj = WebCourse.objects.filter(c_id=c_id)
-        course_obj_list.append(course_obj)
-    # print(course_obj_list)
-    # print(i[5])
-    # 通知
-    # s_state_obj = WebLogsheet.objects.filter(l_sid=stu_obj.pk).first()
-    # s_l_state = s_state_obj.l_state
-    # t_state_obj = WebLogsheet.objects.filter(l_tid=tea_obj.pk).first()
-    # t_l_state = t_state_obj.l_state
-    # 获取排行榜
-    # stu_rank_obj = WebStudent.objects.all().order_by("s_id")
-    # print(stu_rank_obj)
-    # print(stu_obj.s_create_time)
+        stu_obj = WebStudent.objects.filter(s_account=account).first()
+        grant_obj = WebGrant.objects.filter(g_sid=stu_obj.pk).values_list()
+        for i in grant_obj:
+            book_info = WebDetail.objects.filter(d_id=i[5]).first()
+            if book_info not in book_list:
+                book_list.append(book_info)
+                for book in book_list:
+                    # print(book.d_cid_id)
+                    course_id = book.d_cid_id
+                    if course_id not in course_list:
+                        course_list.append(course_id)
+
+        course_obj_list = []
+        for c_id in course_list:
+            course_obj = WebCourse.objects.filter(c_id=c_id)
+            course_obj_list.append(course_obj)
+
+    if role == "teacher":
+        tea_obj = WebTeacher.objects.filter(t_account=account).first()
+        # print(tea_obj)
+        grant_obj = WebGrant.objects.filter(g_tid=tea_obj.pk).values_list()
+
+        for i in grant_obj:
+            book_info = WebDetail.objects.filter(d_id=i[5]).first()
+            if book_info not in book_list:
+                book_list.append(book_info)
+                for book in book_list:
+                    # print(book.d_cid_id)
+                    course_id = book.d_cid_id
+                    if course_id not in course_list:
+                        course_list.append(course_id)
+
+        course_obj_list = []
+        for c_id in course_list:
+            course_obj = WebCourse.objects.filter(c_id=c_id)
+            course_obj_list.append(course_obj)
+
     return render(request, 'center.html', locals())
 
 
@@ -566,26 +561,30 @@ def confirm_center(request):
         # print("avatar_img", type(avatar_img), avatar_img)
         # form_obj.cleaned_data.pop("re_password")
         # avatar_img = request.FILES.get("avatar")
-        avatar_uid = create_uuid()
-        avatar_img_name = avatar_uid + "." + avatar_img.name.split(".")[1]
-        path = os.path.join(settings.MEDIA_ROOT, 'avatars', avatar_img_name)
+        if avatar_img:
+            avatar_uid = create_uuid()
+            avatar_img_name = avatar_uid + "." + avatar_img.name.split(".")[1]
+            path = os.path.join(settings.MEDIA_ROOT, 'avatars', avatar_img_name)
 
-        with open(path, "wb") as f:
-            for line in avatar_img:
-                f.write(line)
+            with open(path, "wb") as f:
+                for line in avatar_img:
+                    f.write(line)
 
-        avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
-        # print(username, email, grade, sex,remark)
-        # print("- " * 120)
-        # create_time = time.localtime(request.POST.get("create_time"))
+            avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
+        else:
+            if role == "student":
+                avatar_url = WebStudent.objects.filter(s_account=account).values("s_head_image")
+            else:
+                avatar_url = WebTeacher.objects.filter(t_account=account).values("t_head_image")
+
         if role == "student":
             WebStudent.objects.filter(s_account=account).update(s_name=username, s_email=email, s_sex=sex,
                                                                 s_grade=grade, s_remark=remark, s_head_image=avatar_url)
-            # print("ok")
+
         else:
             WebTeacher.objects.filter(t_account=account).update(t_sex=sex, t_age=age, t_name=username, t_remark=remark,
                                                                 t_head_image=avatar_url)
-            # print("ok")
+
         ret["status"] = 1
         ret["msg"] = "保存成功"
     return JsonResponse(ret)
@@ -602,7 +601,7 @@ def confirm_pwd(request):
         new_pwd = request.POST.get("new_pwd")
         conf_pwd = request.POST.get("conf_pwd")
 
-        # print(pwd,new_pwd,conf_pwd)
+
 
         if role == "student":
             stu_obj = WebStudent.objects.filter(s_password=pwd).first()
@@ -750,11 +749,15 @@ def m_student(request):
             join_url['grent_record'] = grent_record
             join_url['grent_d_name'] = grent_d_name
             join_url['grent_t_name'] = grent_t_name
-            if eval(i['url'])['error']:
+
+            if i['url'] == None:
                 join_url['grent_j_url'] = 'error'
             else:
                 grent_j_url = eval(i['url'])['join_url']
                 join_url['grent_j_url'] = grent_j_url
+            # else:
+            #     join_url['grent_j_url'] = 'error'
+
             grent_join_url.append(join_url)
 
 
@@ -832,32 +835,40 @@ def m_student(request):
 
 def editdetail(request):
     show_inf = {'status': True, 'inf': None}
-    try:
-        d_id = request.POST.get('did')
-        # d_name = request.POST.get('d_name')
-        # d_number = request.POST.get('d_number')
-        # d_time_length = request.POST.get('d_time_length')
+    if request.method == "POST":
+        t_id = request.POST.get('tid')
+        g_id = request.POST.get('gid')
         g_time = request.POST.get('data')
-
+        sendurl = 'http://192.168.0.107:7000/remoteEditTime'  # 短信发送的URL,无需修改
         timeArray = time.strptime(g_time, "%Y-%m-%dT%H:%M")
         timeStamp = int(time.mktime(timeArray))
-        # print(timeStamp)
-        # d_cid_id = request.POST.get('d_cid_id'    )
-        # d_detail = request.POST.get('d_detail')
-        d_remark = request.POST.get('remark')
-        if not d_remark:
-            d_remark = ""
-        # print(d_id, d_create_time, d_remark)
-        WebDetail.objects.filter(d_id=d_id).update(
-            d_id=d_id,
-            d_remark=d_remark,
-        )
-        WebGrant.objects.filter(g_did_id=d_id).update(
-            g_time=timeStamp
-        )
-    except Exception as e:
+        # print('timeStamp', timeStamp)
+        # print('timeStamp', type(timeStamp))
+        params = 'time=%s&gid=%s&tid=%s' % (timeStamp, g_id, t_id)  # 组合参数
+        print('params', params)
+
+        wp = urllib.request.urlopen(sendurl + "?" + params)
+        content = wp.read()  # 获取接口返回内容
+        show_inf['inf'] = '发送成功！'
+        result = json.loads(content)
+        print('result', result)
+
+
+    #     d_remark = request.POST.get('remark')
+    #     if not d_remark:
+    #         d_remark = ""
+    #     # print(d_id, d_create_time, d_remark)
+    #     WebDetail.objects.filter(d_id=d_id).update(
+    #         d_id=d_id,
+    #         d_remark=d_remark,
+    #     )
+    #     WebGrant.objects.filter(g_did_id=d_id).update(
+    #         g_time=timeStamp
+    #     )
+    # except Exception as e:
+    else:
         show_inf['status'] = False
-        show_inf['inf'] = str(e)
+        show_inf['inf'] = '发送失败！'
 
     res = json.dumps(show_inf)
     return HttpResponse(res)
@@ -951,8 +962,8 @@ def m_evaluatestudent(request):
             e_ttos_score = evaluate['e_ttos_score']
             e_stot_score = evaluate['e_stot_score']
             e_remark = evaluate['e_remark']
-            print('e_remark', e_remark)
-            print('e_remark', type(e_remark))
+            # print('e_remark', e_remark)
+            # print('e_remark', type(e_remark))
             eve = {
                 'e_gid_id': e_gid_id,
                 'e_ttos_evaluate': e_ttos_evaluate,
@@ -1057,12 +1068,15 @@ def m_teacher(request):
             join_url['grent_record'] = grent_record
             join_url['grent_d_name'] = grent_d_name
             join_url['grent_s_name'] = grent_s_name
-
-            if eval(i['url'])['error']:
+            if i['url'] == None:
                 join_url['grent_j_url'] = 'error'
             else:
+                # if eval(i['url'])['error']:
+                #     join_url['grent_j_url'] = 'error'
+                # else:
                 grent_j_url = eval(i['url'])['start_url']
                 join_url['grent_j_url'] = grent_j_url
+                # print(join_url["grent_j_url"])
 
             grent_join_url.append(join_url)
         # 评价学生结束
@@ -1096,7 +1110,7 @@ def m_teacher(request):
             e_gid = WebGrant.objects.filter(g_sid__s_name=e_sid_name, g_tid=e_tid_id,
                                             g_did__d_name=e_did_name, ).values("g_id").first()
             e_gid_id = e_gid['g_id']
-            print('e_gid_id', e_gid_id)
+            # print('e_gid_id', e_gid_id)
 
             import uuid
             s_uuid = str(uuid.uuid1())
@@ -1214,6 +1228,16 @@ def test(request):
     role = request.session.get("role", None)
     stu_obj = WebStudent.objects.filter(s_account=account).first()
     tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    classes_list = WebClasses.objects.all()
+    # print(classes_list)
+    t_list = []
+    for i in classes_list:
+        t_obj = WebRelation.objects.filter(c_id=i.c_id).values_list("t_id__t_name", "c_id__c_name", "t_id", "c_id")
+        for t in t_obj:
+            t_list.append(t)
+
+    print(t_list)
+
     return render(request, "test.html", locals())
 
 
@@ -1278,23 +1302,84 @@ def change_pwd(request):
 #     return JsonResponse(ret)
 
 
+def join_classes(request):
+    if request.method == "POST":
+        t_id = request.POST.get("t_id")
+        c_id = request.POST.get("c_id")
+        s_id = request.POST.get("s_id")
+
+        u_id = create_uuid()
+        WebRelation.objects.create(r_id=u_id, s_id=s_id, c_id=c_id, t_id=t_id)
+        return HttpResponse("ok")
+
+
+def class_inquiry(request):
+    ret = {}
+    ret["status"] = ""
+    ret["msg"] = ""
+
+    if request.method == "POST":
+        c_name = request.POST.get("c_name")
+        classes_list = WebClasses.objects.filter(c_name__contains=c_name).all()
+        htmls = ''
+        if classes_list:
+            for i in classes_list:
+                t_obj = WebRelation.objects.filter(c_id=i.c_id).values_list("t_id__t_name", "c_id__c_name", "t_id",
+                                                                            "c_id")
+                for t in t_obj:
+                    htmls += '<div class="every_single_class left "><p class="center" style="margin-left: 70px">{}</p><div class="single_info left"><p>授课教师: {} </p></div><div class="right"><a href="#"><i class="fa fa-3x fa-plus-square plus_in" aria-hidden="true"></i></a></div></div>'.format(
+                        t[1], t[0])
+
+            ret["status"] = 1
+            ret["msg"] = htmls
+            print(htmls)
+        else:
+            ret["status"] = 0
+            ret["msg"] = "未找到相关班级，请重输入！"
+
+    return JsonResponse(ret)
+
+
+
+
+
+
+
+
+
+
 def build_index(request):
     # print(render(request, "/build/index.html"))
-    print("../static/build/index.html")
+    # print("../static/build/index.html")
     return render(request, "index.html")
 
 
+# 额外接口
+from django.views.decorators.csrf import csrf_exempt
+
+
+@csrf_exempt
 def build_login(request):
+    ret = {}
     if request.method == "POST":
-        account = request.POST.get("log_account")
-        password = request.POST.get("log_password")
+        obj = json.loads(request.body)
+        # print(obj, type(obj))
+        account = obj["log_account"]
+        password = obj["log_password"]
+        # print(account,password)
+
         stu_obj = WebStudent.objects.filter(s_account=account, s_password=password).first()
-        ret = {}
+
         if stu_obj:
             ret["status"] = 1
+            ret["s_id"] = stu_obj.s_id
+            ret["account"] = stu_obj.s_account
             ret["name"] = stu_obj.s_name
-            ret["head_img"] = stu_obj.s_head_img
+            ret["head_img"] = stu_obj.s_head_image
+            # print(ret)
         else:
             ret["status"] = 0
+    else:
+        ret["status"] = 0
 
-        return JsonResponse(ret)
+    return JsonResponse(ret)

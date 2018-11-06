@@ -30,7 +30,7 @@
 {% if role == "student" %}
     <div class="head">
         <div class="logo">
-             <img src="/static/img/logo.png">
+            <a href="/index/"><img src="/static/img/logo.png"></a>
          </div>
          <div class="mynav">
              <ul>
@@ -87,13 +87,12 @@
                          <p style="color: black;">通知中心</p>
                      </a>
                  </li>
-                 <li {% if request.path == "/test/" %}class="action"{% endif %}>
-                     <a href="#" onclick="alert('该功能正在开发中，敬请期待！！！')">
+                 <li {% if request.path == "/test/" %}class="action"{% endif %}><a href="/test/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tounaosiwei"></use>
                             </svg>
                          </p>
-                         <p style="color: black;">思维挑战</p></a></li>
+                     <p style="color: black;">我的班级</p></a></li>
                  <li {% if request.path == "/tool/" %}class="action"{% endif %}><a href="/tool/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-qianbi"></use>

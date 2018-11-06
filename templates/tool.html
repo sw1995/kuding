@@ -15,15 +15,23 @@
     <div style="text-align: center">
         <div class="tool_div">
             <div>
-                <a href="" onclick="alert('该功能正在开发中，敬请期待！！！')">java</a>
+                <a href="" onclick="alert('该功能正在开发中，敬请期待！！！')">Noip</a>
             </div>
             <div>
-                <a href="" onclick="alert('该功能正在开发中，敬请期待！！！')">python</a>
+                <a href="" onclick="alert('该功能正在开发中，敬请期待！！！')">Python</a>
             </div>
              <div>
-                 <a href="/static/build/index.html#/project_create">Scratch</a>
+                 <a target="_blank" href="/static/build/index.html#/project_create">Scratch</a>
                  {#                 <a href="/build/">Scratch</a>#}
             </div>
         </div>
     </div>
+    <script>
+        function setCookie() {
+            document.cookie = 's_id = {{ stu_obj.pk }} ' + ";path=/;";
+            document.cookie = 'username = {{ stu_obj.s_name }} ' + ";path=/;";
+            document.cookie = 'head_img = {{ stu_obj.s_head_image }} ' + ";path=/;";
+        };
+        setCookie()
+    </script>
 {% endblock %}

@@ -41,7 +41,7 @@
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">&nbsp;
                         <a for="" href="#">我的订单</a>
                     </div>
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的邀请</a>
                     </div>
@@ -52,12 +52,25 @@
 
                     <div class="home2">
                         <!-- 最新消息 -->
+                        <h1 style="text-align: center; margin-top: 100px;margin-left: -40px; color: yellow">暂无消息</h1>
                     </div>
                     <div class="home2 hide">
                         <!-- 我的分享 -->
+                        <h1 style="text-align: center; margin-top: 100px;margin-left: -40px; color: yellow">暂无分享</h1>
                     </div>
                     <div class="home2 hide">
                         <!-- 成就称号 -->
+                        <h1 style="width: 100%;">
+                            <ul style="text-align: center; margin-top: 100px;margin-left: -40px;">
+                                <li class="action">初出茅庐</li>
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <li>小有成就</li>
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <li>游刃有余</li>
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <li>大显身手</li>
+                            </ul>
+                        </h1>
                     </div>
                     <div class="home2 hide">
                         <!-- 个人资料 -->
@@ -111,7 +124,7 @@
                             </p>
                             <p>
                                 <span>性别：</span>
-                                {% if stu_obj.s_sex == 1 %}
+                                {% if stu_obj.s_sex == 0 %}
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
                                 {% else %}
@@ -168,25 +181,6 @@
                     </div>
 
                 </div>
-
-
-                <div class="right_menu left" style="display: none">
-                    <div class="server1">
-                        <div class="right_info">
-                            最新动态
-                        </div>
-                        恭喜你喜提客服小姐姐一枚
-                    </div>
-                    <div class="server2">
-                        <div class="right_info">
-                            排行榜
-                        </div>
-                        {% for stu_rank in stu_rank_obj %}
-                            <p>{{ stu_rank.s_name }}</p>
-                        {% endfor %}
-
-                    </div>
-                </div>
                 <div style="clear: both"></div>
             </div>
         </div>
@@ -230,7 +224,7 @@
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的订单</a>
                     </div>
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的邀请</a>
                     </div>
@@ -241,12 +235,25 @@
 
                     <div class="home2">
                         <!-- 最新消息 -->
+                        <h1 style="text-align: center; margin-top: 100px;margin-left: -40px; color: yellow">暂无消息</h1>
                     </div>
                     <div class="home2 hide">
                         <!-- 我的分享 -->
+                        <h1 style="text-align: center; margin-top: 100px;margin-left: -40px; color: yellow">暂无分享</h1>
                     </div>
                     <div class="home2 hide">
                         <!-- 成就称号 -->
+                        <h1 style="width: 100%;">
+                            <ul style="text-align: center; margin-top: 100px;margin-left: -40px;">
+                                <li class="action">初出茅庐</li>
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <li>小有成就</li>
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <li>游刃有余</li>
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                                <li>大显身手</li>
+                            </ul>
+                        </h1>
                     </div>
                     <div class="home2 hide">
                         <!-- 个人资料 -->
@@ -265,23 +272,24 @@
                             </tr>
                             </thead>
                             <tbody>
-
-                            {% if book_list %}
-                                {% for book in book_list %}
-                                    <tr>
-                                        <td class="success">{{ book.d_name }}</td>
-                                        <td class="info">{{ book.d_number }}</td>
-                                        <td class="danger">{{ book.d_detail }}</td>
-                                    </tr>
+                            <tbody>
+                            {% if course_obj_list %}
+                                {% for course_obj in course_obj_list %}
+                                    {% for course in course_obj %}
+                                        <tr>
+                                            <td class="success">{{ course.c_name }}</td>
+                                            <td class="info">{{ course.c_count }}</td>
+                                            <td class="danger">{{ course.c_detail }}</td>
+                                        </tr>
+                                    {% endfor %}
                                 {% endfor %}
                             {% else %}
                                 <tr class="info">
                                     <td align="center" colspan="3">暂无订单详情</td>
                                 </tr>
                             {% endif %}
-
-
                             </tbody>
+
                         </table>
                     </div>
 
@@ -302,7 +310,7 @@
                             </p>
                             <p>
                                 <span>性别：</span>
-                                {% if tea_obj.t_sex == 1 %}
+                                {% if tea_obj.t_sex == 0 %}
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
                                 {% else %}
@@ -357,24 +365,6 @@
                         </form>
                     </div>
 
-                </div>
-
-                <div class="right_menu left" style="display: none">
-                    <div class="server1">
-                        <div class="right_info">
-                            最新动态
-                        </div>
-                        恭喜你喜提客服小姐姐一枚
-                    </div>
-                    <div class="server2">
-                        <div class="right_info">
-                            排行榜
-                        </div>
-                        {% for stu_rank in stu_rank_obj %}
-                            <p>{{ stu_rank.s_name }}</p>
-                        {% endfor %}
-
-                    </div>
                 </div>
                 <div style="clear: both"></div>
             </div>

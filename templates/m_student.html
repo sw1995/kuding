@@ -166,18 +166,27 @@
                             <td class=" su" na="grent_d_name">{{ row.grent_d_name }}</td>
                             <td class=" su" na="grent_t_name">{{ row.grent_t_name }}</td>
 
-                            {% if  row.grent_time == location_time %}
-                                <td class=" su" na="grent_time">{{ row.grent_time }}</td>
-                                {% if  row.grent_j_url != 'error' %}
-                                    <td class=" su" na="grent_j_url"><a
-                                            href="http://{{ grent_join_urlstrd_time }}">点击上课</a></td>
+                            {% if row.grent_record == '0' %}
+                                {% if  row.grent_time <= location_time %}
+                                    <td class=" su" na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                    {% if  row.grent_j_url != 'error' %}
+                                        <td class=" su" na="grent_j_url"><a
+                                                href="{{ row.grent_j_url }}">点击上课</a></td>
+                                    {% else %}
+                                        <td class=" su" na="grent_j_url">暂无连接</td>
+                                    {% endif %}
                                 {% else %}
+                                    <td class=" su" na="grent_time">{{ row.grent_time|strd_time }}</td>
                                     <td class=" su" na="grent_j_url">暂无连接</td>
                                 {% endif %}
+                            {% elif row.grent_record == '1' %}
+                                <td class=" su" na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                <td class=" su" na="grent_j_url">已完成</td>
                             {% else %}
                                 <td class=" su" na="grent_time">{{ row.grent_time|strd_time }}</td>
-                                <td class=" su" na="grent_j_url">暂无连接</td>
+                                <td class=" su" na="grent_j_url">已取消</td>
                             {% endif %}
+
                             {% if row.grent_record == '0' %}
                                 <td class=" su" na="grent_record">未上课</td>
                             {% elif row.grent_record == '1' %}
@@ -328,29 +337,23 @@
                         <td class="success sus">课程名称</td>
                         <td class="success sus">课程章节</td>
                         <td class="success sus">课程时长</td>
-                        <td class="success sus wth">简介</td>
-                        <td class="success sus wth">课堂反馈</td>
+                        <td class="success sus wth">课程简介</td>
+                        <td class="success sus wth">备注</td>
                     </tr>
                     </thead>
                     <tbody>
                     {% for g in grent_list %}
                         {% for row in detail_list %}
-                            {% for e in evaluate_list %}
                                 {# 状态为1 表示已完成课#}
                                 {% if g.g_did_id == row.d_id and g.g_record == '1' %}
-                                    {% if row.d_id == e.e_did_id %}
-                                        {% if e.e_ttos_evaluate == null %}
                                             <tr>
                                                 <td class="sus ">{{ row.d_name }}</td>
                                                 <td class="sus ">{{ row.d_number }}</td>
                                                 <td class="sus ">{{ row.d_time_length }}</td>
+                                                <td class="sus wth">{{ row.d_detail }}</td>
                                                 <td class="sus wth">{{ row.d_remark }}</td>
-                                                <td class="sus wth">{{ e.e_stot_evaluate }}</td>
                                             </tr>
-                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            {% endfor %}
                         {% endfor %}
                     {% endfor %}
                     </tbody>

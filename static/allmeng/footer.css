@@ -1,0 +1,149 @@
+/*#iconDivMain1{*/
+/*display:none;!*53KF 图标默认隐藏*!*/
+/*}*/
+.footer {
+    background-color: #0d0d0d;
+    fonts-size: 14px;
+    max-width: 1920px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.footer .footer_left, .footer .footer_right {
+    height: 156px;
+    margin: 80px 0;
+}
+
+.footer_left {
+    border-right: 1px solid #0d0d0d;
+    position: relative;
+}
+
+.footer_left p {
+    color: white;
+    margin-bottom: 0;
+}
+
+.footer_left p:nth-of-type(1) {
+    background: url("../../../images/bottom_logo.png") no-repeat;
+    width: 346px;
+    height: 52px;
+    position: relative;
+}
+
+.footer_left p:nth-of-type(2) {
+    font-size: 28px;
+    font-weight: 100;
+    line-height: 45px;
+}
+
+.footer_left p:nth-of-type(3) {
+    font-weight: 100;
+    font-size: 18px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #999999;
+}
+
+.footer_right_connect {
+    margin-left: 66px;
+}
+
+.footer_right_connect p:nth-of-type(1) {
+    margin-top: 8px;
+}
+
+.footer_right_connect p img {
+    width: 27px;
+    vertical-align: top;
+    margin: 4px 10px 0 0;
+}
+
+.footer_right_connect p:nth-of-type(1) img {
+    margin: 0px 10px 0 0;
+}
+
+.footer_right_connect p span {
+    color: white;
+    font-size: 17px;
+    font-weight: 100;
+}
+
+.footer_right_connect .consult_online {
+    display: block;
+    width: 162px;
+    height: 38px;
+    color: white;
+    line-height: 38px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    border-radius: 40px;
+    background-color: #f02375;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 36px;
+    cursor: pointer;
+}
+
+.consult_online:hover {
+    background-color: #d00053;
+}
+
+.footer_right_connect .consult_online span {
+    font-size: 14px;
+}
+
+.consult_online:hover {
+    text-decoration: none;
+}
+
+.consult_online img {
+    width: 25px;
+}
+
+.footer_right_code {
+    text-align: center;
+}
+
+.footer_right_code p {
+    color: #999999;
+    margin-top: 9px;
+    font-size: 14px;
+}
+
+.footer_right_code img {
+    width: 135px;
+}
+
+.under_footer {
+    height: 40px;
+    background-color: #191919;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    max-width: 1920px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.under_footer p {
+    color: #575757;
+    margin-bottom: 0;
+}
+
+.flex {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex_1 {
+    flex: 1;
+    -webkit-box-flex: 1; /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1; /* OLD - Firefox 19- */
+    -webkit-flex: 1; /* Chrome */
+    -ms-flex: 1;
+}

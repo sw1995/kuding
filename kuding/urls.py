@@ -24,6 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', views.login),
     url(r'^index/$', views.index),
+    url(r'^$', views.index),
     url(r'^verify_code/$', views.verify_code),
     url(r'^stu_show/$', views.stu_show),
     url(r'^Teachers_lineup/$', views.Teachers_lineup),
@@ -40,8 +41,13 @@ urlpatterns = [
     url(r'^logout/$',views.logout),
     url(r'^get_code/$', views.get_code),
     url(r'^change_pwd/$', views.change_pwd),
+    url(r'^build_login/$', views.build_login),
     url(r'^build/$', views.build_index),
     url(r'^points/$', views.points),
+    url(r'^class_inquiry/$', views.class_inquiry),
+    url(r'^join_classes/$', views.join_classes),
+
+    # url(r'^get_url/$', views.get_url),
     # url(r'^t_info_detail/$',views.t_info_detail),
 
     # media 相关的路由设置

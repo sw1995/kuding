@@ -282,9 +282,9 @@ $(function () {
 
 
     });
-    $('.mod-register button').eq(1).click(function () {
-        $('.motai_con').css('display', 'none');
-    });
+    //$('.mod-register .getmessage').eq(1).click(function () {
+    //  $('.motai_con').css('display', 'none');
+    // });
 });
 
 

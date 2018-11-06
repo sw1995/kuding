@@ -1,40 +1,291 @@
-{% extends 'index_base.html' %}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        少儿编程首页
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="在线一对一少儿编程"/>
+    <link rel="shortcut icon" href="/static/img/kuding.ico">
+    <!--font awesome图标引用地址-->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="/static/css/animate.css">
+    <!-- Icomoon Icon Fonts-->
+    <link rel="stylesheet" href="/static/css/icomoon.css">
+    <!-- Bootstrap  -->
+    <link rel="stylesheet" href="/static/plug/bootstrap/css/bootstrap.css">
 
-{% block title %}
-    少儿编程首页
-{% endblock %}
+    <!-- Magnific Popup -->
+    <link rel="stylesheet" href="/static/css/magnific-popup.css">
 
-{% block article %}
+    <!-- Owl Carousel  -->
+    <link rel="stylesheet" href="/static/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/css/owl.theme.default.min.css">
+
+    <!-- Theme style  -->
+    <link rel="stylesheet" href="/static/css/z_style.css">
+
+    <!-- Modernizr JS -->
+    <script src="/static/js/modernizr-2.6.2.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+</head>
+<body>
+<!--这里是模态框的内容-->
+<div class="motai_con fadeIn">
+    <!-- 登录 -->
+    <div class="modal_data fadeIn">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
+                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
+                                                                                       aria-hidden="true"></i></button>
+        <h3>登录</h3>
+        <form action="" method="post">
+            <div class="info">{% csrf_token %}</div>
+            <div>
+                <label for="{{ loginForm.log_account.id_for_label }}">{{ loginForm.log_account.label }}</label>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                {{ loginForm.log_account }}
+            </div>
+            <span class="notice-erro">{{ loginForm.log_account.errors.0 }}</span><br>
+            <div>
+                <label for="{{ loginForm.log_password.id_for_label }}">{{ loginForm.log_password.label }}</label>
+                <i class="fa fa-key" aria-hidden="true"></i>
+                {{ loginForm.log_password }}
+            </div>
+            <span class="notice-erro">{{ loginForm.log_password.errors.0 }}</span><br>
+            {#                <div class="identify">#}
+            {#					<label style="color: white"><input type="radio" name="role" value="student" >学生</label>#}
+            {#					<label style="color: white"><input type="radio"   name="role" value="teacher">老师</label>#}
+            {#                </div>#}
+
+            {#                <div><label>账号</label><i class="fa fa-user" aria-hidden="true"></i><input name="account" autofocus type="text" placeholder="请输入手机号"></div>#}
+            {#				<span class="notice-erro" ></span><br>#}
+            {#				<div><label>密码</label><i class="fa fa-key" aria-hidden="true"></i><input name="password" type="password" placeholder="请输入密码"></div>#}
+            <div class="identify">
+                {{ loginForm.log_role }}
+                <div style="clear:both"></div>
+            </div>
+            <button type="button" class="btn btn-primary reset">取消</button>
+            <button type="button" id="login" class="btn btn-success">登录</button>
+            <a href="#" id="forget_btn">忘记密码</a>
+        </form>
+    </div>
+
+    <!-- 注册 -->
+    <div class="mod-register">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
+                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
+                                                                                       aria-hidden="true"></i></button>
+        <h3>注册</h3>
+        <form action="" novalidate method="post">
+            <div class="info">{% csrf_token %}</div>
+
+            <div>
+                <label for="{{ reg.name.id_for_label }}">{{ reg.name.label }}</label>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                {{ reg.name }} <span>{{ reg.name.errors.0 }}</span><br>
+            </div>
+            <div>
+                <label for="{{ reg.password.id_for_label }}">{{ reg.password.label }}</label>
+                <i class="fa fa-key" aria-hidden="true"></i>
+                {{ reg.password }} <span>{{ reg.password.errors.0 }}</span><br>
+            </div>
+            <div>
+                <label for="{{ reg.re_password.id_for_label }}">{{ reg.re_password.label }}</label>
+                <i class="fa fa-key" aria-hidden="true"></i>
+                {{ reg.re_password }} <span>{{ reg.re_password.errors.0 }}</span><br>
+            </div>
+            <div>
+                <label>头像</label>
+                <label for="id_avatar"><img style="margin-left: -51px;width: 100px;height: 100px;" id="avatar-img"
+                                            src="/static/img/deflaut.png" alt=""></label>
+                <input accept="image/*" type="file" name="avatar" id="id_avatar" style="display: none">
+                <span></span>
+            </div>
+            <div class="s_reg_account">
+                <label for="{{ reg.account.id_for_label }}">{{ reg.account.label }}</label>
+                <i class="fa fa-mobile" aria-hidden="true"></i>
+                {{ reg.account }} <span>{{ reg.account.errors.0 }}</span><br>
+            </div>
+            <label for="message-check">验证码：</label>
+            <input type="text" placeholder="验证码" class="message-check">
+            <button type="button" class="getmessage" name="getmessage">获取验证码</button>
+            <span class="erro-check"></span><br>
+            <br>
+
+            <div class="mod_reg">
+                <button type="button" name="reset" class="btn btn-primary reset">取消</button>
+                <button type="button" name="reg" class="btn btn-success">注册</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- 找回密码 -->
+    <div class="forget_pwd">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
+                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
+                                                                                       aria-hidden="true"></i></button>
+        <h3>忘记密码</h3>
+        <div>
+            <label for="forget_account">手机号：</label>
+            <i class="fa fa-mobile" aria-hidden="true"></i>
+            <input type="text" id="forget_account" name="forget_account" placeholder="请输入注册时的手机号">
+            <span></span>
+        </div>
+
+        <div>
+            <label for="forget_pwd">新密码：</label>
+            <i class="fa fa-key" aria-hidden="true"></i>
+            <input type="password" id="forget_pwd" name="forget_pwd" placeholder="请输入密码">
+            <span></span>
+        </div>
+
+        <div>
+            <label for="forget_re_pwd">确认密码：</label>
+            <i class="fa fa-key" aria-hidden="true"></i>
+            <input type="password" id="forget_re_pwd" name="forget_re_pwd" placeholder="请重复上面输入的密码">
+            <span></span>
+        </div>
+
+        <div>
+            <label for="confirm_code">验证码：</label>
+            <input type="text" placeholder="验证码" id="confirm_code" name="confirm_code">
+            <button type="button" name="get_code">获取验证码</button>
+            <span name="confirm_code_error"></span>
+        </div>
+        <button type="button" class="btn btn-danger reset">取消</button>
+        <button type="button" class="btn btn-success" name="forget_change_pwd">修改</button>
+    </div>
+</div>
+
+<div id="page">
+    <nav class="fh5co-nav" role="navigation">
+        <div class="top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 text-right">
+                        <p class="num">电话: 0561-3199633 {{ request.session.account }}</p>
+                        <!--	<ul class="fh5co-social">
+                                <li><a href="#"><i class="icon-twitter"></i></a></li>
+                                <li><a href="#"><i class="icon-dribbble"></i></a></li>
+                                <li><a href="#"><i class="icon-github"></i></a></li>
+                            </ul>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="top-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <div id="fh5co-logo"><a href="/index/"><img src="/static/img/logo.png" alt="logo"
+                                                                    style="width: 180px"></a></div>
+                    </div>
+                    <div class="col-xs-10 text-right menu-1">
+                        <ul>
+                            <li {% if request.path == "/index/" %}class="active"{% endif %}><a href="/index/">首页</a>
+                            </li>
+                            <li {% if request.path == "/stu_show/" %}class="active"{% endif %}><a
+                                    href="/stu_show/">学员成果</a></li>
+                            <li {% if request.path == "/class_type/" %}class="active"{% endif %}><a href="/class_type/">课程类型</a>
+                            </li>
+                            <li {% if request.path == "/Teachers_lineup/" %}class="active"{% endif %}>
+                                <a href="/Teachers_lineup/">师资阵容</a>
+                            </li>
+                            <li {% if request.path == "/contact/" %}class="active"{% endif %}><a
+                                    href="/contact/">联系我们</a></li>
+                            {#                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a#}
+                            {#                                    href="/static/build/index.html">Scrach</a></li>#}
+                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a
+                                    href="/static/build/index.html" target="_blank">Scratch</a></li>
+
+                            {% if account %}
+                                <li>
+                                    {% if role == "student" %}
+                                        <span class="user_name">{{ stu_obj.s_name }}</span>
+                                    {% endif %}
+                                    {% if role == "teacher" %}
+                                        <span class="user_name">{{ tea_obj.t_name }}</span>
+                                    {% endif %}
+                                    <a href="/home/"><span>个人中心</span></a>
+                                    <a href="/logout/"><span>退出</span></a>
+                                </li>
+                            {% else %}
+                                <li class="btn-cta btn_login"><a href="#"><span>登录</span></a></li>
+                                <li class="btn-cta btn_register"><a href="#"><span>注册</span></a></li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/img/img_bg_1.jpg);"
+            data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center">
+                    <div class="display-t">
+                        <div class="display-tc animate-box" data-animate-effect="fadeIn">
+                            <h1>酷丁编程 中国青少儿编程领跑者</h1>
+                            <h2>
+                                <ul>
+                                    <li>√&nbsp;5-18岁编程教育</li>
+                                    <li>√&nbsp;趣味性与实践性相结合</li>
+                                    <li>√&nbsp;逻辑思维能力提升平台</li>
+                                    <li>√&nbsp;不限于scratch的完整教学体系</li>
+                                </ul>
+                            </h2>
+                            <p><a class="btn btn-primary btn-lg btn-learn" style="width: 200px"
+                                  href="/contact/">参加课程</a> <a
+                                    class="btn btn-primary btn-lg popup-vimeo btn-video hidden"
+                                    href="http://115.159.33.73:8080/companyweb/kuding.mp4"><i class="icon-play"></i>
+                                观看视频</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
     <div class="info">{% csrf_token %}</div>
 
-    <div id="fh5co-counter" class="fh5co-counters">
+    <div id="fh5co-counter" class="fh5co-counters hidden">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="40356" data-speed="5000"
-                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="500" data-speed="50"
+                          data-refresh-interval="1"></span>
                     <span class="fh5co-counter-label">学生</span>
                 </div>
                 <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="30290" data-speed="5000"
-                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="100" data-speed="50"
+                          data-refresh-interval="0.1"></span>
                     <span class="fh5co-counter-label">课程</span>
                 </div>
                 <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="2039" data-speed="5000"
-                          data-refresh-interval="50"></span>
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="10" data-speed="50"
+                          data-refresh-interval="0.1"></span>
                     <span class="fh5co-counter-label">教员</span>
                 </div>
                 <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="997585" data-speed="5000"
-                          data-refresh-interval="50"></span>
-                    <span class="fh5co-counter-label">收益</span>
+                    <span class="fh5co-counter js-counter" data-from="0" data-to="6000" data-speed="1000"
+                          data-refresh-interval="10"></span>
+                    <span class="fh5co-counter-label">已授课时</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="fh5co-explore" class="fh5co-bg-section">
+    <div id="fh5co-explore" class="fh5co-bg-section hidden">
         <div class="container">
             <div class="row animate-box">
                 <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
@@ -59,7 +310,7 @@
                                 <li><i class="icon-check2"></i>提升孩子创造力</li>
                             </ul>
                             <p><a class="btn btn-primary btn-lg popup-vimeo btn-video"
-                                  href="https://vimeo.com/channels/staffpicks/93951774"><i class="icon-play"></i>
+                                  href="http://115.159.33.73:8080/companyweb/kuding.mp4"><i class="icon-play"></i>
                                 观看视频</a></p>
                         </div>
                     </div>
@@ -100,7 +351,6 @@
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                     <h2>最新文章</h2>
                     <p>酷丁少儿编程会不定期举办比赛或活动，以下是最新举办的活动内容</p>
-                    {#                        <a class="more" href="/article_list/">更多>></a>#}
                 </div>
             </div>
             <div class="row">
@@ -108,7 +358,7 @@
                     <div class="col-lg-4 col-md-4">
                         <div class="fh5co-blog animate-box">
                             <div class="blog-text">
-                                <a href="/article/{{ article.s_id }}"><img class="img-responsive img_hover"
+                                <a href="/article/{{ article.s_id }}"><img class="img-responsive img_hover article_img"
                                                                            src="{{ article.s_imgurl }}" alt=""></a>
                                 <h3 class="blog_title"><a href="/article/{{ article.s_id }}">{{ article.s_title }}</a>
                                 </h3>
@@ -141,50 +391,49 @@
         <div class="container-fluid proj-bottom">
             <div class="row">
                 <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                    <a href="#"><img src="/static/img/project-1.png" alt=""
                                      class="img-responsive">
-                        <h3>Web Master</h3>
-                        <span>View Course</span>
+                        <h3>彩色泡泡</h3>
+
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                    <a href="#"><img src="/static/img/project-2.png" alt=""
                                      class="img-responsive">
-                        <h3>Virtual Assistant</h3>
-                        <span>View Course</span>
+                        <h3>洋洋的飞船</h3>
+
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                    <a href="#"><img src="/static/img/project-3.png" alt=""
                                      class="img-responsive">
-                        <h3>Read Bible</h3>
-                        <span>View Course</span>
+                        <h3>大马路</h3>
+
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-4.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                    <a href="#"><img src="/static/img/project-4.png" alt=""
                                      class="img-responsive">
-                        <h3>Programming</h3>
-                        <span>View Course</span>
+                        <h3>迷宫</h3>
+
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-5.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                    <a href="#"><img src="/static/img/project-5.png" alt=""
                                      class="img-responsive">
-                        <h3>Technician</h3>
-                        <span>View Course</span>
+                        <h3>我的海底世界</h3>
+
                     </a>
                 </div>
                 <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-6.jpg" alt="Free HTML5 Website Template by FreeHTML5.co"
+                    <a href="#"><img src="/static/img/project-6.png" alt=""
                                      class="img-responsive">
-                        <h3>Photography</h3>
-                        <span>View Course</span>
+                        <h3>小猴爬树</h3>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container hidden">
             <div class="row">
                 <div class="features">
                     <div class="col-md-4 animate-box">
@@ -193,22 +442,18 @@
                     </div>
                     <div class="col-md-4 animate-box">
                         <h4>针对5——16岁儿童</h4>
-                        <p>符合6到16岁儿童认知阶段，能帮助孩子更好学习逻辑思维和计算思维 </p>
+                        <p>符合5到16岁儿童认知阶段，能帮助孩子更好学习逻辑思维和计算思维 </p>
                     </div>
                     <div class="col-md-4 animate-box">
                         <h4>图形化编程语言</h4>
                         <p>图形化代码，通过对代码的拖拽，嵌套，实现编程。还可以实习对机器人，硬件的控制 </p>
                     </div>
                 </div>
-                <div class="col-md-12 text-center animate-box">
-                    <p><a class="btn btn-primary btn-lg btn-learn" href="#">开启美妙的学习之旅</a></p>
-                </div>
             </div>
         </div>
     </div>
 
-    <div id="fh5co-steps">
-        <div class="container">
+    <div class="container hidden">
             <div class="row animate-box">
                 <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
                     <h2>网上购课流程</h2>
@@ -216,7 +461,7 @@
                 </div>
             </div>
 
-            <div class="row bs-wizard animate-box" style="border-bottom:0;">
+        <div class="row bs-wizard animate-box hidden" style="border-bottom:0;">
 
                 <div class="col-xs-3 bs-wizard-step complete">
                     <div class="text-center bs-wizard-stepnum"><h4>步骤一</h4></div>
@@ -258,7 +503,7 @@
         </div>
     </div>
 
-    <div id="fh5co-testimonial" class="fh5co-bg-section">
+<div id="fh5co-testimonial" class="fh5co-bg-section hidden">
         <div class="container">
             <div class="row animate-box">
                 <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
@@ -269,48 +514,408 @@
                 <div class="col-md-10 col-md-offset-1">
                     <div class="row animate-box">
                         <div class="owl-carousel owl-carousel-fullwidth">
-                            <div class="item">
+                            {% for tea in tea_list2 %}
+                                <div class="item">
                                 <div class="testimony-slide active text-center">
                                     <figure>
-                                        <img src="/static/img/person_1.jpg" alt="user">
+                                        <img src="{{ tea.t_head_image }}" alt="user">
                                     </figure>
-                                    <span>优秀讲师 <a href="#" class="twitter">名字</a></span>
+                                    <span>优秀讲师 <a href="#" class="twitter">{{ tea.t_name }}</a></span>
                                     <blockquote>
-                                        <p>&ldquo;讲师的简介&rdquo;</p>
+                                        <p>&ldquo;{{ tea.t_details }}&rdquo;</p>
                                     </blockquote>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="testimony-slide active text-center">
-                                    <figure>
-                                        <img src="/static/img/person_2.jpg" alt="user">
-                                    </figure>
-                                    <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-                                    <blockquote>
-                                        <p>&ldquo;Separated they live in Bookmarksgrove right at the coast of the
-                                            Semantics, a large language ocean.&rdquo;</p>
-                                    </blockquote>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="testimony-slide active text-center">
-                                    <figure>
-                                        <img src="/static/img/person_3.jpg" alt="user">
-                                    </figure>
-                                    <span>John Doe, via <a href="#" class="twitter">Twitter</a></span>
-                                    <blockquote>
-                                        <p>&ldquo;Far from the countries Vokalia and Consonantia, there live the blind
-                                            texts. Separated they live in Bookmarksgrove right at the coast of the
-                                            Semantics, a large language ocean.&rdquo;</p>
-                                    </blockquote>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+</div>
+
+
+<div id="fh5co-started" style="background-image:url(/static/img/img_bg_2.jpg);">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row animate-box">
+            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
+                <h2>让我们开始编程学习吧</h2>
+                <p>现在报名有更多惊喜优惠哦！</p>
+            </div>
+        </div>
+        <div class="row animate-box">
+            <div class="col-md-8 col-md-offset-2 text-center">
+                <p><a name="free" href="#" class="btn btn-default btn-lg">开始免费的课程</a></p>
+            </div>
+        </div>
     </div>
+</div>
+
+<!--这里是kuding信息公司的声明部分-->
+<div class="footer-section">
+    <div class="container">
+        <div class="footer-grids">
+            <div class="col-md-5 footer-grid wow fadeInDownBig animated animated" data-wow-delay=".5s"
+                 style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDownBig;">
+                <h4>公司产品</h4>
+                <p>Noip课程</p>
+                <p>Python课程</p>
+                <p>Java课程</p>
+                <p>Scratch课程</p>
+            </div>
+            <div class="col-md-4 footer-grid wow fadeInRight animated animated" data-wow-delay=".5s"
+                 style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+                <h4>联系我们</h4>
+                <p style="padding-top: 10px">源创客 五号楼 六层</p>
+                <p>淮北市相山区濉溪路265号</p>
+                <p>联系电话: 0561-3199633</p>
+                <a href="mailto:794384313@qq.com" style="color: #333;">794384313@qq.com</a>
+            </div>
+            <div class="col-md-3 footer-grid wow fadeInUpBig animated animated" data-wow-delay=".5s"
+                 style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
+                <h4>微信公众号</h4>
+                <img style="height: 120px;width: 120px;padding-top: 10px" src="/static/img/weixin.jpg">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
 
 
-{% endblock %}
+<div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+</div>
+
+</div>
+
+<!-- jQuery -->
+<script src="/static/js/jquery-3.3.1.js"></script>
+<!-- jQuery Easing -->
+<script src="/static/js/jquery.easing.1.3.js"></script>
+<!-- Bootstrap -->
+<script src="/static/plug/bootstrap/js/bootstrap.min.js"></script>
+<!-- Waypoints -->
+<script src="/static/js/jquery.waypoints.min.js"></script>
+<!-- Stellar Parallax -->
+<script src="/static/js/jquery.stellar.min.js"></script>
+<!-- Carousel -->
+<script src="/static/js/owl.carousel.min.js"></script>
+<!-- countTo -->
+<script src="/static/js/jquery.countTo.js"></script>
+<!-- Magnific Popup -->
+<script src="/static/js/jquery.magnific-popup.min.js"></script>
+<script src="/static/js/magnific-popup-options.js"></script>
+<!-- Main -->
+<script src="/static/js/main.js"></script>
+<script>
+
+
+    // 找到头像的input标签绑定change事件
+    $("#id_avatar").change(function () {
+        // 1. 创建一个读取文件的对象
+        var fileReader = new FileReader();
+        // 取到当前选中的头像文件
+        // console.log(this.files[0]);
+        // 读取你选中的那个文件
+        fileReader.readAsDataURL(this.files[0]);  // 读取文件是需要时间的
+        fileReader.onload = function () {
+            // 2. 等上一步读完文件之后才 把图片加载到img标签中
+            $("#avatar-img").attr("src", fileReader.result);
+        };
+    });
+
+    // 验证码倒计时
+    var code;
+    var account;
+    $('.getmessage').click(function () {
+        account = $("#id_account").val();
+        $.ajax({
+            url: '/verify_code/',
+            type: "post",
+            data: {
+                account: account,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    code = data.code;
+                    account = data.account;
+                    $('.getmessage').attr('disabled', true);
+                    // 倒计时60s
+                    var t = 60;
+                    var i = setInterval(function () {
+                        t--;
+                        if (t > 0) {
+                            $('.getmessage').text(t + '秒后重试');
+                        } else {
+                            $('.getmessage').text('获取验证码');
+                            $('.getmessage').removeAttr('disabled');
+                            clearInterval(i);
+                        }
+                    }, 1000);
+                } else {
+                    $("#id_account").next("span").html(data.error);
+                    setTimeout(function () {
+                        $("#id_account").next("span").html("");
+                    }, 3000);
+                }
+            }
+        });
+    });
+
+
+    //忘记密码倒计时
+    $("[name='get_code']").click(function () {
+        var forget_account = $("[name='forget_account']").val();
+        {#console.log(account);#}
+        if (forget_account.length == 0) {
+            $("[name='forget_account']").next("span").html("手机号不能为空！");
+            setTimeout(function () {
+                $("[name='forget_account']").next("span").html("");
+            }, 3000);
+        } else {
+            $.ajax({
+                url: '/get_code/',
+                type: "post",
+                data: {
+                    account: forget_account,
+                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                },
+                success: function (data) {
+                    {#console.log(data);#}
+                    if (data.status == 0) {
+                        code = data.code;
+                        account = data.account;
+                        $("[name='get_code']").attr('disabled', true);
+                        // 倒计时60s
+                        var t = 60;
+                        var i = setInterval(function () {
+                            t--;
+                            if (t > 0) {
+                                $("[name='get_code']").text(t + '秒后重试');
+                            } else {
+                                $("[name='get_code']").text('获取验证码');
+                                $("[name='get_code']").removeAttr('disabled');
+                                clearInterval(i);
+                            }
+                        }, 1000);
+                    } else {
+                        $("[name='forget_account']").next("span").html(data.error);
+                        setTimeout(function () {
+                            $("[name='forget_account']").next("span").html("");
+                        }, 3000);
+                    }
+                }
+            })
+        }
+    });
+
+    //忘记密码 验证码失去焦点验证
+    $("[name='confirm_code']").blur(function () {
+        var code1 = $("[name='confirm_code']").val();
+        var account1 = $("[name='forget_account']").val();
+        {#console.log(code1);#}
+        {#console.log(account1);#}
+        {#console.log(code);#}
+        {#console.log(account);#}
+
+        if (code1 == code && account1 == account) {
+
+            $(".erro-check").html("验证成功！");
+            setTimeout(function () {
+                $("[name='confirm_code_error']").html("");
+            }, 3000);
+        } else {
+            $("[name='confirm_code_error']").html("验证码不正确！");
+            setTimeout(function () {
+                $("[name='confirm_code_error']").html("");
+            }, 3000);
+        }
+    });
+
+
+    //忘记密码验证
+    $("[name='forget_change_pwd']").click(function () {
+        var forget_account = $("[name='forget_account']").val();
+        var forget_pwd = $("[name='forget_pwd']").val();
+        var forget_re_pwd = $("[name='forget_re_pwd']").val();
+        {#console.log(forget_pwd);#}
+        {#console.log(forget_re_pwd);#}
+        if (forget_pwd.length == 0) {
+            $("[name='forget_pwd']").next("span").html("密码不能为空！");
+            setTimeout(function () {
+                $("[name='forget_pwd']").next("span").html("");
+            }, 3000);
+        } else {
+            if (forget_pwd.length < 6) {
+                $("[name='forget_pwd']").next("span").html("密码不能低于6位！");
+                setTimeout(function () {
+                    $("[name='forget_pwd']").next("span").html("");
+                }, 3000);
+            } else {
+                if (forget_re_pwd.length == 0) {
+                    $("[name='forget_pwd']").next("span").html("确认密码不能为空！");
+                    setTimeout(function () {
+                        $("[name='forget_pwd']").next("span").html("");
+                    }, 3000);
+                } else {
+                    if (forget_pwd.length < 6) {
+                        $("[name='forget_re_pwd']").next("span").html("确认密码不能低于6位！");
+                        setTimeout(function () {
+                            $("[name='forget_pwd']").next("span").html("");
+                        }, 3000);
+                    } else {
+                        if (forget_pwd != forget_re_pwd) {
+                            $("[name='forget_re_pwd']").next("span").html("两次密码输入不同，请重新输入！");
+                            setTimeout(function () {
+                                $("[name='forget_re_pwd']").next("span").html("");
+                            }, 3000);
+                        } else {
+                            $.ajax({
+                                url: '/change_pwd/',
+                                type: "post",
+                                data: {
+                                    account: forget_account,
+                                    pwd: forget_pwd,
+                                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                                },
+                                success: function (data) {
+                                    if (data.status) {
+                                        alert("密码修改成功！");
+                                        location.href = data.href
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+
+    //验证码失去焦点时验证
+    $(".message-check").blur(function () {
+        var code1 = $(".message-check").val();
+        var account1 = $("#id_account").val();
+
+        if (code1 == code && account1 == account) {
+
+            $(".erro-check").html("验证成功！");
+            setTimeout(function () {
+                $(".erro-check").html("");
+            }, 3000);
+        } else {
+            $(".erro-check").html("验证码不正确！");
+            setTimeout(function () {
+                $(".erro-check").html("");
+            }, 3000);
+        }
+    });
+
+    //注册验证
+    $("[name='reg']").click(function () {
+        var code1 = $(".message-check").val();
+        var account1 = $("#id_account").val();
+        //console.log(code1);
+        //console.log(account1);
+        //console.log(code);
+        //console.log(account);
+        var formData = new FormData();
+        formData.append("name", $("#id_name").val());
+        formData.append("password", $("#id_password").val());
+        formData.append("re_password", $("#id_re_password").val());
+        formData.append("account", $("#id_account").val());
+        formData.append("avatar", $("#id_avatar")[0].files[0]);
+        formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+        $.ajax({
+            url: "/reg/",
+            type: "post",
+            processData: false,
+            contentType: false,
+            data: formData,
+            success: function (data) {
+                if (data.status == 0) {
+                    // 有错误就展示错误
+                    {#// console.log(data.msg);#}
+                    // 将报错信息填写到页面上
+                    $.each(data.msg, function (k, v) {
+                        // console.log("id_"+k, v[0]);
+                        // console.log($("#id_"+k));
+                        $("#id_" + k).next("span").text(v[0]);
+                        setTimeout(function () {
+                            $("#id_" + k).next("span").html("");
+                        }, 3000);
+                    })
+                } else {
+                    alert("恭喜您，注册成功！");
+                    location.reload()
+                }
+            }
+        })
+    });
+
+    //登陆验证
+    $("#login").click(function () {
+        var log_account = $("#id_log_account").val();
+        var log_password = $("#id_log_password").val();
+        var log_role = $("[name='log_role']:checked").val();
+        {#console.log(log_account);#}
+        {#console.log(log_password);#}
+        {#console.log(log_role);#}
+        $.ajax({
+            url: "/login/",
+            type: "post",
+            data: {
+                log_account: log_account,
+                log_password: log_password,
+                log_role: log_role,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            success: function (data) {
+                if (data.status == 0) {
+                    $.each(data.msg, function (k, v) {
+                        {#console.log("id_" + k, v[0]);#}
+                        {#console.log($("#id_" + k));#}
+                        $("#id_" + k).parents().next("span").html(v[0]);
+                        setTimeout(function () {
+                            $("#id_" + k).parents().next("span").html("");
+                        }, 3000);
+                    })
+                } else if (data.status == 1) {
+                    location.href = data.msg;
+                } else if (data.status == 3) {
+                    $(".notice-erro").html(data.msg);
+                    setTimeout(function () {
+                        $(".notice-erro").html("");
+                    }, 3000);
+                } else if (data.status == 4) {
+                    $(".notice-erro").html(data.msg);
+                    setTimeout(function () {
+                        $(".notice-erro").html("");
+                    }, 3000);
+                }
+            }
+        })
+    });
+    $("[name='free']").click(function () {
+        $('.motai_con').css('display', 'block');
+        $('.motai_con .modal_data').css('display', 'none');
+        $('.motai_con .mod-register').css('display', 'block');
+        $('.forget_pwd').css('display', 'none');      //
+        $('.js-fh5co-nav-toggle').click();   //这个是导航栏隐藏
+    });
+
+
+    // 将所有的input框绑定获取焦点的事件，将所有的错误信息清空
+    $("form input").focus(function () {
+        $(this).next().html("");
+    })
+
+
+</script>
+</body>
+</html>
+

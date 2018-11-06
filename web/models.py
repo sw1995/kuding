@@ -120,6 +120,18 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class WebClasses(models.Model):
+    c_id = models.CharField(primary_key=True, max_length=36)
+    c_name = models.CharField(max_length=100)
+    c_time = models.BigIntegerField(blank=True, null=True)
+    c_state = models.IntegerField()
+    c_remark = models.CharField(max_length=255, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'web_classes'
+
+
 class WebCourse(models.Model):
     c_id = models.CharField(primary_key=True, max_length=36)
     c_name = models.CharField(max_length=64)
@@ -192,6 +204,17 @@ class WebLogsheet(models.Model):
     class Meta:
         managed = False
         db_table = 'web_logsheet'
+
+
+class WebRelation(models.Model):
+    r_id = models.CharField(primary_key=True, max_length=36)
+    c_id = models.ForeignKey(WebClasses, models.DO_NOTHING)
+    s_id = models.ForeignKey('WebStudent', models.DO_NOTHING)
+    t_id = models.ForeignKey('WebTeacher', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'web_relation'
 
 
 class WebStudent(models.Model):

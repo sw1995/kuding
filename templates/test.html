@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-考试中心
+    我的班级
 {% endblock %}
 
 
@@ -9,16 +9,101 @@
     <link rel="stylesheet" href="/static/css/kuding.css">
 {% endblock %}
 
+{% block js %}
+    <script type="text/javascript" src="/static/layer/2.4/layer.js"></script>
+{% endblock %}
 
 {% block content %}
 
-    <p style="text-align: center;font-size: 30px;color:whitesmoke;margin-top: 5%">酷丁考试平台</p>
-    <div class="container">
-        <div class="row" style="text-align: center;margin-top: 10%">
-                <div class="test_div">1</div>
-                <div class="test_div">2</div>
-                <div class="test_div">3</div>
+
+
+    <form class="form-inline" action="" method="post">
+        {% csrf_token %}
+        <div class="form-group my_class_inquiry">
+            <label for="class_name">班级名称：</label>
+            <input type="text" class="form-control" id="class_name" placeholder="请输入班级名称">
+            <button type="button" class="btn btn-default" name="inquiry" id="inquiry">查询</button>
         </div>
+        <span class="error_info"></span>
+    </form>
+
+
+    <div class="my_class_content">
+
+
+        {% for t in t_list %}
+            <div class="every_single_class left ">
+                <p class="center" style="margin-left: 70px">{{ t.1 }}</p>
+                <div class="single_info left">
+                    <p>授课教师: {{ t.0 }} </p>
+        </div>
+                <div class="right">
+                    <a href="/join/{{ t.2 }}/{{ t.3 }}/{{ stu_obj.pk }}"><i class="fa fa-3x fa-plus-square plus_in"
+                                                                            aria-hidden="true"></i></a>
+
+
+                    <a style="text-decoration:none"
+                       onClick="join_classes(this,'{{ t.2 }}','{{ t.3 }}','{{ stu_obj.pk }}')" href="javascript:;"
+                       title="加入班级"><i class="fa fa-3x fa-plus-square plus_in" aria-hidden="true"></i></a>
+                </div>
+    </div>
+        {% endfor %}
+
+
     </div>
 
+    <script>
+
+        $("#inquiry").click(function () {
+            var class_name = $("#class_name").val();
+            if (class_name == '') {
+                window.location.reload();
+            } else {
+                $.ajax({
+                    url: '/class_inquiry/',
+                    type: 'post',
+                    data: {
+                        c_name: class_name,
+                        csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function (data) {
+                        $(".my_class_content div").remove();
+                        if (data.status == 0) {
+                            $(".error_info").html(data.msg);
+                            setTimeout(function () {
+                                $(".error_info").html("");
+                            }, 3000);
+                        } else {
+                            $(".my_class_content").append(data.msg);
+                        }
+                    }
+                })
+            }
+
+        })
+
+        function join_classes(obj, t_id, c_id, s_id) {
+            layer.confirm('确认要加入吗？', function (index) {
+                $.ajax({
+                    url: '/join_classes/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val(),
+                        t_id: t_id,
+                        c_id: c_id,
+                        s_id: s_id
+                    },
+                    success: function (data) {
+                        layer.msg('已发布!', {icon: 6, time: 2000});
+                    }
+                })
+            })
+        }
+
+
+    </script>
+
 {% endblock %}
+
+

@@ -179,3 +179,45 @@ body{
     font-size: 15px;
     padding: 10px
 }
+
+/* 我的班级 */
+
+.my_class_inquiry {
+    margin: 50px 450px;
+}
+
+.error_info {
+    margin-left: 550px;
+    margin-top: 10px;
+    color: red;
+}
+
+.my_class_content {
+    border: 1px red solid;
+    height: 800px;
+    width: 1280px;
+    margin: 50px auto 0;
+    background-color: white;
+    overflow: hidden;
+}
+
+.every_single_class {
+    border: 1px red solid;
+    height: 100px;
+    width: 290px;
+    margin: 15px 9px 20px 20px;
+}
+
+.every_single_class p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.single_info p {
+    margin-left: 10px;
+}
+
+.plus_in {
+    margin-right: 20px;
+    color: skyblue;
+}

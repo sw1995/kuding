@@ -51,10 +51,12 @@
 </head>
 <body>
 <!--这里是模态框的内容-->
-
-<!-- 登陆 -->
-<div class="motai_con fadeIn ">
+<div class="motai_con fadeIn">
+    <!-- 登陆 -->
     <div class="modal_data fadeIn">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
+                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
+                                                                                       aria-hidden="true"></i></button>
         <h3>登陆</h3>
         <form action="" method="post">
             <div class="info">{% csrf_token %}</div>
@@ -82,7 +84,7 @@
                 {{ loginForm.log_role }}
                 <div style="clear:both"></div>
             </div>
-            <button type="button" class="btn btn-primary">取消</button>
+            <button type="button" class="btn btn-primary reset">取消</button>
             <button type="button" id="login" class="btn btn-success">登陆</button>
             <a href="#" id="forget_btn">忘记密码</a>
         </form>
@@ -90,6 +92,9 @@
 
     <!-- 注册 -->
     <div class="mod-register">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
+                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
+                                                                                       aria-hidden="true"></i></button>
         <h3>注册</h3>
         <form action="" novalidate method="post">
             <div class="info">{% csrf_token %}</div>
@@ -127,7 +132,7 @@
             <br>
             <span class="erro-check"></span><br>
             <div class="mod_reg">
-                <button type="button" name="reset" class="btn btn-primary">取消</button>
+                <button type="button" name="reset" class="btn btn-primary reset">取消</button>
                 <button type="button" name="reg" class="btn btn-success">注册</button>
             </div>
         </form>
@@ -135,6 +140,9 @@
 
     <!-- 找回密码 -->
     <div class="forget_pwd">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
+                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
+                                                                                       aria-hidden="true"></i></button>
         <h3>忘记密码</h3>
         <div>
             <label for="forget_account">手机号：</label>
@@ -244,7 +252,7 @@
                             <h1>编程赋予孩子改变世界的能力</h1>
                             <h2>未来的竞争，是创造力与逻辑思维的竞争。
                                 就像比尔盖茨、乔布斯、埃隆马斯克这些时代大咖，并非他们的竞争力天生就高人一等</h2>
-                            <p><a class="btn btn-primary btn-lg btn-learn" href="#">参加课程</a> <a
+                            <p><a class="btn btn-primary btn-lg btn-learn" href="/contact/">参加课程</a> <a
                                     class="btn btn-primary btn-lg popup-vimeo btn-video"
                                     href="https://vimeo.com/channels/staffpicks/93951774"><i class="icon-play"></i> 观看视频</a>
                             </p>
@@ -366,16 +374,6 @@
             $("#avatar-img").attr("src", fileReader.result);
         };
     });
-
-
-
-
-
-
-
-
-
-
 
     // 验证码倒计时
     var code;
@@ -607,6 +605,7 @@
                         }, 3000);
                     })
                 } else {
+                    alert("恭喜您，注册成功！");
                     location.reload()
                 }
             }
