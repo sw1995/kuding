@@ -66,6 +66,7 @@ class AuthUserGroups(models.Model):
         unique_together = (('user', 'group'),)
 
 
+
 class AuthUserUserPermissions(models.Model):
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
@@ -131,6 +132,9 @@ class WebClasses(models.Model):
         managed = False
         db_table = 'web_classes'
 
+    def __str__(self):
+        return self.c_name
+
 
 class WebCourse(models.Model):
     c_id = models.CharField(primary_key=True, max_length=36)
@@ -143,6 +147,9 @@ class WebCourse(models.Model):
     class Meta:
         managed = False
         db_table = 'web_course'
+
+    def __str__(self):
+        return self.c_name
 
 
 class WebDetail(models.Model):
@@ -158,6 +165,9 @@ class WebDetail(models.Model):
     class Meta:
         managed = False
         db_table = 'web_detail'
+
+    def __str__(self):
+        return self.d_name
 
 
 class WebEvaluate(models.Model):
@@ -188,6 +198,7 @@ class WebGrant(models.Model):
     class Meta:
         managed = False
         db_table = 'web_grant'
+
 
 
 class WebLogsheet(models.Model):
@@ -236,6 +247,9 @@ class WebStudent(models.Model):
         managed = False
         db_table = 'web_student'
 
+    def __str__(self):
+        return self.s_name
+
 
 class WebTeacher(models.Model):
     t_id = models.CharField(primary_key=True, max_length=36)
@@ -254,3 +268,6 @@ class WebTeacher(models.Model):
     class Meta:
         managed = False
         db_table = 'web_teacher'
+
+    def __str__(self):
+        return self.t_name

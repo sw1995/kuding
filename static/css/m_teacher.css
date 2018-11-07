@@ -7,7 +7,20 @@
     box-shadow: 0 0 30px grey;
     float: left;
     border-radius: 5px;
+    overflow-x: hidden;
 }
+
+.m .m_9_table{
+    width: 900px;
+    /*margin: 6px auto;*/
+    margin-left: -20px;
+
+}
+.m .m_9_table .cl{
+    width: 16%;
+    border: 1px solid rgb(223,240,216);
+}
+
 
 .ttes {
     width: 180px;
@@ -36,6 +49,7 @@
     margin: 25px auto;
     font-size: 16px;
     text-align: center;
+    /*overflow-x: hidden;*/
 }
 .m_body .content .m_1 .m_1_table{
     width: 900px;

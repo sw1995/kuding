@@ -679,6 +679,70 @@ def m_student(request):
         grent_list = WebGrant.objects.filter(g_sid=sid_id).values().distinct()
         # grent_url = WebGrant.objects.filter(g_sid=sid_id).values_list('g_url')[0][0]
 
+        # 班级管理
+        classes_infos = []
+        for detail in detail_list:
+            classes_info = {}
+            d_id = detail['d_id']
+            d_name = detail['d_name']
+            # classes_info['d_id'] = d_id
+            classes_info['d_name'] = d_name
+
+            grents = WebGrant.objects.filter(g_did__d_name=d_name).values()
+            for grent in grents:
+                grent_time = grent['g_time']
+                grent_ur = grent['g_url']
+                grent_record = grent['g_record']
+                g_tid = grent['g_tid_id']
+                g_sid = grent['g_sid_id']
+                classes_info['grent_time'] = grent_time
+                classes_info['grent_ur'] = grent_ur
+                classes_info['grent_record'] = grent_record
+
+                relations = WebRelation.objects.filter(s_id_id=g_sid,t_id_id=g_tid).values()
+                for relation in relations:
+                    c_id = relation['c_id_id']
+                    t_id = relation['t_id_id']
+                    classes_list = WebClasses.objects.filter(c_id=c_id).values()
+                    for classes in classes_list:
+                        c_name = classes['c_name']
+                        c_state = classes['c_state']
+                        classes_info['c_name']=c_name
+                        classes_info['c_state']=c_state
+
+                    teacher_list = WebTeacher.objects.filter(t_id=t_id).values()
+                    for teacher in teacher_list:
+                        t_name = teacher['t_name']
+                        classes_info['t_name'] = t_name
+            classes_infos.append(classes_info)
+
+        # 班级管理
+        classes = []
+        for classes_list in classes_infos:
+            classes_l = {}
+            d_name = classes_list['d_name']
+            grent_time = classes_list['grent_time']
+            grent_record = classes_list['grent_record']
+            c_name = classes_list['c_name']
+            t_name = classes_list['t_name']
+
+            classes_l['d_name']=d_name
+            classes_l['grent_time']=grent_time
+            classes_l['grent_record']=grent_record
+            classes_l['c_name']=c_name
+            classes_l['t_name']=t_name
+
+            if classes_list['grent_ur'] == None:
+                classes_l['join_url'] = 'error'
+            else:
+                grent_j_url = eval(classes_list['grent_ur'])['join_url']
+                classes_l['join_url'] = grent_j_url
+
+            classes.append(classes_l)
+
+
+
+
         # 评价
         informations = []
         for detail in detail_list:
@@ -776,6 +840,8 @@ def m_student(request):
                 'location_time': location_time,
                 'grent_join_url': grent_join_url,
                 'informations': informations,
+                'classes': classes,
+
 
             }
         )
@@ -1081,6 +1147,68 @@ def m_teacher(request):
             grent_join_url.append(join_url)
         # 评价学生结束
 
+        # 班级管理
+        classes_infos = []
+        for detail in detail_list:
+            classes_info = {}
+            d_id = detail['d_id']
+            d_name = detail['d_name']
+            # classes_info['d_id'] = d_id
+            classes_info['d_name'] = d_name
+
+            grents = WebGrant.objects.filter(g_did__d_name=d_name).values()
+            for grent in grents:
+                grent_time = grent['g_time']
+                grent_ur = grent['g_url']
+                grent_record = grent['g_record']
+                g_tid = grent['g_tid_id']
+                g_sid = grent['g_sid_id']
+                classes_info['grent_time'] = grent_time
+                classes_info['grent_ur'] = grent_ur
+                classes_info['grent_record'] = grent_record
+
+                relations = WebRelation.objects.filter(s_id_id=g_sid,t_id_id=g_tid).values()
+                for relation in relations:
+                    c_id = relation['c_id_id']
+                    s_id = relation['s_id_id']
+                    classes_list = WebClasses.objects.filter(c_id=c_id).values()
+                    for classes in classes_list:
+                        c_name = classes['c_name']
+                        c_state = classes['c_state']
+                        classes_info['c_name']=c_name
+                        classes_info['c_state']=c_state
+
+                    students_list = WebStudent.objects.filter(s_id=s_id).values()
+                    for student in students_list:
+                        s_name = student['s_name']
+                        classes_info['s_name'] = s_name
+            classes_infos.append(classes_info)
+
+        # 班级管理
+        classes = []
+        for classes_list in classes_infos:
+            classes_l = {}
+            d_name = classes_list['d_name']
+            grent_time = classes_list['grent_time']
+            grent_record = classes_list['grent_record']
+            c_name = classes_list['c_name']
+            s_name = classes_list['s_name']
+
+            classes_l['d_name']=d_name
+            classes_l['grent_time']=grent_time
+            classes_l['grent_record']=grent_record
+            classes_l['c_name']=c_name
+            classes_l['s_name']=s_name
+
+            if classes_list['grent_ur'] == None:
+                classes_l['start_url'] = 'error'
+            else:
+                grent_j_url = eval(classes_list['grent_ur'])['start_url']
+                classes_l['start_url'] = grent_j_url
+
+            classes.append(classes_l)
+
+
 
         return render(request, 'm_teacher.html',
                       {
@@ -1093,6 +1221,7 @@ def m_teacher(request):
                           'tid': tid,
                           'grent_join_url': grent_join_url,
                           'location_time': location_time,
+                          'classes': classes,
 
                       })
     else:
