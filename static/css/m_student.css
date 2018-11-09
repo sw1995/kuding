@@ -92,6 +92,7 @@
     margin: 25px auto;
     font-size: 16px;
     text-align: center;
+    overflow-x: hidden;
 }
 .m_body .m_content .m_1 .m_1_table{
     width: 950px;
@@ -110,6 +111,15 @@
     /*height: 25px;*/
     /*font-size: 15px;*/
 /*}*/
+
+.m_body .m_content .m .m_7_table{
+    width: 900px;
+    margin: 6px auto;
+}
+.m_body .m_content .m .m_7_table .cl{
+    width: 16%;
+}
+
 
 .m_body .m_content .m .m_2_table{
     width: 950px;

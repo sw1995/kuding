@@ -73,8 +73,8 @@
                 <a href="#">上课提醒设置</a>
             </div>
             <div class="m_menu">
-                <i class="fa fa-paint-brush" aria-hidden="true"></i> &nbsp;
-                <a href="#">测试课</a>
+                <i class="fa fa-universal-access" aria-hidden="true"></i> &nbsp;
+                <a href="#">班级</a>
             </div>
 
         </div>
@@ -131,6 +131,7 @@
                         {% endfor %}
                     {% endif %}
                 </table>
+
             </div>
             <div class="m m_2 m_hide">
                 {#            <div class="m_search">#}
@@ -310,6 +311,7 @@
                 </div>
             </div>
             <div class="m m_3 m_hide">
+
                 {#            <div class="m_search">#}
                 {#                <span>课程名称:</span>&nbsp;#}
                 {#                <select id="city" class="select">#}
@@ -409,6 +411,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
             </div>
             <div class="m m_5 m_hide">
                 {#            <div class="m_search">#}
@@ -466,7 +469,58 @@
                 </div>
             </div>
             <div class="m_7 m m_hide">
-                <a style="margin-top: 20px;margin-left: 20px" type="button" class="btn btn-info">进入房间</a>
+                <table class="m_7_table table table-hover table-bordered">
+                    <thead>
+                    <tr>
+                        <td class="success cl">班级</td>
+                        <td class="success cl">课程名</td>
+                        <td class="success  cl" style="width: 100px;">任课老师</td>
+                        <td class="success  cl" style="width: 100px;">上课时间</td>
+                        <td class="success  cl">课程链接</td>
+                        <td class="success  cl" style="width: 50px;">状态</td>
+                    </tr>
+                    </thead>
+                    <tbody id="class_tbody" class="td">
+                    {% load str_time %}
+                    {% for row in classes %}
+                        <tr nid="">
+                            <td class=" cl " na="c_name">{{ row.c_name }}</td>
+                            <td class=" cl " na="d_name">{{ row.d_name }}</td>
+                            <td class=" cl " na="t_name">{{ row.t_name }}</td>
+
+                            {% if row.grent_record == '0' %}
+                                {% if  row.grent_time <= location_time %}
+                                    <td class=" cl " na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                    {% if  row.join_url != 'error' %}
+                                        <td class=" cl " na="join_url"><a
+                                                href="{{ row.join_url }}">点击上课</a></td>
+                                    {% else %}
+                                        <td class=" cl " na="join_url">暂无连接</td>
+                                    {% endif %}
+                                {% else %}
+                                    <td class=" cl " na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                    <td class=" cl " na="join_url">暂无连接</td>
+                                {% endif %}
+                            {% elif row.grent_record == '1' %}
+                                <td class=" cl " na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                <td class=" cl " na="join_url">已完成</td>
+                            {% else %}
+                                <td class=" cl " na="grent_time">{{ row.grent_time|strd_time }}</td>
+                                <td class=" cl " na="join_url">已取消</td>
+                            {% endif %}
+
+                            {% if row.grent_record == '0' %}
+                                <td class=" cl" na="grent_record">未上课</td>
+                            {% elif row.grent_record == '1' %}
+                                <td class=" cl " na="grent_record">已完成</td>
+                            {% else %}
+                                <td class=" cl " na="grent_record">已取消</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
             </div>
         </div>
 
