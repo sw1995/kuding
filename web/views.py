@@ -1357,15 +1357,35 @@ def test(request):
     role = request.session.get("role", None)
     stu_obj = WebStudent.objects.filter(s_account=account).first()
     tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    # 所有班级列表
     classes_list = WebClasses.objects.all()
-    # print(classes_list)
-    t_list = []
-    for i in classes_list:
-        t_obj = WebRelation.objects.filter(c_id=i.c_id).values_list("t_id__t_name", "c_id__c_name", "t_id", "c_id")
-        for t in t_obj:
-            t_list.append(t)
+    t_list1 = []  # 班级对应的老师列表
+    c_list2 = []  # 该老师的班级列表
+    s_list = []  # 老师 班级对应下的学生列表
 
-    # print(t_list)
+    if tea_obj:
+        c_list = WebClasses.objects.filter(c_remark=tea_obj.pk).values_list("c_name", "c_id", "c_state")
+        # print(c_list)
+        for i in c_list:
+            if i not in c_list2:
+                c_list2.append(i)
+
+        # print(c_list2)
+
+    for i in classes_list:
+        if stu_obj:
+            t_obj = WebRelation.objects.filter(c_id=i.c_id).values_list("t_id__t_name", "c_id__c_name", "t_id", "c_id")
+            if t_obj:
+                for t in t_obj:
+                    t_list1.append(t)  # 班级对应的老师列表
+
+        if tea_obj:
+            s_obj = WebRelation.objects.filter(t_id=tea_obj.pk, c_id=i.c_id).values("s_id__s_name", "r_state", "s_id",
+                                                                                    "c_id__c_name", "c_id", "r_id")
+            # print(s_obj)
+            if s_obj:
+                for s in s_obj:
+                    s_list.append(s)  #老师班级对应下的学生列表
 
     return render(request, "test.html", locals())
 
@@ -1430,36 +1450,47 @@ def change_pwd(request):
 #         ret["t_remark"] = tea_detail_obj.t_remark
 #     return JsonResponse(ret)
 
-
 def join_classes(request):
+    ret = {}
     if request.method == "POST":
         t_id = request.POST.get("t_id")
         c_id = request.POST.get("c_id")
         s_id = request.POST.get("s_id")
+        # print("t_id", t_id)
+        # print("s_id", s_id)
+        # print("c_id", c_id)
+        c_obj = WebClasses.objects.filter(c_id=c_id).first()
+        s_obj = WebStudent.objects.filter(s_id=s_id).first()
+        t_obj = WebTeacher.objects.filter(t_id=t_id).first()
         u_id = create_uuid()
-        WebRelation.objects.create(r_id=u_id, s_id=s_id, c_id=c_id, t_id=t_id, r_state=0)
-        ret = {}
-        ret["msg"] = "已加入，待审核！"
+        ip = get_ip()
+        rel = WebRelation.objects.create(r_id=u_id, s_id=s_obj, c_id=c_obj, t_id=t_obj, r_state=0)
+        stu_obj = WebStudent.objects.filter(s_id=s_id).first()
+        c_obj = WebClasses.objects.filter(c_id=c_id).first()
+        action = stu_obj.s_name + "申请加入" + c_obj.c_name
+        create_time = int(time.time())
+        WebLogsheet.objects.create(l_id=u_id, l_action=action, l_user_id=stu_obj.s_name,
+                                   l_create_time=create_time, l_state=0, l_ip=ip)
+        if rel:
+            ret["msg"] = "已申请，待审核！"
         return JsonResponse(ret)
 
 
 def class_inquiry(request):
     ret = {}
     if request.method == "POST":
+        account = request.session.get("account", None)
+        s_obj = WebStudent.objects.filter(s_account=account).first()
         c_name = request.POST.get("c_name")
-        classes_list = WebClasses.objects.filter(c_name__contains=c_name).all()
+        classes_list = WebClasses.objects.filter(c_state=int(c_name)).all()
+        # print(classes_list)
         htmls = ''
         if classes_list:
             for i in classes_list:
-                t_obj = WebRelation.objects.filter(c_id=i.c_id).values_list("t_id__t_name", "c_id__c_name", "t_id",
-                                                                            "c_id")
-                for t in t_obj:
-                    htmls += '<div class="every_single_class left "><p class="center" style="margin-left: 70px">{}</p><div class="single_info left"><p>授课教师: {} </p></div><div class="right"><a href="#"><i class="fa fa-3x fa-plus-square plus_in" aria-hidden="true"></i></a></div></div>'.format(
-                        t[1], t[0])
-
+                htmls += '<div class="every_single_class left "><p class="center" style="margin-left: 70px">{}</p><div class="single_info left"><p>班级口令: {} </p></div><div class="plus_in_div right"><a style="text-decoration:none" onClick="join_classes(this,\'{}\',\'{}\',\'{}\')" href="javascript:;"<i class="fa fa-3x fa-plus-square plus_in" aria-hidden="true"></i></a></div></div>'.format(
+                    i.c_name, i.c_state, i.pk, i.c_remark, s_obj.pk)
             ret["status"] = 1
             ret["msg"] = htmls
-            # print(htmls)
         else:
             ret["status"] = 0
             ret["msg"] = "未找到相关班级，请重输入！"
@@ -1467,11 +1498,155 @@ def class_inquiry(request):
     return JsonResponse(ret)
 
 
+def quit_review(request):
+    if request.method == "POST":
+        t_id = request.POST.get("t_id")
+        s_id = request.POST.get("s_id")
+        c_id = request.POST.get("c_id")
+        # print("t_id", t_id)
+        # print("s_id", s_id)
+        # print("c_id", c_id)
+        r = WebRelation.objects.filter(s_id=s_id, t_id=t_id, c_id=c_id).update(r_state=0)
+        ret = {}
+        if r:
+            ret["s_id"] = s_id
+            ret["t_id"] = t_id
+            ret["c_id"] = c_id
+        return JsonResponse(ret)
 
 
+def join_review(request):
+    if request.method == "POST":
+        t_id = request.POST.get("t_id")
+        s_id = request.POST.get("s_id")
+        c_id = request.POST.get("c_id")
+        # print("t_id", t_id)
+        # print("s_id", s_id)
+        # print("c_id", c_id)
+        r = WebRelation.objects.filter(s_id=s_id, t_id=t_id, c_id=c_id).update(r_state=1)
+        ret = {}
+        if r:
+            ret["s_id"] = s_id
+            ret["t_id"] = t_id
+            ret["c_id"] = c_id
+            print(ret)
+        return JsonResponse(ret)
 
 
+def query_student(request):
+    ret = {}
+    if request.method == "POST":
+        s_id = request.POST.get("pk")
+        s_obj = WebStudent.objects.filter(s_id=s_id).first()
+        ret["img"] = s_obj.s_head_image
+        ret["account"] = s_obj.s_account
+        ret["sex"] = s_obj.s_sex
+        ret["grade"] = s_obj.s_grade
+        ret["name"] = s_obj.s_name
+        print(ret)
+    return JsonResponse(ret)
 
+
+def student_del(request):
+    ret = {}
+    if request.method == "POST":
+        id = request.POST.get("pk")
+        # print(id)
+        account = request.session.get("account", None)
+        t_obj = WebTeacher.objects.filter(t_account=account).first()
+        s_name_obj = WebRelation.objects.filter(r_id=id).first()
+        WebRelation.objects.filter(r_id=id).delete()
+        id = create_uuid()
+        ip = get_ip()
+        action = t_obj.t_name + "拒绝了" + s_name_obj.s_id__s_name + "加入"
+        create_time = int(time.time())
+        WebLogsheet.objects.create(l_id=id, l_action=action, l_user_id=t_obj.t_name,
+                                   l_create_time=create_time, l_state=0, l_ip=ip)
+        ret["msg"] = "已删除！"
+        return JsonResponse(ret)
+
+
+def classes_del(request):
+    ret = {}
+    if request.method == "POST":
+        id = request.POST.get("pk")
+        account = request.session.get("account", None)
+        t_obj = WebTeacher.objects.filter(t_account=account).first()
+        c_name_obj = WebClasses.objects.filter(c_id=id).first()
+        del_class_fk = WebRelation.objects.filter(c_id=id).delete()
+        if del_class_fk:
+            del_class = WebClasses.objects.filter(c_id=id).delete()
+            if del_class:
+                id = create_uuid()
+                ip = get_ip()
+                action = t_obj.t_name + "删除了" + c_name_obj.c_name
+                create_time = int(time.time())
+                WebLogsheet.objects.create(l_id=id, l_action=action, l_user_id=t_obj.t_name,
+                                           l_create_time=create_time, l_state=0, l_ip=ip)
+                ret["msg"] = "已删除！"
+    return JsonResponse(ret)
+
+
+def classes(request):
+    account = request.session.get("account", None)
+    role = request.session.get("role", None)
+    stu_obj = WebStudent.objects.filter(s_account=account).first()
+    tea_obj = WebTeacher.objects.filter(t_account=account).first()
+    # 所有班级列表
+    classes_list = WebClasses.objects.all()
+    t_list1 = []  # 班级对应的老师列表
+    c_list2 = []  # 该老师的班级列表
+    s_list = []  # 老师 班级对应下的学生列表
+
+    if tea_obj:
+        c_list = WebClasses.objects.filter(c_remark=tea_obj.pk).values_list("c_name", "c_id", "c_state")
+        # print(c_list)
+        for i in c_list:
+            if i not in c_list2:
+                c_list2.append(i)
+
+        # print(c_list2)
+
+    for i in classes_list:
+        if stu_obj:
+            t_obj = WebRelation.objects.filter(c_id=i.c_id).values_list("t_id__t_name", "c_id__c_name", "t_id", "c_id")
+            if t_obj:
+                for t in t_obj:
+                    t_list1.append(t)  # 班级对应的老师列表
+
+        if tea_obj:
+            s_obj = WebRelation.objects.filter(t_id=tea_obj.pk, c_id=i.c_id).values("s_id__s_name", "r_state", "s_id",
+                                                                                    "c_id__c_name", "c_id", "r_id")
+            # print(s_obj)
+            if s_obj:
+                for s in s_obj:
+                    s_list.append(s)  # 老师班级对应下的学生列表
+
+    return render(request, "pre_html.html", locals())
+
+
+def add_class(request):
+    ret = {}
+    if request.method == "POST":
+        c_name = request.POST.get("class_name")
+        c_key = request.POST.get("class_key")
+        u_id = create_uuid()
+        account = request.session.get("account", None)
+        t_obj = WebTeacher.objects.filter(t_account=account).first()
+        classes_obj = WebClasses.objects.create(c_id=u_id, c_name=c_name, c_state=c_key, c_remark=t_obj.pk)
+        count = WebClasses.objects.filter(c_remark=t_obj.pk).count()
+        # print(count)
+        if classes_obj:
+            ret["status"] = 1
+            ret["msg"] = "创建成功！"
+            ret["count"] = count
+            ret["u_id"] = u_id
+            ret["c_name"] = c_name
+            ret["c_key"] = c_key
+        else:
+            ret["status"] = 0
+            ret["msg"] = "班级已存在！"
+    return JsonResponse(ret)
 
 
 

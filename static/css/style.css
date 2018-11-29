@@ -3,7 +3,7 @@ body{
     top: 0;
     margin: 0 auto;
     width: 1280px;
-    background-color: #eee;
+    background-color: white;
 }
 .logo{
     float: left;
@@ -46,19 +46,28 @@ body{
     height: 80px;
     /*background-color: yellow;*/
 }
+
+.user_infomations {
+    float: left;
+    width: 1280px;
+    height: 100px;
+    /*border: 1px red solid;*/
+    margin-top: -110px;
+}
 .user-img{
-    float: right;
-    height: 80px;
+    float: left;
+    height: 100px;
 }
 .user-img img{
     display: inline-block;
-    height: 60px;
-    border-radius: 50%;
+    height: 70px;
+    width: 70px;
+    border-radius: 17%;
     margin: 10px 10px 0px ;
 }
 .user-inf{
-    float: right;
-    height: 80px;
+    float: left;
+    height: 100px;
 }
 .user-inf .stu_name{
     margin-top: 15px;
@@ -66,7 +75,7 @@ body{
     font-weight: bold;
 }
 .user-inf .stu_state{
-    width: 40px;
+    width: 100px;
     float: right;
     margin-top: 8px;
 }

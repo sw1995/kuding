@@ -28,6 +28,18 @@
 <body>
 
 {% if role == "student" %}
+    <div style="height: 250px;width: 1280px;">
+        <div style="background-image: url('/static/img/bg_img.png');width: 1280px;height: 250px"></div>
+        <div class="user_infomations">
+            <div class="user-img">
+                <img src="{{ stu_obj.s_head_image }}" alt="用户头像">
+            </div>
+            <div class="user-inf">
+                <p class="stu_name">{{ stu_obj.s_name }}同学</p>
+                <p class="stu_state"><a href="/logout/">[退出登陆]</a></p>
+            </div>
+        </div>
+    </div>
     <div class="head">
         <div class="logo">
             <a href="/index/"><img src="/static/img/logo.png"></a>
@@ -107,20 +119,15 @@
                      <p style="color: black;">帮助中心</p></a></li>
              </ul>
          </div>
-         <div class="guestshow">
-             <div class="user-img">
-                 <img src="{{ stu_obj.s_head_image }}" alt="用户头像">
-             </div>
-             <div class="user-inf">
-                 <p class="stu_name">{{ stu_obj.s_name }}同学</p>
-                 <p class="stu_state"><a href="/logout/">[退出]</a></p>
-             </div>
-         </div>
+
     </div>
 {% endif %}
 
 
 {% if role == "teacher" %}
+    <div class="h-inner">
+        <img src="/static/img/bg_img.png" alt="">
+    </div>
     <div class="head" style="background-color: #607d8b99">
         <div class="logo">
              <img src="/static/img/logo.png">
@@ -185,7 +192,7 @@
                  </li>
 
                  <li {% if request.path == "/test/" %}class="action"{% endif %}>
-                     <a href="#" onclick="alert('该功能正在开发中，敬请期待！！！')">
+                     <a href="/test/">
                          <p><svg class="icon" style="font-size: 35px" aria-hidden="true">
                                   <use xlink:href="#icon-tounaosiwei"></use>
                             </svg>
@@ -231,10 +238,8 @@
     <a target="_blank" href="/stu_show/">学员风采</a>
     <a target="_blank" href="/class_type/">课程类型</a>
     <a target="_blank" href="/Teachers_lineup/">师资阵容</a>
-    <a target="_blank" href="/contact/">联系我们</a>
+    <a target="_blank" href="/contact/">签名墙</a>
     <p style="font-size: 12px;">©淮北麒麟信息科技有限公司    All Rights Reserved | <a href="http://www.qilinxx.com/">备案号</a></p>
 </div>
-
-
 </body>
 </html>

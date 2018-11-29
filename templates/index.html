@@ -166,7 +166,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-right">
-                        <p class="num">电话: 0561-3199633 {{ request.session.account }}</p>
+                        <p class="num">电话: 0561-3199633 </p>
                         <!--	<ul class="fh5co-social">
                                 <li><a href="#"><i class="icon-twitter"></i></a></li>
                                 <li><a href="#"><i class="icon-dribbble"></i></a></li>
@@ -185,7 +185,8 @@
                     </div>
                     <div class="col-xs-10 text-right menu-1">
                         <ul>
-                            <li {% if request.path == "/index/" %}class="active"{% endif %}><a href="/index/">首页</a>
+                            <li {% if request.path == "/index/" or request.path == "" %}class="active"{% endif %}><a
+                                    href="/index/">首页</a>
                             </li>
                             <li {% if request.path == "/stu_show/" %}class="active"{% endif %}><a
                                     href="/stu_show/">学员成果</a></li>
@@ -209,7 +210,11 @@
                                     {% if role == "teacher" %}
                                         <span class="user_name">{{ tea_obj.t_name }}</span>
                                     {% endif %}
+                                </li>
+                                <li>
                                     <a href="/home/"><span>个人中心</span></a>
+                                </li>
+                                <li>
                                     <a href="/logout/"><span>退出</span></a>
                                 </li>
                             {% else %}
@@ -540,13 +545,13 @@
     <div class="container">
         <div class="row animate-box">
             <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                <h2>让我们开始编程学习吧</h2>
-                <p>现在报名有更多惊喜优惠哦！</p>
+                <p style="color: yellow">现在注册还能将获取免费试听资格</p>
+                <p style="color: yellow">报名更有惊喜优惠等你哦！</p>
             </div>
         </div>
         <div class="row animate-box">
             <div class="col-md-8 col-md-offset-2 text-center">
-                <p><a name="free" href="#" class="btn btn-default btn-lg">开始免费的课程</a></p>
+                <p><a name="free" href="#" class="btn btn-info btn-lg">立即领取试听大礼包</a></p>
             </div>
         </div>
     </div>

@@ -46,6 +46,13 @@ urlpatterns = [
     url(r'^points/$', views.points),
     url(r'^class_inquiry/$', views.class_inquiry),
     url(r'^join_classes/$', views.join_classes),
+    url(r'^quit_review/$', views.quit_review),
+    url(r'^join_review/$', views.join_review),
+    url(r'^query_student/$', views.query_student),
+    url(r'^student_del/$', views.student_del),
+    url(r'^add_class/$', views.add_class),
+    url(r'^classes_del/$', views.classes_del),
+    url(r'^classes/$', views.classes),
 
     # url(r'^get_url/$', views.get_url),
     # url(r'^t_info_detail/$',views.t_info_detail),

@@ -4,7 +4,7 @@ body{
     top: 0;
     margin: 0 auto;
     width: 1280px!important;
-    background-color: #eee;
+    background-color: white;
 }
 .li_notice {
     width: 100%;
@@ -115,12 +115,6 @@ ul.sc::-webkit-scrollbar-track { /*滚动条里面轨道*/
     background: rgba(0, 0, 0, 0);
 }
 
-/*导航点击样式*/
-.active {
-    background-color: #e3f4fb;
-    border-radius: 8px;
-}
-
 /*帮助信息相关样式*/
 .li_c {
     padding: 15px;
@@ -184,6 +178,7 @@ body{
 
 .my_class_inquiry {
     margin: 50px 450px;
+    width: 1000px;
 }
 
 .error_info {
@@ -193,6 +188,15 @@ body{
 }
 
 .my_class_content {
+    border: 1px red solid;
+    height: 800px;
+    width: 1280px;
+    margin: 50px auto 0;
+    background-color: white;
+    overflow: hidden;
+}
+
+.my_class_content_backup {
     border: 1px red solid;
     height: 800px;
     width: 1280px;
@@ -214,10 +218,38 @@ body{
 }
 
 .single_info p {
-    margin-left: 10px;
+    margin: 16px 20px;
+    width: 1000px;
+
+}
+
+.plus_in_div {
+    margin-right: 10px;
+    margin-top: -73px;
 }
 
 .plus_in {
-    margin-right: 20px;
     color: skyblue;
+}
+
+.query_up {
+    margin: 20px 0;
+}
+
+/* 教师端*/
+.my_table {
+    margin-top: 20px;
+}
+
+.my_class_content_backup_copy {
+    border: 1px red solid;
+    height: 800px;
+    width: 1280px;
+    background-color: white;
+    overflow: hidden;
+}
+
+.tea_class_inquiry {
+    width: 450px;
+    height: 60px;
 }
