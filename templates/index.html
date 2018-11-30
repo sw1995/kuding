@@ -111,7 +111,7 @@
             </div>
             <label for="message-check">验证码：</label>
             <input type="text" placeholder="验证码" class="message-check">
-            <button type="button" class="getmessage" name="getmessage">获取验证码</button>
+            <input type="button" class="getmessage" name="getmessage" value="获取验证码">
             <span class="erro-check"></span><br>
             <br>
 
@@ -652,10 +652,12 @@
                     var i = setInterval(function () {
                         t--;
                         if (t > 0) {
-                            $('.getmessage').text(t + '秒后重试');
+                            $('.getmessage').val(t + '秒后重试');
+                            $('.getmessage').css("background-color", "rgba(0,0,0,0.37)");
                         } else {
-                            $('.getmessage').text('获取验证码');
+                            $('.getmessage').val('获取验证码');
                             $('.getmessage').removeAttr('disabled');
+                            $('.getmessage').css("background-color", "rgb(0,0,0)");
                             clearInterval(i);
                         }
                     }, 1000);
@@ -699,9 +701,11 @@
                             t--;
                             if (t > 0) {
                                 $("[name='get_code']").text(t + '秒后重试');
+                                $("[name='get_code']").css("background-color", "rgba(0,0,0,0.37)");
                             } else {
                                 $("[name='get_code']").text('获取验证码');
                                 $("[name='get_code']").removeAttr('disabled');
+                                $("[name='get_code']").css("background-color", "rgb(0,0,0)");
                                 clearInterval(i);
                             }
                         }, 1000);

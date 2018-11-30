@@ -22,7 +22,7 @@ body{
 }
 
 .head .mynav{
-    float: left;
+    float: right;
     margin-left: 20px;
     height: 80px;
 
@@ -60,10 +60,10 @@ body{
 }
 .user-img img{
     display: inline-block;
-    height: 70px;
-    width: 70px;
-    border-radius: 17%;
-    margin: 10px 10px 0px ;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin: -10px 28px 0px;
 }
 .user-inf{
     float: left;

@@ -26,9 +26,9 @@ a{
 }
 .home1{
     margin: 15px;
-    width: 800px;
+    width: 1200px;
     height: 700px;
-    background-color: #EEE;
+    background-color: white;
 }
 
 .home2{
@@ -90,7 +90,7 @@ a{
     border-radius: 5px;
 }
 .teacher_info{
-    width: 800px;
+    width: 1200px;
     height: 300px;
     /*margin-left: 20px;*/
     background-color: rgb(243, 245, 249);
@@ -105,7 +105,7 @@ a{
 }
 
 .course_info{
-    width: 800px;
+    width: 1200px;
     height: 380px;
     margin-top: 20px;
     /*line-height: 380px;*/

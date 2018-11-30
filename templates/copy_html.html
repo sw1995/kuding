@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<!--  学生  -->
+
+<!-- 左侧菜单 -->
+<div class="left_menu left">
+
+
+    <!--头像 -->
+    <div class="avatar">
+        <img class="left_img" src="{{ stu_obj.s_head_image }}" alt="头像">
+    </div>
+    <p>
+        <span class="name"> {{ stu_obj.s_name }}同学 你好 </span>
+        <span class="sign"> 初出茅庐 </span>
+    </p>
+    <p>
+        <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
+    </p>
+    <p>
+        {% load str_time %}
+        {% if s_info %}
+            <span style=" margin-left: 10px;font-size: 12px">最近登陆：{{ stu_info.l_create_time|strd_time }}</span>
+        {% endif %}
+
+    </p>
+    <p style="width: 60px;height: 60px;margin-left: 100px">
+        <i class="fa fa-question-circle fa-4x" style="color: rgb(219,153,246)" aria-hidden="true"></i>
+    </p>
+
+    <!--积分 -->
+    <div class="goods">
+        <p>
+            <span class="good">如何获取积分?</span>
+        </p>
+    </div>
+</div>
+
+
+<!--  教师  -->
+<div class="left_menu left">
+    <!--头像 -->
+    <div class="avatar">
+        <img class="left_img" src="{{ tea_obj.t_head_image }}" alt="头像">
+    </div>
+    <p>
+        <span class="name"> {{ tea_obj.t_name }} 老师! 你好 </span>
+        <span class="sign"> 初出茅庐 </span>
+    </p>
+    <p>
+        <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
+    </p>
+    <p>
+        {% if tea_info %}
+            <span style=" margin-left: 15px;font-size: 12px">最近登陆：{{ tea_info.l_create_time|strf_time }}</span>
+        {% endif %}
+    </p>
+    <p style="width: 60px;height: 60px;margin-left: 55px">
+        <i class="fa fa-question-circle fa-4x" style="margin-left: 35px;color: rgb(219,153,246)"
+           aria-hidden="true"></i>
+    </p>
+
+    <!--宝石 钻石 -->
+    <div class="goods">
+        <p>
+            <span class="good">如何获取积分?</span>
+        </p>
+    </div>
+</div>
+
+
+</body>
+</html>

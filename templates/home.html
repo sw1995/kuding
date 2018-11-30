@@ -91,39 +91,8 @@
             </div>
             <div class="connent">
 
-                <!-- 左侧菜单 -->
-                <div class="left_menu left">
 
 
-                    <!--头像 -->
-                    <div class="avatar">
-                        <img class="left_img" src="{{ stu_obj.s_head_image }}" alt="头像">
-                    </div>
-                    <p>
-                        <span class="name"> {{ stu_obj.s_name }}同学 你好 </span>
-                        <span class="sign"> 初出茅庐 </span>
-                    </p>
-                    <p>
-                        <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
-                    </p>
-                    <p>
-                        {% load str_time %}
-                        {% if s_info %}
-                            <span style=" margin-left: 10px;font-size: 12px">最近登陆：{{ stu_info.l_create_time|strd_time }}</span>
-                        {% endif %}
-
-                    </p>
-                    <p style="width: 60px;height: 60px;margin-left: 100px">
-                        <i class="fa fa-question-circle fa-4x" style="color: rgb(219,153,246)" aria-hidden="true"></i>
-                    </p>
-
-                    <!--积分 -->
-                    <div class="goods">
-                        <p>
-                            <span class="good">如何获取积分?</span>
-                        </p>
-                    </div>
-                </div>
                 <div class="home1 left">
                     {#                    <div class="tagrt left">#}
                     {#                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>#}
@@ -137,51 +106,51 @@
                             <thead>
                             <tr>
                                 <th class="success">姓名</th>
-                                <th class="info">手机号</th>
-                                <th class="warning">性别</th>
-                                <th class="info">年龄</th>
-                                <th class="danger">操作</th>
+                                <th class="success">手机号</th>
+                                <th class="success">性别</th>
+                                <th class="success">年龄</th>
+                                <th class="success">操作</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% if t_info_obj %}
                                 {% for t_info in t_info_obj %}
                                     <tr>
-                                        <td sxy="t_id" class="success hidden">
+                                        <td sxy="t_id" class="default hidden">
                                             {{ t_info.t_id }}
                                         </td>
-                                        <td sxy="t_name" class="success">
+                                        <td sxy="t_name" class="default">
                                             {{ t_info.t_name }}
                                         </td>
-                                        <td sxy="t_account" class="info">
+                                        <td sxy="t_account" class="default">
                                             {{ t_info.t_account }}
                                         </td>
-                                        <td sxy="t_head_image" class="info hidden">
+                                        <td sxy="t_head_image" class="default hidden">
                                             <img src="{{ t_info.t_head_image }}" alt="">
                                         </td>
-                                        <td sxy="t_sex" class="warning">
+                                        <td sxy="t_sex" class="default">
                                             {% if t_info.t_sex == 0 %}
                                                 男
                                             {% else %}
                                                 女
                                             {% endif %}
                                         </td>
-                                        <td sxy="t_age" class="info">
+                                        <td sxy="t_age" class="default">
                                             {{ t_info.t_age }}
                                         </td>
-                                        <td sxy="t_degree" class="info hidden">
+                                        <td sxy="t_degree" class="default hidden">
                                             {{ t_info.t_degree }}
                                         </td>
-                                        <td sxy="t_detail" class="info hidden">
+                                        <td sxy="t_detail" class="default hidden">
                                             {{ t_info.t_detail }}
                                         </td>
-                                        <td class="danger">
+                                        <td class="default">
                                             <a href="#" class="t_info_detail"> 查看详请 </a>
                                         </td>
                                     </tr>
                                 {% endfor %}
                             {% else %}
-                                <tr class="info">
+                                <tr class="default">
                                     <td align="center" colspan="5">暂无教师信息</td>
                                 </tr>
                             {% endif %}
@@ -197,23 +166,23 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th class="success">课程名称</th>
+                                <th class="info">课程名称</th>
                                 <th class="info">课程数量</th>
-                                <th class="danger">课程详情</th>
-                                <th class="warning">课程创造时间</th>
+                                <th class="info">课程详情</th>
+                                <th class="info">课程创造时间</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% if course_list %}
                                 {% for course in course_list %}
                                     <tr>
-                                        <td class="success">
+                                        <td class="default">
                                             {{ course.c_name }}
                                         </td>
-                                        <td class="info">
+                                        <td class="default">
                                             {{ course.c_count }}
                                         </td>
-                                        <td class="danger">
+                                        <td class="default">
                                             {% if course.c_detail == "" %}
                                                 暂无简介
                                             {% else %}
@@ -221,13 +190,13 @@
                                             {% endif %}
                                         </td>
                                         {% load str_time %}
-                                        <td class="warning">
+                                        <td class="default">
                                             {{ course.c_create_time|strd_time }}
                                         </td>
                                     </tr>
                                 {% endfor %}
                             {% else %}
-                                <tr class="info">
+                                <tr class="default">
                                     <td align="center" colspan="4">暂无课程信息</td>
                                 </tr>
                             {% endif %}
@@ -347,35 +316,7 @@
                 </div>
             </div>
             <div class="connent">
-                <div class="left_menu left">
-                    <!--头像 -->
-                    <div class="avatar">
-                        <img class="left_img" src="{{ tea_obj.t_head_image }}" alt="头像">
-                    </div>
-                    <p>
-                        <span class="name"> {{ tea_obj.t_name }} 老师! 你好 </span>
-                        <span class="sign"> 初出茅庐 </span>
-                    </p>
-                    <p>
-                        <span style="margin-left: 60px; font-size: 12px;"> 积分值: 100</span>
-                    </p>
-                    <p>
-                        {% if tea_info %}
-                            <span style=" margin-left: 15px;font-size: 12px">最近登陆：{{ tea_info.l_create_time|strf_time }}</span>
-                        {% endif %}
-                    </p>
-                    <p style="width: 60px;height: 60px;margin-left: 55px">
-                        <i class="fa fa-question-circle fa-4x" style="margin-left: 35px;color: rgb(219,153,246)"
-                           aria-hidden="true"></i>
-                    </p>
 
-                    <!--宝石 钻石 -->
-                    <div class="goods">
-                        <p>
-                            <span class="good">如何获取积分?</span>
-                        </p>
-                    </div>
-                </div>
                 <div class="home1 left">
                     {#                    <div class="tagrt left">#}
                     {#                        <i class="fa fa-id-card-o fa-2x" style="color: skyblue; margin: 5px" aria-hidden="true"> 目标</i>#}
@@ -388,11 +329,11 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th class="success">学生姓名</th>
+                                <th class="info">学生姓名</th>
                                 <th class="info">手机号</th>
-                                <th class="warning">性别</th>
-                                <th class="danger">学生年级</th>
-                                <th class="danger">操作</th>
+                                <th class="info">性别</th>
+                                <th class="info">学生年级</th>
+                                <th class="info">操作</th>
                             </tr>
                             </thead>
                             <tbody>
