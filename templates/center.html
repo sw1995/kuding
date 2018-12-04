@@ -10,15 +10,15 @@
         <div id="container">
             <div class="connent">
                 <div class="left_menu left">
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">最新消息</a>
                     </div>
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的分享</a>
                     </div>
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">成就称号</a>
                     </div>
@@ -52,7 +52,7 @@
 
                     <div class="home2">
                         <!-- 最新消息 -->
-                        <h1 style="text-align: center; margin-top: 100px;margin-left: -40px; color: yellow">暂无消息</h1>
+
                     </div>
                     <div class="home2 hide">
                         <!-- 我的分享 -->
@@ -82,9 +82,9 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th class="success">课程名称</th>
+                                <th class="info">课程名称</th>
                                 <th class="info">课程时长</th>
-                                <th class="danger">课程详情</th>
+                                <th class="info">课程详情</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -92,14 +92,14 @@
                                 {% for course_obj in course_obj_list %}
                                     {% for course in course_obj %}
                                         <tr>
-                                            <td class="success">{{ course.c_name }}</td>
-                                            <td class="info">{{ course.c_count }}</td>
-                                            <td class="danger">{{ course.c_detail }}</td>
+                                            <td class="default">{{ course.c_name }}</td>
+                                            <td class="default">{{ course.c_count }}</td>
+                                            <td class="default">{{ course.c_detail }}</td>
                                         </tr>
                                     {% endfor %}
                                 {% endfor %}
                             {% else %}
-                                <tr class="info">
+                                <tr class="default">
                                     <td align="center" colspan="3">暂无订单详情</td>
                                 </tr>
                             {% endif %}
@@ -186,20 +186,22 @@
         </div>
     {% endif %}
 
+
+    <!-- 教师端 -->
     {% if role == "teacher" %}
         <div id="container">
             <div class="connent">
                 <div class="left_menu left">
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         {#                        <i class="fa fa-book" aria-hidden="true"></i>&nbsp;#}
-                        <img class="person_img" src="/static/img/red%20flower.png" alt="">
+                        <img class="person_img " src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">最新消息</a>
                     </div>
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">我的分享</a>
                     </div>
-                    <div class="leftmenu">
+                    <div class="leftmenu hidden">
                         <img class="person_img" src="/static/img/red%20flower.png" alt="">
                         <a for="" href="#">成就称号</a>
                     </div>
@@ -235,7 +237,7 @@
 
                     <div class="home2">
                         <!-- 最新消息 -->
-                        <h1 style="text-align: center; margin-top: 100px;margin-left: -40px; color: yellow">暂无消息</h1>
+
                     </div>
                     <div class="home2 hide">
                         <!-- 我的分享 -->
@@ -266,9 +268,9 @@
                         <table class="table table-hover table-bordered">
                             <thead>
                             <tr>
-                                <th class="success">课程名称</th>
+                                <th class="info">课程名称</th>
                                 <th class="info">课程时长</th>
-                                <th class="danger">课程详情</th>
+                                <th class="info">课程详情</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -277,14 +279,14 @@
                                 {% for course_obj in course_obj_list %}
                                     {% for course in course_obj %}
                                         <tr>
-                                            <td class="success">{{ course.c_name }}</td>
-                                            <td class="info">{{ course.c_count }}</td>
-                                            <td class="danger">{{ course.c_detail }}</td>
+                                            <td class="default">{{ course.c_name }}</td>
+                                            <td class="default">{{ course.c_count }}</td>
+                                            <td class="default">{{ course.c_detail }}</td>
                                         </tr>
                                     {% endfor %}
                                 {% endfor %}
                             {% else %}
-                                <tr class="info">
+                                <tr class="default">
                                     <td align="center" colspan="3">暂无订单详情</td>
                                 </tr>
                             {% endif %}
@@ -310,7 +312,7 @@
                             </p>
                             <p>
                                 <span>性别：</span>
-                                {% if tea_obj.t_sex == 0 %}
+                                {% if tea_obj.t_sex == 1 %}
                                     <label for=""><input type="radio" name="sex" checked="checked" value="1"> 男</label>
                                     <label for=""><input type="radio" name="sex" value="0"> 女</label>
                                 {% else %}

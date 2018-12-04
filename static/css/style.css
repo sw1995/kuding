@@ -16,7 +16,7 @@ body{
 }
 
 .head {
-    height: 80px;
+    height: 90px;
     width: 1280px;
     background-color: #3694f438;
 }
@@ -29,8 +29,8 @@ body{
 }
 .mynav li{
     float: left;
-    width: 80px;
-    height: 78px;
+    width: 93px;
+    height: 90px;
     /*border: 1px solid red;*/
     list-style: none;
 

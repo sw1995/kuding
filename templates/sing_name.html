@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
-        少儿编程首页
+        {% block title %}
+            签名墙
+        {% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="在线一对一少儿编程"/>
-    <meta name="Keywords" content="少儿编程，淮北，酷丁，麒麟信息科技，编程，小孩子"/>
     <link rel="shortcut icon" href="/static/img/kuding.ico">
     <!--font awesome图标引用地址-->
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
@@ -32,6 +33,11 @@
     <!-- Modernizr JS -->
     <script src="/static/js/modernizr-2.6.2.min.js"></script>
     <script src="/static/js/respond.min.js"></script>
+    <style type="text/css">
+        .footer-section {
+            margin-top: 0px;
+        }
+    </style>
 </head>
 <body>
 <!--这里是模态框的内容-->
@@ -56,14 +62,6 @@
                 {{ loginForm.log_password }}
             </div>
             <span class="notice-erro">{{ loginForm.log_password.errors.0 }}</span><br>
-            {#                <div class="identify">#}
-            {#					<label style="color: white"><input type="radio" name="role" value="student" >学生</label>#}
-            {#					<label style="color: white"><input type="radio"   name="role" value="teacher">老师</label>#}
-            {#                </div>#}
-
-            {#                <div><label>账号</label><i class="fa fa-user" aria-hidden="true"></i><input name="account" autofocus type="text" placeholder="请输入手机号"></div>#}
-            {#				<span class="notice-erro" ></span><br>#}
-            {#				<div><label>密码</label><i class="fa fa-key" aria-hidden="true"></i><input name="password" type="password" placeholder="请输入密码"></div>#}
             <div class="identify">
                 {{ loginForm.log_role }}
                 <div style="clear:both"></div>
@@ -112,10 +110,9 @@
             </div>
             <label for="message-check">验证码：</label>
             <input type="text" placeholder="验证码" class="message-check">
-            <input type="button" class="getmessage" name="getmessage" value="获取验证码">
-            <span class="erro-check"></span><br>
+            <button type="button" class="getmessage">获取验证码</button>
             <br>
-
+            <span class="erro-check"></span><br>
             <div class="mod_reg">
                 <button type="button" name="reset" class="btn btn-primary reset">取消</button>
                 <button type="button" name="reg" class="btn btn-success">注册</button>
@@ -167,7 +164,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-right">
-                        <p class="num">电话: 0561-3199633 </p>
+                        <p class="num">电话: 0561-3199633</p>
                     </div>
                 </div>
             </div>
@@ -181,8 +178,7 @@
                     </div>
                     <div class="col-xs-10 text-right menu-1">
                         <ul>
-                            <li {% if request.path == "/index/" or request.path == "" %}class="active"{% endif %}><a
-                                    href="/index/">首页</a>
+                            <li {% if request.path == "/index/" %}class="active"{% endif %}><a href="/index/">首页</a>
                             </li>
                             <li {% if request.path == "/stu_show/" %}class="active"{% endif %}><a
                                     href="/stu_show/">学员成果</a></li>
@@ -193,6 +189,8 @@
                             </li>
                             <li {% if request.path == "/contact/" %}class="active"{% endif %}><a
                                     href="/contact/">签名墙</a></li>
+                            {#                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a#}
+                            {#                                    href="/static/build/index.html">Scrach</a></li>#}
                             <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a
                                     href="/static/build/index.html" target="_blank">Scratch</a></li>
 
@@ -204,11 +202,7 @@
                                     {% if role == "teacher" %}
                                         <span class="user_name">{{ tea_obj.t_name }}</span>
                                     {% endif %}
-                                </li>
-                                <li>
                                     <a href="/home/"><span>个人中心</span></a>
-                                </li>
-                                <li>
                                     <a href="/logout/"><span>退出</span></a>
                                 </li>
                             {% else %}
@@ -232,19 +226,10 @@
                 <div class="col-md-8 col-md-offset-2 text-center">
                     <div class="display-t">
                         <div class="display-tc animate-box" data-animate-effect="fadeIn">
-                            <h1>酷丁编程 中国青少儿编程领跑者</h1>
-                            <h2>
-                                <ul>
-                                    <li>√&nbsp;5-18岁编程教育</li>
-                                    <li>√&nbsp;趣味性与实践性相结合</li>
-                                    <li>√&nbsp;逻辑思维能力提升平台</li>
-                                    <li>√&nbsp;不限于scratch的完整教学体系</li>
-                                </ul>
+                            <h1>来酷丁编程</h1>
+                            <h2>与专业名师面对面
+                                一次试听，让孩子爱上编程
                             </h2>
-                            <p>
-                                <a class="btn btn-primary btn-lg popup-vimeo btn-video hidden"
-                                   href="http://115.159.33.73:8080/companyweb/kuding.mp4"><i class="icon-play"></i>观看视频</a>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -253,341 +238,97 @@
     </header>
 
 
-    <div class="info">{% csrf_token %}</div>
-
-    <div id="fh5co-counter" class="fh5co-counters hidden">
+    <div id="fh5co-contact">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="500" data-speed="50"
-                          data-refresh-interval="1"></span>
-                    <span class="fh5co-counter-label">学生</span>
-                </div>
-                <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="100" data-speed="50"
-                          data-refresh-interval="0.1"></span>
-                    <span class="fh5co-counter-label">课程</span>
-                </div>
-                <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="10" data-speed="50"
-                          data-refresh-interval="0.1"></span>
-                    <span class="fh5co-counter-label">教员</span>
-                </div>
-                <div class="col-md-3 text-center animate-box">
-                    <span class="fh5co-counter js-counter" data-from="0" data-to="6000" data-speed="1000"
-                          data-refresh-interval="10"></span>
-                    <span class="fh5co-counter-label">已授课时</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div id="fh5co-explore" class="fh5co-bg-section hidden">
-        <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-                    <h2>我希望孩子在专业机构学习</h2>
-                    <p>我希望孩子跟着专业的老师和团队学习编程 </p>
+                <div class="col-md-11 col-sm-11 col-xs-11 col-md-push-1 animate-box fadeIn">
+                    <form action="">
+                        <p>
+                            姓名：
+                            <input type="text" class="fadeIn" name="user_name" id="user_name" placeholder="请输入您的姓名：">
+                            <input type="button" class="btn btn-default" value="提交" id="sub_name">
+                        </p>
+                    </form>
                 </div>
-            </div>
-        </div>
-        <div class="fh5co-explore fh5co-explore1">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-push-5 animate-box">
-                        <img class="img-responsive" src="/static/img/work_1.png" alt="work">
-                    </div>
-                    <div class="col-md-4 col-md-pull-8 animate-box">
-                        <div class="mt">
-                            <h3>我不希望孩子未来被淘汰</h3>
-                            <p>编程可以培养学生的动手能力，逻辑思维能力，计算能力</p>
-                            <ul class="list-nav">
-                                <li><i class="icon-check2"></i>提升竞争力</li>
-                                <li><i class="icon-check2"></i>人工智能时代的必备技能</li>
-                                <li><i class="icon-check2"></i>提升孩子创造力</li>
-                            </ul>
-                            <p><a class="btn btn-primary btn-lg popup-vimeo btn-video"
-                                  href="http://115.159.33.73:8080/companyweb/kuding.mp4"><i class="icon-play"></i>
-                                观看视频</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="fh5co-explore">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-pull-1 animate-box">
-                        <img class="img-responsive" src="/static/img/work_1.png" alt="work">
-                    </div>
-                    <div class="col-md-4 animate-box">
-                        <div class="mt">
-                            <div>
-                                <h4><i class="icon-user"></i>编程实战，名师主讲</h4>
-                                <p>我们的老师都是985本科毕业且取得教师资格证的优秀讲师</p>
-                            </div>
-                            <div>
-                                <h4><i class="icon-video2"></i>作业每颗都批改</h4>
-                                <p>孩子学习行为，全程跟踪记录。确定孩子学习状况，更有针对性的指导孩子</p>
-                            </div>
-                            <div>
-                                <h4><i class="icon-shield"></i>老师每天在线11小时</h4>
-                                <p>每天10:00--21:00全天在线，为孩子提供在线指导 </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="fh5co-blog">
-        <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                    <h2>最新文章</h2>
-                    <p>酷丁少儿编程会不定期举办比赛或活动，以下是最新举办的活动内容</p>
-                </div>
-            </div>
-            <div class="row">
-                {% for article in article_list2 %}
-                    <div class="col-lg-4 col-md-4">
-                        <div class="fh5co-blog animate-box">
-                            <div class="blog-text">
-                                <a href="/article/{{ article.s_id }}"><img class="img-responsive img_hover article_img"
-                                                                           src="{{ article.s_imgurl }}" alt=""></a>
-                                <h3 class="blog_title"><a href="/article/{{ article.s_id }}">{{ article.s_title }}</a>
-                                </h3>
-                                <i class="glyphicon glyphicon-time"></i>
-                                <span class="posted_on">{{ article.t_createtime|date:"Y-m-d H:i" }}</span>
-                                {% if article.s_summary|length >= 16 %}
-                                    <p class="blog_content">{{ article.s_summary|slice:":16 " }}...</p>
-                                {% else %}
-                                    <p class="blog_content">{{ article.s_summary }}</p>
-                                {% endif %}
-
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
-
-    <div id="fh5co-project">
-        <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                    <h2>学生成果展示</h2>
-                    <p>以下是酷丁少儿编程班学生完成的一些成果展示</p>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid proj-bottom">
-            <div class="row">
-                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt=""
-                                     class="img-responsive">
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
                         <h3>彩色泡泡</h3>
-
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-2.png" alt=""
-                                     class="img-responsive">
-                        <h3>洋洋的飞船</h3>
-
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-3.png" alt=""
-                                     class="img-responsive">
-                        <h3>大马路</h3>
-
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-4.png" alt=""
-                                     class="img-responsive">
-                        <h3>迷宫</h3>
-
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-5.png" alt=""
-                                     class="img-responsive">
-                        <h3>我的海底世界</h3>
-
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
                     </a>
                 </div>
-                <div class="col-md-4 col-sm-6 fh5co-project animate-box" data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-6.png" alt=""
-                                     class="img-responsive">
-                        <h3>小猴爬树</h3>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="container hidden">
-            <div class="row">
-                <div class="features">
-                    <div class="col-md-4 animate-box">
-                        <h4>我们有典型的课程</h4>
-                        <p>通过 Sctatch 图形编程语言，孩子能跳过复杂的函数，公式。直达编程训练思维的核心价值 </p>
-                    </div>
-                    <div class="col-md-4 animate-box">
-                        <h4>针对5——16岁儿童</h4>
-                        <p>符合5到16岁儿童认知阶段，能帮助孩子更好学习逻辑思维和计算思维 </p>
-                    </div>
-                    <div class="col-md-4 animate-box">
-                        <h4>图形化编程语言</h4>
-                        <p>图形化代码，通过对代码的拖拽，嵌套，实现编程。还可以实习对机器人，硬件的控制 </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="container hidden">
-            <div class="row animate-box">
-                <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                    <h2>网上购课流程</h2>
-                    <p>你可以按照一下流程购买线上或者线下课程</p>
-                </div>
-            </div>
 
-        <div class="row bs-wizard animate-box hidden" style="border-bottom:0;">
-
-                <div class="col-xs-3 bs-wizard-step complete">
-                    <div class="text-center bs-wizard-stepnum"><h4>步骤一</h4></div>
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center"><p>开始一项免费的课程</p></div>
-                </div>
-
-                <div class="col-xs-3 bs-wizard-step active"><!-- complete -->
-                    <div class="text-center bs-wizard-stepnum"><h4>步骤二</h4></div>
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center"><p>注册账号</p></div>
-                </div>
-
-                <div class="col-xs-3 bs-wizard-step disabled"><!-- complete -->
-                    <div class="text-center bs-wizard-stepnum"><h4>步骤三</h4></div>
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center"><p>线上或线下缴费</p></div>
-                </div>
-
-                <div class="col-xs-3 bs-wizard-step disabled"><!-- active -->
-                    <div class="text-center bs-wizard-stepnum"><h4>步骤四</h4></div>
-                    <div class="progress">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <a href="#" class="bs-wizard-dot"></a>
-                    <div class="bs-wizard-info text-center"><p>开始课程</p></div>
-                </div>
             </div>
 
         </div>
     </div>
 
-<div id="fh5co-testimonial" class="fh5co-bg-section hidden">
+    <!--这里是kuding信息公司的声明部分-->
+    <!--这里是kuding信息公司的声明部分-->
+    <div class="footer-section">
         <div class="container">
-            <div class="row animate-box">
-                <div class="col-md-6 col-md-offset-3 text-center fh5co-heading">
-                    <h2>优秀教师</h2>
+            <div class="footer-grids">
+                <div class="col-md-5 footer-grid wow fadeInDownBig animated animated" data-wow-delay=".5s"
+                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDownBig;">
+                    <h4>公司产品</h4>
+                    <p>Noip课程</p>
+                    <p>Python课程</p>
+                    <p>Java课程</p>
+                    <p>Scratch课程</p>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="row animate-box">
-                        <div class="owl-carousel owl-carousel-fullwidth">
-                            {% for tea in tea_list2 %}
-                                <div class="item">
-                                <div class="testimony-slide active text-center">
-                                    <figure>
-                                        <img src="{{ tea.t_head_image }}" alt="user">
-                                    </figure>
-                                    <span>优秀讲师 <a href="#" class="twitter">{{ tea.t_name }}</a></span>
-                                    <blockquote>
-                                        <p>&ldquo;{{ tea.t_details }}&rdquo;</p>
-                                    </blockquote>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+                <div class="col-md-4 footer-grid wow fadeInRight animated animated" data-wow-delay=".5s"
+                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
+                    <h4>联系我们</h4>
+                    <p style="padding-top: 10px">源创客 五号楼 六层</p>
+                    <p>淮北市相山区濉溪路265号</p>
+                    <p>联系电话: 0561-3199633</p>
+                    <a href="mailto:794384313@qq.com" style="color: #333;">794384313@qq.com</a>
                 </div>
-            </div>
-        </div>
-</div>
-
-
-<div id="fh5co-started" style="background-image:url(/static/img/img_bg_2.jpg);">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row animate-box">
-            <div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                <p style="color: yellow">现在注册还能将获取免费试听资格</p>
-                <p style="color: yellow">报名更有惊喜优惠等你哦！</p>
-            </div>
-        </div>
-        <div class="row animate-box">
-            <div class="col-md-8 col-md-offset-2 text-center">
-                <p><a name="free" href="#" class="btn btn-info btn-lg">立即领取试听大礼包</a></p>
+                <div class="col-md-3 footer-grid wow fadeInUpBig animated animated" data-wow-delay=".5s"
+                     style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
+                    <h4>微信公众号</h4>
+                    <img style="height: 120px;width: 120px;padding-top: 10px" src="/static/img/weixin.jpg">
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
     </div>
-</div>
 
-<!--这里是kuding信息公司的声明部分-->
-<div class="footer-section">
-    <div class="container">
-        <div class="footer-grids">
-            <div class="col-md-5 footer-grid wow fadeInDownBig animated animated" data-wow-delay=".5s"
-                 style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInDownBig;">
-                <h4>公司产品</h4>
-                <p>Noip课程</p>
-                <p>Python课程</p>
-                <p>Java课程</p>
-                <p>Scratch课程</p>
-            </div>
-            <div class="col-md-4 footer-grid wow fadeInRight animated animated" data-wow-delay=".5s"
-                 style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInRight;">
-                <h4>联系我们</h4>
-                <p style="padding-top: 10px">源创客 五号楼 六层</p>
-                <p>淮北市相山区濉溪路265号</p>
-                <p>联系电话: 0561-3199633</p>
-                <a href="mailto:794384313@qq.com" style="color: #333;">794384313@qq.com</a>
-            </div>
-            <div class="col-md-3 footer-grid wow fadeInUpBig animated animated" data-wow-delay=".5s"
-                 style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUpBig;">
-                <h4>微信公众号</h4>
-                <img style="height: 120px;width: 120px;padding-top: 10px" src="/static/img/weixin.jpg">
-            </div>
-            <div class="clearfix"></div>
-        </div>
+
+    <div class="gototop js-top">
+        <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
     </div>
-</div>
-
-
-<div class="gototop js-top">
-    <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
-</div>
 
 </div>
 
 <!-- jQuery -->
-<script src="/static/js/jquery-3.3.1.js"></script>
+<script src="/static/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
 <script src="/static/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
@@ -624,9 +365,11 @@
 
     // 验证码倒计时
     var code;
+    var t = 60;
     var account;
     $('.getmessage').click(function () {
         account = $("#id_account").val();
+        {#console.log(account);#}
         $.ajax({
             url: '/verify_code/',
             type: "post",
@@ -638,18 +381,16 @@
                 if (data.status == 1) {
                     code = data.code;
                     account = data.account;
-                    $('.getmessage').attr('disabled', true);
+                    $(".getmessage").attr('disabled', true);
                     // 倒计时60s
                     var t = 60;
                     var i = setInterval(function () {
                         t--;
-                        if (t > 0) {
-                            $('.getmessage').val(t + '秒后重试');
-                            $('.getmessage').css("background-color", "rgba(0,0,0,0.37)");
-                        } else {
-                            $('.getmessage').val('获取验证码');
+                        if (t > 0)
+                            $('.getmessage').text(t + '秒后刷新重试');
+                        else {
+                            $('.getmessage').text('获取登陆密码');
                             $('.getmessage').removeAttr('disabled');
-                            $('.getmessage').css("background-color", "rgb(0,0,0)");
                             clearInterval(i);
                         }
                     }, 1000);
@@ -693,11 +434,9 @@
                             t--;
                             if (t > 0) {
                                 $("[name='get_code']").text(t + '秒后重试');
-                                $("[name='get_code']").css("background-color", "rgba(0,0,0,0.37)");
                             } else {
-                                $("[name='get_code']").text('获取验证码');
+                                $("[name='get_code']").text('获取登陆密码');
                                 $("[name='get_code']").removeAttr('disabled');
-                                $("[name='get_code']").css("background-color", "rgb(0,0,0)");
                                 clearInterval(i);
                             }
                         }, 1000);
@@ -711,8 +450,8 @@
             })
         }
     });
-
     //忘记密码 验证码失去焦点验证
+    //验证码失去焦点时验证
     $("[name='confirm_code']").blur(function () {
         var code1 = $("[name='confirm_code']").val();
         var account1 = $("[name='forget_account']").val();
@@ -801,6 +540,10 @@
     $(".message-check").blur(function () {
         var code1 = $(".message-check").val();
         var account1 = $("#id_account").val();
+        //console.log(code1);
+        //console.log(account1);
+        //console.log(code);
+        //console.log(account);
 
         if (code1 == code && account1 == account) {
 
@@ -901,19 +644,30 @@
             }
         })
     });
-    $("[name='free']").click(function () {
-        $('.motai_con').css('display', 'block');
-        $('.motai_con .modal_data').css('display', 'none');
-        $('.motai_con .mod-register').css('display', 'block');
-        $('.forget_pwd').css('display', 'none');      //
-        $('.js-fh5co-nav-toggle').click();   //这个是导航栏隐藏
-    });
 
 
     // 将所有的input框绑定获取焦点的事件，将所有的错误信息清空
     $("form input").focus(function () {
         $(this).next().html("");
-    })
+    });
+
+    $("#sub_name").click(function () {
+        var user_name = $("[name='user_name']").val();
+        var check_ttf = $("[name='check_ttf']").val();
+        console.log(user_name);
+        $.ajax({
+            url: '/change_name/',
+            type: 'post',
+            data: {
+                user_name: user_name,
+                ttf: check_ttf,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            suceess: function (data) {
+                console.log(data.msg)
+            }
+        })
+    });
 
 
 </script>

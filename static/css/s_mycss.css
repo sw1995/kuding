@@ -161,6 +161,7 @@ a{
     background-color: skyblue;
 }
 li{
+    padding: 9px;
     list-style: none;
 }
 a{
@@ -171,7 +172,7 @@ a{
 .sel-table{
     display: none;
     width: 200px;
-    height: 60px;
+    height: 80px;
     /*margin: -5px auto;*/
     line-height: 30px;
     text-align: center;

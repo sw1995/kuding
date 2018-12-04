@@ -125,12 +125,21 @@
 
 
 {% if role == "teacher" %}
-    <div class="h-inner">
-        <img src="/static/img/bg_img.png" alt="">
+    <div style="height: 250px;width: 1280px;">
+        <div style="background-image: url('/static/img/bg_img.png');width: 1280px;height: 250px"></div>
+        <div class="user_infomations">
+            <div class="user-img">
+                <img src="{{ tea_obj.t_head_image }}" alt="用户头像">
+            </div>
+            <div class="user-inf">
+                <p class="stu_name">{{ tea_obj.t_name }}老师</p>
+                <p class="stu_state"><a href="/logout/">[退出登陆]</a></p>
+            </div>
+        </div>
     </div>
-    <div class="head" style="background-color: #607d8b99">
+    <div class="head" style="background-color: #FFC125">
         <div class="logo">
-             <img src="/static/img/logo.png">
+            <a href="/index/"><img src="/static/img/logo.png"></a>
          </div>
         <div class="mynav">
              <ul>
@@ -211,15 +220,6 @@
                          </p>
                      <p style="color: black;">帮助中心</p></a></li>
              </ul>
-         </div>
-         <div class="guestshow">
-             <div class="user-img">
-                 <img src="{{ tea_obj.t_head_image }}" alt="用户头像">
-             </div>
-             <div class="user-inf">
-                 <p class="stu_name">{{ tea_obj.t_name }}老师</p>
-                 <p class="stu_state"><a href="/logout/">[退出]</a></p>
-             </div>
          </div>
     </div>
 {% endif %}

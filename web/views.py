@@ -552,6 +552,7 @@ def confirm_center(request):
         ret = {}
         username = request.POST.get("username")
         sex = request.POST.get("sex")
+        # print(sex)
         grade = request.POST.get("grade")
         age = request.POST.get("age")
         email = request.POST.get("email")
@@ -573,9 +574,15 @@ def confirm_center(request):
             avatar_url = "http://" + request.get_host() + "/media/avatars/" + avatar_img_name
         else:
             if role == "student":
-                avatar_url = WebStudent.objects.filter(s_account=account).values("s_head_image")
+                avatar = WebStudent.objects.filter(s_account=account).values("s_head_image")
+                for i in avatar:
+                    avatar_url = i["s_head_image"]
             else:
-                avatar_url = WebTeacher.objects.filter(t_account=account).values("t_head_image")
+                avatar = WebTeacher.objects.filter(t_account=account).values("t_head_image")
+                for i in avatar:
+                    avatar_url = i["t_head_image"]
+
+
 
         if role == "student":
             WebStudent.objects.filter(s_account=account).update(s_name=username, s_email=email, s_sex=sex,
@@ -1647,6 +1654,69 @@ def add_class(request):
             ret["status"] = 0
             ret["msg"] = "班级已存在！"
     return JsonResponse(ret)
+
+
+# 个性签名
+from tkinter import *
+from tkinter import messagebox
+import requests
+import re
+from PIL import Image
+
+
+def change_name(request):
+    ret = {}
+    if request.method == "POST":
+
+        startUrl = 'http://www.uustv.com/'
+        name = request.POST.get("user_name")
+        print(name)
+        pick_font = request.POST.get("check_ttf")
+
+        # name = name.strip()
+        if not name:
+            ret["msg"] = '请输入姓名再设计！'
+        else:
+            data = {
+                'word': name,
+                'sizes': '60',
+                # 'font': pick_font,
+                # 'fonts':'jfcs.ttf', # 个性签名
+                # 'fonts':'qmt.ttf', # 连笔签名
+                # 'fonts': 'bzcs.ttf',  # 潇洒签名
+                # 'fonts': 'lfc.ttf',   # 草体签名
+                # 'fonts':'haku.ttf',   # 和文签名
+                'fonts': 'zql.ttf',  # 商务签名
+                # 'fonts':'yak.ttf',# 可爱签名
+                'fontcolor': '#000000'
+            }
+            result = requests.post(startUrl, data=data)
+            result.encoding = 'utf-8'
+            html = result.text
+            reg = '<div class="tu">.*?<img src="(.*?)"/></div>'
+            imagePath = re.findall(reg, html)
+            # 图片完整路径
+            imgUrl = startUrl + imagePath[0]
+            # 获取图片内容
+            response = requests.get(imgUrl).content
+            # 将生成的签名图片下载到本地
+            sign_name_id = create_uuid()
+            sign_name = sign_name_id + ".gif"
+            path = os.path.join(settings.MEDIA_ROOT, 'sign_name', sign_name)
+            f = open(path, 'wb')
+            f.write(response)
+
+            sign_name_url = "http://" + request.get_host() + "/media/sign_name/" + sign_name
+            ret["sign_name_url"] = sign_name_url
+            print(sign_name_url)
+
+    return render(request, "sing_name.html")
+
+
+def sign(request):
+    return render(request, "sing_name.html")
+
+
 
 
 

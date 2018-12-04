@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
         {% block title %}
-
+            签名墙
         {% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -62,14 +62,6 @@
                 {{ loginForm.log_password }}
             </div>
             <span class="notice-erro">{{ loginForm.log_password.errors.0 }}</span><br>
-            {#                <div class="identify">#}
-            {#					<label style="color: white"><input type="radio" name="role" value="student" >学生</label>#}
-            {#					<label style="color: white"><input type="radio"   name="role" value="teacher">老师</label>#}
-            {#                </div>#}
-
-            {#                <div><label>账号</label><i class="fa fa-user" aria-hidden="true"></i><input name="account" autofocus type="text" placeholder="请输入手机号"></div>#}
-            {#				<span class="notice-erro" ></span><br>#}
-            {#				<div><label>密码</label><i class="fa fa-key" aria-hidden="true"></i><input name="password" type="password" placeholder="请输入密码"></div>#}
             <div class="identify">
                 {{ loginForm.log_role }}
                 <div style="clear:both"></div>
@@ -173,11 +165,6 @@
                 <div class="row">
                     <div class="col-xs-12 text-right">
                         <p class="num">电话: 0561-3199633</p>
-                        <!--	<ul class="fh5co-social">
-                                <li><a href="#"><i class="icon-twitter"></i></a></li>
-                                <li><a href="#"><i class="icon-dribbble"></i></a></li>
-                                <li><a href="#"><i class="icon-github"></i></a></li>
-                            </ul>-->
                     </div>
                 </div>
             </div>
@@ -254,59 +241,49 @@
     <div id="fh5co-contact">
         <div class="container">
             <div class="row">
-                <div class="col-md-5 col-md-push-1 animate-box">
 
-                    <div class="fh5co-contact-info">
-                        <h3>联系信息</h3>
-                        <ul>
-                            <li class="address">淮北市相山区濉溪路265号, <br> 源创客 五号楼 六层</li>
-                            <li class="phone">联系电话: 0561-3199633</li>
-                            <li class="email">794384313@qq.com</li>
-                        </ul>
-                    </div>
-
-                </div>
-                <div class="col-md-6 animate-box">
-                    <h3>联系我们</h3>
-                    <form action="" method="post">
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <!-- <label for="fname">First Name</label> -->
-                                <input type="text" id="fname" class="form-control" placeholder="请输入你的名字">
-                            </div>
-                            <div class="col-md-6 hidden">
-                                <!-- <label for="lname">Last Name</label> -->
-                                <input type="text" id="lname" class="form-control" placeholder="Your lastname">
-                            </div>
-                        </div>
-
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <!-- <label for="email">Email</label> -->
-                                <input type="text" id="email" class="form-control" placeholder="请输入你的手机号">
-                            </div>
-                        </div>
-
-                        <div class="row form-group hidden">
-                            <div class="col-md-12">
-                                <!-- <label for="subject">Subject</label> -->
-                                <input type="text" id="subject" class="form-control" placeholder="请输入你想表达的主题">
-                            </div>
-                        </div>
-
-                        <div class="row form-group hidden">
-                            <div class="col-md-12">
-                                <!-- <label for="message">Message</label> -->
-                                <textarea name="message" id="message" cols="30" rows="10" class="form-control"
-                                          placeholder="详细描述"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="button" id="submit_message" value="提交信息" class="btn btn-primary">
-                        </div>
-
+                <div class="col-md-11 col-sm-11 col-xs-11 col-md-push-1 animate-box fadeIn">
+                    <form action="">
+                        <p>
+                            姓名：
+                            <input type="text" class="fadeIn" name="user_name" placeholder="请输入您的姓名：">
+                            <input type="button" class="btn btn-default" value="提交" id="sub_name">
+                        </p>
                     </form>
                 </div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
+                    </a>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
+                     data-animate-effect="fadeIn">
+                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
+                        <h3>彩色泡泡</h3>
+                    </a>
+                </div>
+
+
             </div>
 
         </div>
@@ -674,17 +651,22 @@
         $(this).next().html("");
     });
 
-
-    $("#submit_message").click(function () {
-        var name = $("#fname").val();
-        var email = $("#email").val();
-        //var subject = $("#subject").val();
-        //var message = $("#message").val();
-        if (name == "" || email == "") {
-            alert("内容未填全，请填完再提交！");
-        } else {
-            alert("提交成功！");
-        }
+    $("#sub_name").click(function () {
+        var user_name = $("[name='user_name']").val();
+        var check_ttf = $("[name='user_name']").val();
+        console.log(user_name);
+        $.ajax({
+            url: '/change_name/',
+            type: 'post',
+            data: {
+                user_name: user_name,
+                ttf: check_ttf,
+                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+            },
+            suceess: function (data) {
+                console.log(data)
+            }
+        })
     });
 
 
