@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
         {% block title %}
-            签名墙
+            编程一小时
         {% endblock %}
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,6 +29,7 @@
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="/static/css/z_style.css">
+    <link rel="stylesheet" href="/static/css/qt_style.css">
 
     <!-- Modernizr JS -->
     <script src="/static/js/modernizr-2.6.2.min.js"></script>
@@ -38,258 +39,590 @@
             margin-top: 0px;
         }
     </style>
+
+    <style type="text/css">
+
+        html {
+            -webkit-text-size-adjust: none;
+        }
+
+        @font-face {
+            font-family: "草书";
+            src: url("/static/ttf/caoshu.TTF");
+        }
+
+        @font-face {
+            font-family: "小奶泡";
+            src: url("/static/ttf/xiaonaibao.ttf");
+        }
+
+        @font-face {
+            font-family: "腾祥婀娜体简";
+            src: url("/static/ttf/TTENuoJ_0.ttf");
+        }
+
+        @font-face {
+            font-family: "哈哈呼嘿字";
+            src: url("/static/ttf/heiheihuahu.ttf");
+        }
+
+        @font-face {
+            font-family: "甜蜜小女生";
+            src: url("/static/ttf/tianmi.ttf");
+        }
+
+        @font-face {
+            font-family: "桃心悦圆";
+            src: url("/static/ttf/taoxin.ttf");
+        }
+
+        @font-face {
+            font-family: "小雨滴";
+            src: url("/static/ttf/xioayudi.ttf");
+        }
+
+        @font-face {
+            font-family: "可爱萌宠体";
+            src: url("/static/ttf/keai.ttf");
+        }
+
+        @font-face {
+            font-family: "腾祥泡泡体繁";
+            src: url("/static/ttf/Tensentype-PaoPaoF.ttf");
+        }
+
+        @font-face {
+            font-family: "爱心小兔";
+            src: url("/static/ttf/xiaotu.ttf");
+        }
+
+        @font-face {
+            font-family: "浪花";
+            src: url("/static/ttf/langhua.otf");
+        }
+    </style>
+
+    <style type="text/css">img {
+        border: 0;
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .user_callback #user_pic {
+        position: relative;
+        overflow: hidden;
+        height: 500px;
+        width: 1200px;
+        z-index: 2;
+        margin: 0 auto;
+    }
+
+    .user_callback #user_pic ul {
+        width: 990px;
+        height: 285px;
+        position: relative;
+        top: 80px;
+        left: 105px;
+    }
+
+    .user_callback #user_pic ul li {
+        position: absolute;
+    }
+
+    .user_callback #user_pic ul img {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .user_callback #user_pic ul .user_pic1 {
+        top: -285px;
+        left: -231px;
+        z-index: 0;
+    }
+
+    .user_callback #user_pic ul .user_pic2 {
+        top: -23px;
+        left: -99.5px;
+        z-index: 2;
+    }
+
+    .user_callback #user_pic ul .user_pic3 {
+        top: 66px;
+        left: 68px;
+        z-index: 3;
+    }
+
+    .user_callback #user_pic ul .user_pic4 {
+        top: 110px;
+        left: 247.5px;
+        z-index: 4;
+    }
+
+    .user_callback #user_pic ul .user_pic5 {
+        top: 110px;
+        left: 495px;
+        z-index: 3;
+    }
+
+    .user_callback #user_pic ul .user_pic6 {
+        top: 66px;
+        left: 695.5px;
+        z-index: 2;
+    }
+
+    .user_callback #user_pic ul .user_pic7 {
+        top: -23px;
+        left: 852px;
+        z-index: 1;
+    }
+
+    .user_callback #user_pic ul .user_pic8 {
+        top: -285px;
+        left: 1000px;
+        z-index: 0;
+    }
+
+    .user_callback #user_pic ul .user_pic1 a {
+        width: 216.5px;
+        height: 248px;
+    }
+
+    .user_callback #user_pic ul .user_pic2 a {
+        width: 225.5px;
+        height: 259px;
+    }
+
+    .user_callback #user_pic ul .user_pic3 a {
+        width: 247.5px;
+        height: 285px;
+    }
+
+    .user_callback #user_pic ul .user_pic4 a {
+        width: 247.5px;
+        height: 285px;
+    }
+
+    .user_callback #user_pic ul .user_pic5 a {
+        width: 247.5px;
+        height: 285px;
+    }
+
+    .user_callback #user_pic ul .user_pic6 a {
+        width: 247.5px;
+        height: 285px;
+    }
+
+    .user_callback #user_pic ul .user_pic7 a {
+        width: 225.5px;
+        height: 259px;
+    }
+
+    .user_callback #user_pic ul .user_pic8 a {
+        width: 216.5px;
+        height: 248px;
+    }
+
+    .user_callback #user_pic ul li:hover {
+        background: #d9bb83;
+    }
+
+    .user_callback #user_pic ul li.user_pic1 {
+        opacity: 0.2;
+        filter: alpha(opacity:20);
+    }
+
+    .user_callback #user_pic ul li.user_pic2 {
+        opacity: 0.6;
+        filter: alpha(opacity:60);
+    }
+
+    .user_callback #user_pic ul li.user_pic3 {
+        opacity: 0.8;
+        filter: alpha(opacity:80);
+    }
+
+    .user_callback #user_pic ul li.user_pic4 {
+        opacity: 1;
+        filter: alpha(opacity:100);
+    }
+
+    .user_callback #user_pic ul li.user_pic5 {
+        opacity: 1;
+        filter: alpha(opacity:100);
+    }
+
+    .user_callback #user_pic ul li.user_pic6 {
+        opacity: 0.8;
+        filter: alpha(opacity:80);
+    }
+
+    .user_callback #user_pic ul li.user_pic7 {
+        opacity: 0.6;
+        filter: alpha(opacity:60);
+    }
+
+    .user_callback #user_pic ul li.user_pic8 {
+        opacity: 0.2;
+        filter: alpha(opacity:20);
+    }
+
+    .user_callback #user_pic ul li.user_pic1 img {
+        width: 216.5px;
+        height: 248px;
+    }
+
+    .user_callback #user_pic ul li.user_pic2 img {
+        width: 225.5px;
+        height: 259px;
+    }
+
+    .user_callback #user_pic ul li.user_pic3 img {
+        width: 230.5px;
+        height: 264px;
+    }
+
+    .user_callback #user_pic ul li.user_pic4 img {
+        width: 247.5px;
+        height: 285px;
+    }
+
+    .user_callback #user_pic ul li.user_pic5 img {
+        width: 247.5px;
+        height: 285px;
+    }
+
+    .user_callback #user_pic ul li.user_pic6 img {
+        width: 230.5px;
+        height: 264px;
+    }
+
+    .user_callback #user_pic ul li.user_pic7 img {
+        width: 225.5px;
+        height: 259px;
+    }
+
+    .user_callback #user_pic ul li.user_pic8 img {
+        width: 216.5px;
+        height: 248px;
+    }
+
+    .user_callback #user_pic span {
+        display: inline-block;
+        *display: inline;
+        *zoom: 1;
+        width: 80px;
+        height: 80px;
+        position: absolute;
+        top: 160px;
+        z-index: 30;
+        cursor: pointer;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+    }
+
+    .user_callback #user_pic:hover span {
+        opacity: 1;
+        filter: alpha(opacity=100);
+    }
+
+    .user_callback #user_pic span img {
+        width: 80px;
+        height: 80px;
+        display: block;
+    }
+
+    .user_callback #user_pic span.prev {
+        background: url(img/5836af12Neb8a5654.png) no-repeat;
+        position: absolute;
+        top: 100px;
+        left: 5px;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+    }
+
+    .user_callback #user_pic span.next {
+        background: url(img/5836af12N536e472b.jpg) no-repeat;
+        position: absolute;
+        top: 100px;
+        right: 5px;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+    }
+
+    .user_callback #user_pic span.prev:hover {
+        background: url(img/5836af12Neb8a56523.png) no-repeat;
+    }
+
+    .user_callback #user_pic span.next:hover {
+        background: url(img/5836b011N9a4d4531.jpg) no-repeat;
+    }
+
+    .user_callback {
+        background: lightskyblue;
+        overflow: hidden;
+    }
+
+    .has-error {
+        color: red;
+    }
+    </style>
+
+
+    <link rel="preload" href="/static/ttf/caoshu.TTF" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/tianmi.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/TTENuoJ_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/xiaonaibao.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/xiaotu.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/xioayudi.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/langhua.otf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/taoxin.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/Tensentype-PaoPaoF.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/STHeiti-Light.ttc" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/keai.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/heiheihuahu.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/amazeui.min.css">
 </head>
 <body>
-<!--这里是模态框的内容-->
-<div class="motai_con fadeIn">
-    <!-- 登录 -->
-    <div class="modal_data fadeIn">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
-                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
-                                                                                       aria-hidden="true"></i></button>
-        <h3>登录</h3>
-        <form action="" method="post">
-            <div class="info">{% csrf_token %}</div>
-            <div>
-                <label for="{{ loginForm.log_account.id_for_label }}">{{ loginForm.log_account.label }}</label>
-                <i class="fa fa-user" aria-hidden="true"></i>
-                {{ loginForm.log_account }}
-            </div>
-            <span class="notice-erro">{{ loginForm.log_account.errors.0 }}</span><br>
-            <div>
-                <label for="{{ loginForm.log_password.id_for_label }}">{{ loginForm.log_password.label }}</label>
-                <i class="fa fa-key" aria-hidden="true"></i>
-                {{ loginForm.log_password }}
-            </div>
-            <span class="notice-erro">{{ loginForm.log_password.errors.0 }}</span><br>
-            <div class="identify">
-                {{ loginForm.log_role }}
-                <div style="clear:both"></div>
-            </div>
-            <button type="button" class="btn btn-primary reset">取消</button>
-            <button type="button" id="login" class="btn btn-success">登录</button>
-            <a href="#" id="forget_btn">忘记密码</a>
-        </form>
-    </div>
-
-    <!-- 注册 -->
-    <div class="mod-register">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
-                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
-                                                                                       aria-hidden="true"></i></button>
-        <h3>注册</h3>
-        <form action="" novalidate method="post">
-            <div class="info">{% csrf_token %}</div>
-
-            <div>
-                <label for="{{ reg.name.id_for_label }}">{{ reg.name.label }}</label>
-                <i class="fa fa-user" aria-hidden="true"></i>
-                {{ reg.name }} <span>{{ reg.name.errors.0 }}</span><br>
-            </div>
-            <div>
-                <label for="{{ reg.password.id_for_label }}">{{ reg.password.label }}</label>
-                <i class="fa fa-key" aria-hidden="true"></i>
-                {{ reg.password }} <span>{{ reg.password.errors.0 }}</span><br>
-            </div>
-            <div>
-                <label for="{{ reg.re_password.id_for_label }}">{{ reg.re_password.label }}</label>
-                <i class="fa fa-key" aria-hidden="true"></i>
-                {{ reg.re_password }} <span>{{ reg.re_password.errors.0 }}</span><br>
-            </div>
-            <div>
-                <label>头像</label>
-                <label for="id_avatar"><img style="margin-left: -51px;width: 100px;height: 100px;" id="avatar-img"
-                                            src="/static/img/deflaut.png" alt=""></label>
-                <input accept="image/*" type="file" name="avatar" id="id_avatar" style="display: none">
-                <span></span>
-            </div>
-            <div class="s_reg_account">
-                <label for="{{ reg.account.id_for_label }}">{{ reg.account.label }}</label>
-                <i class="fa fa-mobile" aria-hidden="true"></i>
-                {{ reg.account }} <span>{{ reg.account.errors.0 }}</span><br>
-            </div>
-            <label for="message-check">验证码：</label>
-            <input type="text" placeholder="验证码" class="message-check">
-            <button type="button" class="getmessage">获取验证码</button>
-            <br>
-            <span class="erro-check"></span><br>
-            <div class="mod_reg">
-                <button type="button" name="reset" class="btn btn-primary reset">取消</button>
-                <button type="button" name="reg" class="btn btn-success">注册</button>
-            </div>
-        </form>
-    </div>
-
-    <!-- 找回密码 -->
-    <div class="forget_pwd">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-times reset"
-                                                                                       style="color: #000; top: 18px; left: 450px; font-size: 28px"
-                                                                                       aria-hidden="true"></i></button>
-        <h3>忘记密码</h3>
-        <div>
-            <label for="forget_account">手机号：</label>
-            <i class="fa fa-mobile" aria-hidden="true"></i>
-            <input type="text" id="forget_account" name="forget_account" placeholder="请输入注册时的手机号">
-            <span></span>
-        </div>
-
-        <div>
-            <label for="forget_pwd">新密码：</label>
-            <i class="fa fa-key" aria-hidden="true"></i>
-            <input type="password" id="forget_pwd" name="forget_pwd" placeholder="请输入密码">
-            <span></span>
-        </div>
-
-        <div>
-            <label for="forget_re_pwd">确认密码：</label>
-            <i class="fa fa-key" aria-hidden="true"></i>
-            <input type="password" id="forget_re_pwd" name="forget_re_pwd" placeholder="请重复上面输入的密码">
-            <span></span>
-        </div>
-
-        <div>
-            <label for="confirm_code">验证码：</label>
-            <input type="text" placeholder="验证码" id="confirm_code" name="confirm_code">
-            <button type="button" name="get_code">获取验证码</button>
-            <span name="confirm_code_error"></span>
-        </div>
-        <button type="button" class="btn btn-danger reset">取消</button>
-        <button type="button" class="btn btn-success" name="forget_change_pwd">修改</button>
-    </div>
-</div>
 
 <div id="page">
     <nav class="fh5co-nav" role="navigation">
-        <div class="top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 text-right">
-                        <p class="num">电话: 0561-3199633</p>
-                    </div>
+
+        <div class="user_callback">
+
+            <div class="col-xs-2 left">
+                <div id="fh5co-logo">
+                    <a href="/index/"><img src="/static/img/logo.png" alt="logo"
+                                           style="width: 180px;margin-left: 50px;margin-top: 95px;color: black"></a>
                 </div>
+                <p>
+                <h1 style="width:200px;margin-top: 4em;font-size: 40px;margin-left: 65px;color: black">编程一小时</h1>
+                </p>
+
             </div>
-        </div>
-        <div class="top-menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-2">
-                        <div id="fh5co-logo"><a href="/index/"><img src="/static/img/logo.png" alt="logo"
-                                                                    style="width: 180px"></a></div>
-                    </div>
-                    <div class="col-xs-10 text-right menu-1">
-                        <ul>
-                            <li {% if request.path == "/index/" %}class="active"{% endif %}><a href="/index/">首页</a>
-                            </li>
-                            <li {% if request.path == "/stu_show/" %}class="active"{% endif %}><a
-                                    href="/stu_show/">学员成果</a></li>
-                            <li {% if request.path == "/class_type/" %}class="active"{% endif %}><a href="/class_type/">课程类型</a>
-                            </li>
-                            <li {% if request.path == "/Teachers_lineup/" %}class="active"{% endif %}>
-                                <a href="/Teachers_lineup/">师资阵容</a>
-                            </li>
-                            <li {% if request.path == "/contact/" %}class="active"{% endif %}><a
-                                    href="/contact/">签名墙</a></li>
-                            {#                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a#}
-                            {#                                    href="/static/build/index.html">Scrach</a></li>#}
-                            <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a
-                                    href="/static/build/index.html" target="_blank">Scratch</a></li>
 
-                            {% if account %}
-                                <li>
-                                    {% if role == "student" %}
-                                        <span class="user_name">{{ stu_obj.s_name }}</span>
-                                    {% endif %}
-                                    {% if role == "teacher" %}
-                                        <span class="user_name">{{ tea_obj.t_name }}</span>
-                                    {% endif %}
-                                    <a href="/home/"><span>个人中心</span></a>
-                                    <a href="/logout/"><span>退出</span></a>
-                                </li>
-                            {% else %}
-                                <li class="btn-cta btn_login"><a href="#"><span>登录</span></a></li>
-                                <li class="btn-cta btn_register"><a href="#"><span>注册</span></a></li>
-                            {% endif %}
 
-                        </ul>
-                    </div>
-                </div>
-
+            <div class="user_pic" id="user_pic">
+                <span class="prev"></span> <span class="next"></span>
+                <ul id="user_call">
+                    <li class="user_pic1">
+                        <a href="#"> <img src="/static/img/signed_img/1.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic2">
+                        <a href="#"> <img src="/static/img/signed_img/2.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic3">
+                        <a href="#"> <img src="/static/img/signed_img/3.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic4">
+                        <a href="#"> <img src="/static/img/signed_img/4.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic5">
+                        <a href="#"> <img src="/static/img/signed_img/5.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic6">
+                        <a href="#"> <img src="/static/img/signed_img/6.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic7">
+                        <a href="#"> <img src="/static/img/signed_img/7.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                    <li class="user_pic8">
+                        <a href="#"> <img src="/static/img/signed_img/8.png" alt="1" width="248" height="285"/></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    <header id="fh5co-header" class="fh5co-cover" role="banner" style="background-image:url(/static/img/img_bg_1.jpg);"
-            data-stellar-background-ratio="0.5">
-        <div class="overlay"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center">
-                    <div class="display-t">
-                        <div class="display-tc animate-box" data-animate-effect="fadeIn">
-                            <h1>来酷丁编程</h1>
-                            <h2>与专业名师面对面
-                                一次试听，让孩子爱上编程
-                            </h2>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">查看证书</h4>
+                </div>
+                <div class="modal-body">
+                    <img na="cer_img" src="" alt="" style="width: 500px;height: 600px">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+
+    <div class="am-modal am-modal-no-btn" tabindex="-1" id="doc-modal-1">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd" style="font-weight: bolder;padding-bottom: 20px;">确认生成证书，请填写下列内容：
+                <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+            </div>
+            <div class="am-modal-bd">
+                <form class="am-form am-form-horizontal" id="signed" action="">
+                    {% csrf_token %}
+                    <div class="am-form-group">
+                        <label for="doc-ipt-3" class="am-u-sm-2 am-form-label">手机号</label>
+                        <div class="am-u-sm-10">
+                            <input type="text" name="phone" id="phone" placeholder="输入您的手机号">
+                            <span style="color: red;margin-right: 220px;"></span>
                         </div>
                     </div>
-                </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">单位</label>
+                        <div class="am-u-sm-10">
+                            <input type="text" name="apartment" id="apartment" placeholder="输入您的单位或者学校名称">
+                            <span style="color: red;margin-right: 220px;"></span>
+                        </div>
+                    </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">QQ号</label>
+                        <div class="am-u-sm-10">
+                            <input type="text" name="QQ" id="QQ" placeholder="输入您的QQ号">
+                            <span style="color: red;margin-right: 220px;"></span>
+                        </div>
+                    </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-pwd-2" class="am-u-sm-2 am-form-label">微信号</label>
+                        <div class="am-u-sm-10">
+                            <input type="text" name="WX" id="WX" placeholder="输入您的微信号">
+                            <span style="color: red;margin-right: 220px;"></span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 40px">
+                        <input type="button" class="btn btn-info"
+                               style="width: 110px;height: 45px;color: black;border-radius: 0%" id="sub_certificate"
+                               value="提交"/>
+                        <input type="button" class="btn btn-warning"
+                               style="width: 110px;height: 45px;color: black;border-radius: 0%" data-am-modal-close
+                               value="取消"/>
+                    </div>
+                </form>
             </div>
-        </div>
-    </header>
-
-
-    <div id="fh5co-contact">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-11 col-sm-11 col-xs-11 col-md-push-1 animate-box fadeIn">
-                    <form action="">
-                        <p>
-                            姓名：
-                            <input type="text" class="fadeIn" name="user_name" placeholder="请输入您的姓名：">
-                            <input type="button" class="btn btn-default" value="提交" id="sub_name">
-                        </p>
-                    </form>
-                </div>
-
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-
-
-            </div>
-
         </div>
     </div>
 
-    <!--这里是kuding信息公司的声明部分-->
+
+    <div id="fh5co-contact" style="padding-top: 33em">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading" id="my_sign_head">
+                    预览部分
+                </div>
+
+
+                <div class="panel-body text-center" id="my_certificate">
+
+                    <canvas id="myCanvas" style="width:300px;height:200px;">
+
+                    </canvas>
+                </div>
+            </div>
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    控制台
+                </div>
+                <form id="form" name="form" method="post">
+                    <div class="panel-body row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <textarea name="text" id="text" class="form-control" row="5"
+                                      placeholder="输入文字后，选择字体，点击生成！"></textarea>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <label for="ziti">选择字体：</label>
+                            <select name="ziti" id="ziti" class="form-control">
+                                <option value="1">草书</option>
+                                <option value="2">小奶泡</option>
+                                <option value="3">腾祥婀娜体简</option>
+                                <option value="4">桃心悦圆</option>
+                                <option value="5">小雨滴</option>
+                                <option value="6">可爱萌宠体</option>
+                                <option value="8">浪花</option>
+                                <option value="9">爱心小兔</option>
+                                <option value="10">腾祥泡泡体繁</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>生成签名按钮：</label>
+                            <button type="button" id="sub_name" class="btn btn-primary submit form-control"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击生成签名
+                            </button>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>生成证书按钮：</label>
+                            <button type="button" class="btn btn-primary submit form-control"
+                                    data-am-modal="{target: '#doc-modal-1', closeViaDimmer: 0, width: 600, height: 480}"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击生成证书
+                            </button>
+                        </div>
+
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>查看证书：</label>
+                            <button type="button" id="view_certificate" class="btn btn-primary submit form-control"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击查看证书
+                            </button>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>下载证书：</label>
+                            <a herf="#" type="button" id="down_certificate" class="btn btn-primary submit form-control"
+                               style="border-radius: 0%;background: lightcoral;color: white;"
+                               download="certificate.jpg">点击下载证书
+                            </a>
+                        </div>
+
+                        <input type="hidden" name="if_demo" id="if_demo_value" value="show">
+
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="panel panel-default demoListBox">
+                <div class="panel-heading">
+                    证书合集
+                </div>
+                <div class="panel-body">
+
+                    <div class="row demolist">
+                        {% for certificate in certificate_list %}
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                <div class="thumbnail text-center">
+                                    <img src={{ certificate.c_cer_url }} data-toggle="tooltip" data-placement="top"
+                                         title=""
+                                         data-original-title="">
+                                    <div class="caption">
+                                        <p class="text-center">
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                                                    role="button" onclick="showSignImg('{{ certificate.c_cer_url }}')">
+                                                查看
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="text-center hidden" style="margin-bottom: 25px">
+                    <a href="/sign_list/" class="btn btn-primary" role="button" target="_blank">查看所有签名</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <!--这里是kuding信息公司的声明部分-->
     <div class="footer-section">
         <div class="container">
@@ -346,303 +679,40 @@
 <script src="/static/js/magnific-popup-options.js"></script>
 <!-- Main -->
 <script src="/static/js/main.js"></script>
+<!-- layer-->
+<script type="text/javascript" src="/static/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="/static/js/amazeui.min.js"></script>
+<script type="text/javascript" src="/static/js/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="/static/js/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="/static/js/1.14.0/messages_zh.js"></script>
+
 <script>
 
+    $().ready(function () {
+        // 在键盘按下并释放及提交后验证提交表单
+        $("#signed").validate({
+            rules: {
+                phone: {
+                    required: true,
+                    isMobile: true
+                    {#email:true#}
+                },
+                apartment: {
+                    required: true
+                },
+                QQ: {
+                    required: true,
+                    number: true,
+                    minlength: 5,
+                    maxlength: 12
 
-    // 找到头像的input标签绑定change事件
-    $("#id_avatar").change(function () {
-        // 1. 创建一个读取文件的对象
-        var fileReader = new FileReader();
-        // 取到当前选中的头像文件
-        // console.log(this.files[0]);
-        // 读取你选中的那个文件
-        fileReader.readAsDataURL(this.files[0]);  // 读取文件是需要时间的
-        fileReader.onload = function () {
-            // 2. 等上一步读完文件之后才 把图片加载到img标签中
-            $("#avatar-img").attr("src", fileReader.result);
-        };
-    });
-
-    // 验证码倒计时
-    var code;
-    var t = 60;
-    var account;
-    $('.getmessage').click(function () {
-        account = $("#id_account").val();
-        {#console.log(account);#}
-        $.ajax({
-            url: '/verify_code/',
-            type: "post",
-            data: {
-                account: account,
-                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-            },
-            success: function (data) {
-                if (data.status == 1) {
-                    code = data.code;
-                    account = data.account;
-                    $(".getmessage").attr('disabled', true);
-                    // 倒计时60s
-                    var t = 60;
-                    var i = setInterval(function () {
-                        t--;
-                        if (t > 0)
-                            $('.getmessage').text(t + '秒后刷新重试');
-                        else {
-                            $('.getmessage').text('获取登陆密码');
-                            $('.getmessage').removeAttr('disabled');
-                            clearInterval(i);
-                        }
-                    }, 1000);
-                } else {
-                    $("#id_account").next("span").html(data.error);
-                    setTimeout(function () {
-                        $("#id_account").next("span").html("");
-                    }, 3000);
+                },
+                WX: {
+                    required: true
                 }
             }
         });
-    });
-
-
-    //忘记密码倒计时
-    $("[name='get_code']").click(function () {
-        var forget_account = $("[name='forget_account']").val();
-        {#console.log(account);#}
-        if (forget_account.length == 0) {
-            $("[name='forget_account']").next("span").html("手机号不能为空！");
-            setTimeout(function () {
-                $("[name='forget_account']").next("span").html("");
-            }, 3000);
-        } else {
-            $.ajax({
-                url: '/get_code/',
-                type: "post",
-                data: {
-                    account: forget_account,
-                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-                },
-                success: function (data) {
-                    {#console.log(data);#}
-                    if (data.status == 0) {
-                        code = data.code;
-                        account = data.account;
-                        $("[name='get_code']").attr('disabled', true);
-                        // 倒计时60s
-                        var t = 60;
-                        var i = setInterval(function () {
-                            t--;
-                            if (t > 0) {
-                                $("[name='get_code']").text(t + '秒后重试');
-                            } else {
-                                $("[name='get_code']").text('获取登陆密码');
-                                $("[name='get_code']").removeAttr('disabled');
-                                clearInterval(i);
-                            }
-                        }, 1000);
-                    } else {
-                        $("[name='forget_account']").next("span").html(data.error);
-                        setTimeout(function () {
-                            $("[name='forget_account']").next("span").html("");
-                        }, 3000);
-                    }
-                }
-            })
-        }
-    });
-    //忘记密码 验证码失去焦点验证
-    //验证码失去焦点时验证
-    $("[name='confirm_code']").blur(function () {
-        var code1 = $("[name='confirm_code']").val();
-        var account1 = $("[name='forget_account']").val();
-        {#console.log(code1);#}
-        {#console.log(account1);#}
-        {#console.log(code);#}
-        {#console.log(account);#}
-
-        if (code1 == code && account1 == account) {
-
-            $(".erro-check").html("验证成功！");
-            setTimeout(function () {
-                $("[name='confirm_code_error']").html("");
-            }, 3000);
-        } else {
-            $("[name='confirm_code_error']").html("验证码不正确！");
-            setTimeout(function () {
-                $("[name='confirm_code_error']").html("");
-            }, 3000);
-        }
-    });
-
-
-    //忘记密码验证
-    $("[name='forget_change_pwd']").click(function () {
-        var forget_account = $("[name='forget_account']").val();
-        var forget_pwd = $("[name='forget_pwd']").val();
-        var forget_re_pwd = $("[name='forget_re_pwd']").val();
-        {#console.log(forget_pwd);#}
-        {#console.log(forget_re_pwd);#}
-        if (forget_pwd.length == 0) {
-            $("[name='forget_pwd']").next("span").html("密码不能为空！");
-            setTimeout(function () {
-                $("[name='forget_pwd']").next("span").html("");
-            }, 3000);
-        } else {
-            if (forget_pwd.length < 6) {
-                $("[name='forget_pwd']").next("span").html("密码不能低于6位！");
-                setTimeout(function () {
-                    $("[name='forget_pwd']").next("span").html("");
-                }, 3000);
-            } else {
-                if (forget_re_pwd.length == 0) {
-                    $("[name='forget_pwd']").next("span").html("确认密码不能为空！");
-                    setTimeout(function () {
-                        $("[name='forget_pwd']").next("span").html("");
-                    }, 3000);
-                } else {
-                    if (forget_pwd.length < 6) {
-                        $("[name='forget_re_pwd']").next("span").html("确认密码不能低于6位！");
-                        setTimeout(function () {
-                            $("[name='forget_pwd']").next("span").html("");
-                        }, 3000);
-                    } else {
-                        if (forget_pwd != forget_re_pwd) {
-                            $("[name='forget_re_pwd']").next("span").html("两次密码输入不同，请重新输入！");
-                            setTimeout(function () {
-                                $("[name='forget_re_pwd']").next("span").html("");
-                            }, 3000);
-                        } else {
-                            $.ajax({
-                                url: '/change_pwd/',
-                                type: "post",
-                                data: {
-                                    account: forget_account,
-                                    pwd: forget_pwd,
-                                    csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-                                },
-                                success: function (data) {
-                                    if (data.status) {
-                                        alert("密码修改成功！");
-                                        location.href = data.href
-                                    }
-                                }
-                            })
-
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-
-    //验证码失去焦点时验证
-    $(".message-check").blur(function () {
-        var code1 = $(".message-check").val();
-        var account1 = $("#id_account").val();
-        //console.log(code1);
-        //console.log(account1);
-        //console.log(code);
-        //console.log(account);
-
-        if (code1 == code && account1 == account) {
-
-            $(".erro-check").html("验证成功！");
-            setTimeout(function () {
-                $(".erro-check").html("");
-            }, 3000);
-        } else {
-            $(".erro-check").html("验证码不正确！");
-            setTimeout(function () {
-                $(".erro-check").html("");
-            }, 3000);
-        }
-    });
-
-    //注册验证
-    $("[name='reg']").click(function () {
-        var code1 = $(".message-check").val();
-        var account1 = $("#id_account").val();
-        //console.log(code1);
-        //console.log(account1);
-        //console.log(code);
-        //console.log(account);
-        var formData = new FormData();
-        formData.append("name", $("#id_name").val());
-        formData.append("password", $("#id_password").val());
-        formData.append("re_password", $("#id_re_password").val());
-        formData.append("account", $("#id_account").val());
-        formData.append("avatar", $("#id_avatar")[0].files[0]);
-        formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
-        $.ajax({
-            url: "/reg/",
-            type: "post",
-            processData: false,
-            contentType: false,
-            data: formData,
-            success: function (data) {
-                if (data.status == 0) {
-                    // 有错误就展示错误
-                    {#// console.log(data.msg);#}
-                    // 将报错信息填写到页面上
-                    $.each(data.msg, function (k, v) {
-                        // console.log("id_"+k, v[0]);
-                        // console.log($("#id_"+k));
-                        $("#id_" + k).next("span").text(v[0]);
-                        setTimeout(function () {
-                            $("#id_" + k).next("span").html("");
-                        }, 3000);
-                    })
-                } else {
-                    alert("恭喜您，注册成功！");
-                    location.reload()
-                }
-            }
-        })
-    });
-
-    //登陆验证
-    $("#login").click(function () {
-        var log_account = $("#id_log_account").val();
-        var log_password = $("#id_log_password").val();
-        var log_role = $("[name='log_role']:checked").val();
-        {#console.log(log_account);#}
-        {#console.log(log_password);#}
-        {#console.log(log_role);#}
-        $.ajax({
-            url: "/login/",
-            type: "post",
-            data: {
-                log_account: log_account,
-                log_password: log_password,
-                log_role: log_role,
-                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-            },
-            success: function (data) {
-                if (data.status == 0) {
-                    $.each(data.msg, function (k, v) {
-                        {#console.log("id_" + k, v[0]);#}
-                        {#console.log($("#id_" + k));#}
-                        $("#id_" + k).parents().next("span").html(v[0]);
-                        setTimeout(function () {
-                            $("#id_" + k).parents().next("span").html("");
-                        }, 3000);
-                    })
-                } else if (data.status == 1) {
-                    location.href = data.msg;
-                } else if (data.status == 3) {
-                    $(".notice-erro").html(data.msg);
-                    setTimeout(function () {
-                        $(".notice-erro").html("");
-                    }, 3000);
-                } else if (data.status == 4) {
-                    $(".notice-erro").html(data.msg);
-                    setTimeout(function () {
-                        $(".notice-erro").html("");
-                    }, 3000);
-                }
-            }
-        })
     });
 
 
@@ -651,26 +721,282 @@
         $(this).next().html("");
     });
 
+
     $("#sub_name").click(function () {
-        var user_name = $("[name='user_name']").val();
-        var check_ttf = $("[name='user_name']").val();
-        console.log(user_name);
-        $.ajax({
-            url: '/change_name/',
-            type: 'post',
-            data: {
-                user_name: user_name,
-                ttf: check_ttf,
-                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-            },
-            suceess: function (data) {
-                console.log(data)
-            }
-        })
+        var user_name = $("[name='text']").val();
+        var zt = $("#ziti option:selected").html();
+        if (user_name == "") {
+            layer.msg("您还未输入内容，不能生成，抱歉！");
+        } else if (user_name.length > 4) {
+            $("#my_sign_head").html("如果满意，请点击生成证书按钮，方便您生成编程一小时证书。");
+            getImg(user_name, 26, zt);
+        } else if (user_name.length < 6 && user_name.length > 2) {
+            $("#my_sign_head").html("如果满意，请点击生成证书按钮，方便您生成编程一小时证书。");
+            getImg(user_name, 80, zt);
+        } else if (user_name.length == 2) {
+            var user_name = user_name.replace(/(.{1})/g, '$1  ');
+            $("#my_sign_head").html("如果满意，请点击生成证书按钮，方便您生成编程一小时证书。");
+            getImg(user_name, 90, zt);
+        }
+        ;
     });
 
 
+    var url = "";
+
+    function getImg(text, fsz, zt) {
+        if ($("#myCanvas").hasClass("hidden")) {
+            $("#myCanvas").removeClass("hidden");
+            $("#my_certificate_img").remove();
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img = new Image();
+            img.src = '/static/img/bg_for_sign.png';
+            img.onload = function () {//图片加载完成，才可处理
+                cxt.clearRect(0, 0, 300, 200);
+                cxt.back
+                cxt.drawImage(img, 0, 0, 300, 200, 0, 0, 300, 200);
+                cxt.save();
+                cxt.font = fsz + "px " + zt;
+                cxt.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+                cxt.textAlign = 'center';
+                var tw = cxt.measureText(text).width;
+                var ftop = c.height / 2;
+                var fleft = c.width / 2;
+                cxt.fillStyle = "rgba(225,225,225,0)";
+                cxt.fillRect(fleft - tw / 2, ftop - fsz / 2, tw, fsz);//矩形在画布居中方式
+                cxt.fillStyle = "black";
+                cxt.fillText(text, fleft, ftop);//文本元素在画布居中方式
+                url = c.toDataURL('image/png', 1.0);
+            };
+        } else {
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img = new Image();
+            img.src = '/static/img/bg_for_sign.png';
+            img.onload = function () {//图片加载完成，才可处理
+                cxt.clearRect(0, 0, 300, 200);
+                cxt.drawImage(img, 0, 0, 300, 200, 0, 0, 300, 200);
+                cxt.save();
+                cxt.font = fsz + "px " + zt;
+                cxt.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+                cxt.textAlign = 'center';
+                var tw = cxt.measureText(text).width;
+                var ftop = c.height / 2;
+                var fleft = c.width / 2;
+                cxt.fillStyle = "rgba(225,225,225,0)";
+                cxt.fillRect(fleft - tw / 2, ftop - fsz / 2, tw, fsz);//矩形在画布居中方式
+                cxt.fillStyle = "black";
+                cxt.fillText(text, fleft, ftop);//文本元素在画布居中方式
+                //cxt.strokeStyle = 'yellow';
+                //cxt.strokeText(text,fleft,ftop);//文字边框
+                url = c.toDataURL('image/png', 1.0);
+            };
+        }
+    };
+
+
+    $("#sub_certificate").click(function () {
+        var flag = $("#signed").valid();
+        if (!flag) {
+            return;
+        } else {
+            var user_name = $("[name='text']").val();
+            var zt = $("#ziti option:selected").html();
+            var phone = $("#phone").val();
+            var apart = $("#apartment").val();
+            var QQ = $("#QQ").val();
+            var WX = $("#WX").val();
+            if (url == "") {
+                layer.msg("尚未生成签名，不能生成证书，请您先选择自己喜欢的字体生成签名！")
+            } else {
+                if ($("#my_certificate_img").length > 0) {
+                    layer.msg("您已生成过证书，请勿重复生成，谢谢！")
+                } else {
+                    $.ajax({
+                        url: '/save_sign_data/',
+                        type: 'post',
+                        data: {
+                            name: user_name,
+                            zt: zt,
+                            phone: phone,
+                            apartment: apart,
+                            QQ: QQ,
+                            WX: WX,
+                            url: url,
+                            csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                        },
+                        success: function (data) {
+                            if (data.status == 1) {
+                                $("#doc-modal-1").modal('close');
+                                var img = "<img id='my_certificate_img' src='" + data.cer_url + "' style='width: 200px;height: 200px;'>";
+                                $("#myCanvas").addClass("hidden");
+                                $("#my_certificate").append(img);
+                            } else {
+                                layer.msg("出错了，暂未生成！")
+                            }
+                        }
+                    })
+                }
+            }
+        }
+    });
+
+    $("#view_certificate").click(function () {
+        if ($("#my_certificate_img").length > 0) {
+            var newWeb = window.open('_blank');
+            newWeb.location = $("#my_certificate_img").attr("src");
+        } else {
+            layer.msg("尚未生成证书，不能查看，请先生成证书！")
+        }
+    });
+
+
+    $("#down_certificate").click(function () {
+
+        if ($("#my_certificate_img").length > 0) {
+            img_url = $("#my_certificate_img").attr("src");
+            $("#down_certificate").attr("href", img_url);
+        } else {
+            layer.msg("尚未生成证书，不能下载，请先生成证书！")
+        }
+    });
+
+    function showSignImg(ths) {
+        $("[na='cer_img']").attr("src", ths);
+        console.log(ths);
+    }
+
 </script>
+
+
+<script type="text/javascript">function arcSlip() {
+    var oPic = document.getElementById('user_pic');
+    var oPrev = getByClass(oPic, 'prev')[0];
+    var oNext = getByClass(oPic, 'next')[0];
+
+    var aLi = oPic.getElementsByTagName('li');
+
+    var arr = [];
+
+    for (var i = 0; i < aLi.length; i++) {
+        var oImg = aLi[i].getElementsByTagName('img')[0];
+
+        arr.push([parseInt(getStyle(aLi[i], 'left')), parseInt(getStyle(aLi[i], 'top')),
+            getStyle(aLi[i], 'zIndex'), oImg.width, parseFloat(getStyle(aLi[i], 'opacity') * 100)]);
+    }
+
+
+    oPrev.onclick = function moveTP() {
+        arr.push(arr[0]);
+        arr.shift();
+        for (var i = 0; i < aLi.length; i++) {
+            var oImg = aLi[i].getElementsByTagName('img')[0];
+
+            aLi[i].style.zIndex = arr[i][2];
+            startMove(aLi[i], {left: arr[i][0], top: arr[i][1], opacity: arr[i][4]});
+            startMove(oImg, {width: arr[i][3]});
+        }
+
+    }
+
+    oNext.onclick = function moveTN() {
+        arr.unshift(arr[arr.length - 1]);
+        arr.pop();
+        for (var i = 0; i < aLi.length; i++) {
+            var oImg = aLi[i].getElementsByTagName('img')[0];
+
+            aLi[i].style.zIndex = arr[i][2];
+            startMove(aLi[i], {left: arr[i][0], top: arr[i][1], opacity: arr[i][4]});
+            startMove(oImg, {width: arr[i][3]});
+        }
+    }
+    var moveTime = setInterval(function () {
+
+        oNext.click();
+
+    }, 1000);
+    $('#user_pic').hover(function () {
+        ;
+        ;
+        clearInterval(moveTime);
+    }, function () {
+        moveTime = setInterval(function () {
+            oNext.click();
+        }, 1000);
+    });
+
+    function getStyle(obj, name) {
+        if (obj.currentStyle) {
+            return obj.currentStyle[name];
+        }
+        else {
+            return getComputedStyle(obj, false)[name];
+        }
+    }
+}
+
+function getByClass(oParent, sClass) {
+    var aResult = [];
+    var aEle = oParent.getElementsByTagName('*');
+
+    for (var i = 0; i < aEle.length; i++) {
+        if (aEle[i].className == sClass) {
+            aResult.push(aEle[i]);
+        }
+    }
+    return aResult;
+}
+
+function getStyle(obj, name) {
+    if (obj.currentStyle) {
+        return obj.currentStyle[name];
+    }
+
+    else {
+        return getComputedStyle(obj, false)[name];
+    }
+}
+
+function startMove(obj, json, fnEnd) {
+    clearInterval(obj.timer);
+    obj.timer = setInterval(function () {
+        var bStop = true;
+        for (var attr in json) {
+            var cur = 0;
+
+            if (attr == 'opacity') {
+                cur = Math.round(parseFloat(getStyle(obj, attr)) * 10);
+            }
+            else {
+                cur = parseInt(getStyle(obj, attr));
+            }
+
+            var speed = (json[attr] - cur) / 6;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+            if (cur != json[attr]) bStop = false;
+
+            if (attr == 'opacity') {
+                obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
+                obj.style.opacity = (cur + speed) / 10;
+            }
+            else {
+                obj.style[attr] = cur + speed + 'px';
+            }
+        }
+        if (bStop) {
+            clearInterval(obj.timer);
+            if (fnEnd) fnEnd();
+        }
+    }, 30)
+
+}
+
+arcSlip();
+</script>
+
+
 </body>
 </html>
 

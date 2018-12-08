@@ -56,6 +56,16 @@ urlpatterns = [
     url(r'^sign/$', views.sign),
     url(r'^change_name/$', views.change_name),
 
+    # 保存图片
+    url(r'^save_img/$', views.save_img),
+
+    # 保存签名信息
+    url(r'^save_sign_data/$', views.save_sign_data),
+
+    # 测试
+    url(r'^canvas1/$', views.canvas1),
+
+
 
     # url(r'^get_url/$', views.get_url),
     # url(r'^t_info_detail/$',views.t_info_detail),

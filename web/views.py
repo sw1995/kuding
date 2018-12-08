@@ -5,7 +5,7 @@ from web.form.reg import RegForm
 # from web.form import reg
 from article.models import TArticles
 from web.models import WebTeacher, WebStudent, WebGrant, WebDetail, WebCourse, WebEvaluate, WebLogsheet, WebClasses, \
-    WebRelation
+    WebRelation, WebCertificate
 from web.form.login_form import LoginForm
 
 
@@ -104,6 +104,9 @@ def contact(request):
     reg = RegForm()
     account = request.session.get("account")
     role = request.session.get("role")
+    certificate_list = WebCertificate.objects.all()
+
+
     if account:
         if role == "student":
             stu_obj = WebStudent.objects.filter(s_account=account).first()
@@ -1710,11 +1713,68 @@ def change_name(request):
             ret["sign_name_url"] = sign_name_url
             print(sign_name_url)
 
-    return render(request, "sing_name.html")
+    return JsonResponse(ret)
 
 
 def sign(request):
     return render(request, "sing_name.html")
+
+
+def canvas1(request):
+    return render(request, "cavens_test.html")
+
+
+# 保存签名
+def save_img(request):
+    if request.method == "POST":
+        img_url = request.POST.get("img_url")
+        zt = request.POST.get("zt")
+        name = request.POST.get("name")
+        print(img_url)
+        print(zt)
+        print(name)
+
+
+# 保存签名人信息
+import base64
+
+
+def save_sign_data(request):
+    ret = {}
+    if request.method == "POST":
+        name = request.POST.get("name")
+        zt = request.POST.get("zt")
+        phone = request.POST.get("phone")
+        apart = request.POST.get("apartment")
+        QQ = request.POST.get("QQ")
+        WX = request.POST.get("WX")
+        src = request.POST.get("url")
+        url = src.replace("data:image/png;base64,", "")
+        uid = create_uuid()
+        c_time = int(time.time())
+        print("save_sign_data")
+        cer_obj = WebCertificate.objects.create(c_id=uid, c_name=name, c_font_style=zt, c_create_time=c_time,
+                                                c_name_url=url, c_state=0, c_phone=phone, c_qq=QQ, c_wechat=WX,
+                                                c_from=apart)
+        import requests
+        payload = {"id": uid}
+        url = "http://115.159.33.73:8080/kuding/image"
+        r = requests.get(url, params=payload)
+        # print(r.text)
+        if r:
+            res = requests.get(r.text)
+            base64_data = base64.b64encode(res.content)
+            s = base64_data.decode()
+            print(s)
+            cer_url = 'data:image/jpg;base64,' + s
+            print(cer_url)
+            ret["status"] = 1
+            ret["cer_url"] = cer_url
+        else:
+            ret["status"] = 0
+
+    return JsonResponse(ret)
+
 
 
 

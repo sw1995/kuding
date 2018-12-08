@@ -29,6 +29,7 @@
 
     <!-- Theme style  -->
     <link rel="stylesheet" href="/static/css/z_style.css">
+    <link rel="stylesheet" href="/static/css/qt_style.css">
 
     <!-- Modernizr JS -->
     <script src="/static/js/modernizr-2.6.2.min.js"></script>
@@ -38,6 +39,81 @@
             margin-top: 0px;
         }
     </style>
+
+    <style type="text/css">
+
+        html {
+            -webkit-text-size-adjust: none;
+        }
+
+        @font-face {
+            font-family: "草书";
+            src: url("/static/ttf/caoshu.TTF");
+        }
+
+        @font-face {
+            font-family: "小奶泡";
+            src: url("/static/ttf/xiaonaibao.ttf");
+        }
+
+        @font-face {
+            font-family: "腾祥婀娜体简";
+            src: url("/static/ttf/TTENuoJ_0.ttf");
+        }
+
+        @font-face {
+            font-family: "哈哈呼嘿字";
+            src: url("/static/ttf/heiheihuahu.ttf");
+        }
+
+        @font-face {
+            font-family: "甜蜜小女生";
+            src: url("/static/ttf/tianmi.ttf");
+        }
+
+        @font-face {
+            font-family: "桃心悦圆";
+            src: url("/static/ttf/taoxin.ttf");
+        }
+
+        @font-face {
+            font-family: "小雨滴";
+            src: url("/static/ttf/xioayudi.ttf");
+        }
+
+        @font-face {
+            font-family: "可爱萌宠体";
+            src: url("/static/ttf/keai.ttf");
+        }
+
+        @font-face {
+            font-family: "腾祥泡泡体繁";
+            src: url("/static/ttf/Tensentype-PaoPaoF.ttf");
+        }
+
+        @font-face {
+            font-family: "爱心小兔";
+            src: url("/static/ttf/xiaotu.ttf");
+        }
+
+        @font-face {
+            font-family: "浪花";
+            src: url("/static/ttf/langhua.otf");
+        }
+    </style>
+
+    <link rel="preload" href="/static/ttf/caoshu.TTF" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/tianmi.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/TTENuoJ_0.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/xiaonaibao.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/xiaotu.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/xioayudi.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/langhua.otf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/taoxin.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/Tensentype-PaoPaoF.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/STHeiti-Light.ttc" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/keai.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+    <link rel="preload" href="/static/ttf/heiheihuahu.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 </head>
 <body>
 <!--这里是模态框的内容-->
@@ -240,52 +316,157 @@
 
     <div id="fh5co-contact">
         <div class="container">
-            <div class="row">
-
-                <div class="col-md-11 col-sm-11 col-xs-11 col-md-push-1 animate-box fadeIn">
-                    <form action="">
-                        <p>
-                            姓名：
-                            <input type="text" class="fadeIn" name="user_name" id="user_name" placeholder="请输入您的姓名：">
-                            <input type="button" class="btn btn-default" value="提交" id="sub_name">
-                        </p>
-                    </form>
-                </div>
-
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-12 fh5co-project animate-box fadeIn animated-fast"
-                     data-animate-effect="fadeIn">
-                    <a href="#"><img src="/static/img/project-1.png" alt="" class="img-responsive">
-                        <h3>彩色泡泡</h3>
-                    </a>
+            <div class="panel panel-default">
+                <div class="panel-heading" id="my_sign_head">
+                    预览部分
                 </div>
 
 
+                <div class="panel-body text-center" id="my_certificate">
+
+                    <canvas id="myCanvas" style="width:300px;height:200px;border: red 1px solid">
+
+                    </canvas>
+                </div>
             </div>
+            <br>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    艺术字体控制台
+                </div>
+                <form id="form" name="form" method="post">
+                    <div class="panel-body row">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <textarea name="text" id="text" class="form-control" row="5"
+                                      placeholder="输入文字后，选择字体，点击生成！"></textarea>
+                        </div>
+                        <div class="form-group col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                            <label for="ziti">选择字体：</label>
+                            <select name="ziti" id="ziti" class="form-control">
+                                <option value="1">草书</option>
+                                <option value="2">小奶泡</option>
+                                <option value="3">腾祥婀娜体简</option>
+                                <option value="4">桃心悦圆</option>
+                                <option value="5">小雨滴</option>
+                                <option value="6">可爱萌宠体</option>
+                                <option value="8">浪花</option>
+                                <option value="9">爱心小兔</option>
+                                <option value="10">腾祥泡泡体繁</option>
+                                <option value="12">甜蜜小女生</option>
+                                <option value="13">哈哈呼嘿字</option>
+                            </select>
+                        </div>
 
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>生成签名按钮：</label>
+                            <button type="button" id="sub_name" class="btn btn-primary submit form-control"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击生成签名
+                            </button>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>生成证书按钮：</label>
+                            <button type="button" id="sub_certificate" class="btn btn-primary submit form-control"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击生成证书
+                            </button>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>查看证书：</label>
+                            <button type="button" id="view_certificate" class="btn btn-primary submit form-control"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击查看证书
+                            </button>
+                        </div>
+
+                        <div class="form-group col-xs-12 col-sm-12 col-md-2 col-lg-2">
+                            <label>下载证书：</label>
+                            <button type="button" id="down_certificate" class="btn btn-primary submit form-control"
+                                    style="border-radius: 0%;background: lightcoral;color: white;">点击下载证书
+                            </button>
+                        </div>
+
+                        <input type="hidden" name="if_demo" id="if_demo_value" value="show">
+
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="panel panel-default demoListBox">
+                <div class="panel-heading">
+                    签名合集
+                </div>
+                <div class="panel-body">
+
+                    <div class="row demolist">
+                        {% for certificate in certificate_list %}
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                                <div class="thumbnail text-center">
+                                    <img src={{ certificate.c_img_url }} data-toggle="tooltip" data-placement="top"
+                                         title=""
+                                         data-original-title="">
+                                    <div class="caption">
+                                        <p class="text-center"><a href="{{ certificate.c_img_url }}"
+                                                                  class="btn btn-primary" role="button">查看</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+
+
+
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                            <div class="thumbnail text-center">
+                                <img src="img/demo/97.png" data-toggle="tooltip" data-placement="top" title=""
+                                     data-original-title="腾祥嘉丽细圆简">
+                                <div class="caption">
+                                    <p class="text-center"><a href="/97" class="btn btn-primary" role="button">查看</a> <a
+                                            href="javascript:void(0);" class="btn btn-default setfont" data-id="97"
+                                            role="button">选用</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                            <div class="thumbnail text-center">
+                                <img src="img/demo/99.png" data-toggle="tooltip" data-placement="top" title=""
+                                     data-original-title="胭脂连体">
+                                <div class="caption">
+                                    <p class="text-center"><a href="/99" class="btn btn-primary" role="button">查看</a> <a
+                                            href="javascript:void(0);" class="btn btn-default setfont" data-id="99"
+                                            role="button">选用</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                            <div class="thumbnail text-center">
+                                <img src="img/demo/100.png" data-toggle="tooltip" data-placement="top" title=""
+                                     data-original-title="腾祥金砖黑简体">
+                                <div class="caption">
+                                    <p class="text-center"><a href="/100" class="btn btn-primary" role="button">查看</a>
+                                        <a href="javascript:void(0);" class="btn btn-default setfont" data-id="100"
+                                           role="button">选用</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                            <div class="thumbnail text-center">
+                                <img src="img/demo/101.png" data-toggle="tooltip" data-placement="top" title=""
+                                     data-original-title="腾祥孔淼石头简体">
+                                <div class="caption">
+                                    <p class="text-center"><a href="/101" class="btn btn-primary" role="button">查看</a>
+                                        <a href="javascript:void(0);" class="btn btn-default setfont" data-id="101"
+                                           role="button">选用</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="text-center" style="margin-bottom: 25px">
+                    <a href="/sign_list/" class="btn btn-primary" role="button" target="_blank">查看所有签名</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -346,6 +527,10 @@
 <script src="/static/js/magnific-popup-options.js"></script>
 <!-- Main -->
 <script src="/static/js/main.js"></script>
+<!-- layer-->
+<script type="text/javascript" src="/static/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="/static/layer/2.4/layer.js"></script>
+
 <script>
 
 
@@ -651,22 +836,138 @@
         $(this).next().html("");
     });
 
+
     $("#sub_name").click(function () {
-        var user_name = $("[name='user_name']").val();
-        var check_ttf = $("[name='check_ttf']").val();
-        console.log(user_name);
-        $.ajax({
-            url: '/change_name/',
-            type: 'post',
-            data: {
-                user_name: user_name,
-                ttf: check_ttf,
-                csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
-            },
-            suceess: function (data) {
-                console.log(data.msg)
-            }
-        })
+        var user_name = $("[name='text']").val();
+        var zt = $("#ziti option:selected").html();
+        console.log(zt);
+        if (user_name == "") {
+            layer.msg("您还未输入内容，不能生成，抱歉！");
+        } else if (user_name.length > 4) {
+            console.log(user_name, ">4");
+            $("#my_sign_head").html("如果满意，请点击生成证书按钮，方便您生成编程一小时证书。");
+            getImg(user_name, 60, zt);
+        } else if (user_name.length < 5 && user_name.length > 2) {
+            console.log(user_name, "3,4");
+            $("#my_sign_head").html("如果满意，请点击生成证书按钮，方便您生成编程一小时证书。");
+            getImg(user_name, 90, zt);
+        } else if (user_name.length == 2) {
+            var user_name = user_name.replace(/(.{1})/g, '$1  ');
+            $("#my_sign_head").html("如果满意，请点击生成证书按钮，方便您生成编程一小时证书。");
+            console.log(user_name, "2");
+            getImg(user_name, 90, zt);
+        }
+        ;
+
+
+    });
+
+
+    function getImg(text, fsz, zt) {
+        if ($("#myCanvas").hasClass("hidden")) {
+            $("#myCanvas").removeClass("hidden");
+            $("#my_certificate_img").remove();
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img = new Image();
+            img.src = '/static/img/bg_for_sign.png';
+            img.onload = function () {//图片加载完成，才可处理
+                cxt.clearRect(0, 0, 300, 200);
+                cxt.back
+                cxt.drawImage(img, 0, 0, 300, 200, 0, 0, 300, 200);
+                cxt.save();
+                cxt.font = fsz + "px " + zt;
+                cxt.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+                cxt.textAlign = 'center';
+                var tw = cxt.measureText(text).width;
+                var ftop = c.height / 2;
+                var fleft = c.width / 2;
+                cxt.fillStyle = "rgba(225,225,225,0)";
+                cxt.fillRect(fleft - tw / 2, ftop - fsz / 2, tw, fsz);//矩形在画布居中方式
+                cxt.fillStyle = "black";
+                cxt.fillText(text, fleft, ftop);//文本元素在画布居中方式
+                var url = c.toDataURL('image/png', 1.0);
+                $.ajax({
+                    url: "/save_img/",
+                    type: "post",
+                    data: {
+                        name: text,
+                        zt: zt,
+                        img_url: url,
+                        csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+
+            };
+        } else {
+            var c = document.getElementById("myCanvas");
+            var cxt = c.getContext("2d");
+            var img = new Image();
+            img.src = '/static/img/bg_for_sign.png';
+            img.onload = function () {//图片加载完成，才可处理
+                cxt.clearRect(0, 0, 300, 200);
+                cxt.drawImage(img, 0, 0, 300, 200, 0, 0, 300, 200);
+                cxt.save();
+                cxt.font = fsz + "px " + zt;
+                cxt.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+                cxt.textAlign = 'center';
+                var tw = cxt.measureText(text).width;
+                var ftop = c.height / 2;
+                var fleft = c.width / 2;
+                cxt.fillStyle = "rgba(225,225,225,0)";
+                cxt.fillRect(fleft - tw / 2, ftop - fsz / 2, tw, fsz);//矩形在画布居中方式
+                cxt.fillStyle = "black";
+                cxt.fillText(text, fleft, ftop);//文本元素在画布居中方式
+                //cxt.strokeStyle = 'yellow';
+                //cxt.strokeText(text,fleft,ftop);//文字边框
+                var url = c.toDataURL('image/png', 1.0);
+                $.ajax({
+                    url: "/save_img/",
+                    type: "post",
+                    data: {
+                        name: text,
+                        zt: zt,
+                        img_url: url,
+                        csrfmiddlewaretoken: $("[name='csrfmiddlewaretoken']").val()
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                })
+
+
+            };
+
+
+        }
+
+    };
+
+    $("#sub_certificate").click(function () {
+
+        if ($("#my_certificate_img").length > 0) {
+            $("#my_certificate_img").remove();
+            var img = "<img id='my_certificate_img' src='/static/img/bg.jpg' style='width: 200px;height: 200px;'>";
+            $("#myCanvas").addClass("hidden");
+            $("#my_certificate").append(img);
+        } else {
+            var img = "<img id='my_certificate_img' src='/static/img/bg.jpg' style='width: 200px;height: 200px;'>";
+            $("#myCanvas").addClass("hidden");
+            $("#my_certificate").append(img);
+        }
+    });
+
+    $("#view_certificate").click(function () {
+        if ($("#my_certificate_img").length > 0) {
+            var newWeb = window.open('_blank');
+            newWeb.location = $("#my_certificate_img").attr("src");
+        } else {
+            layer.msg("尚未生成证书，不能查看，请先生成证书！")
+        }
+
     });
 
 

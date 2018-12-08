@@ -2182,3 +2182,13 @@ input[type="radio"], input[type="checkbox"] {
     width: 335px;
     height: 210px;
 }
+
+.sign_name_div {
+    height: 300px;
+    border: red 1px solid;
+}
+
+.sign_name_p {
+    margin-top: 250px;
+
+}

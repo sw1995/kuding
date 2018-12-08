@@ -192,7 +192,7 @@
                                 <a href="/Teachers_lineup/">师资阵容</a>
                             </li>
                             <li {% if request.path == "/contact/" %}class="active"{% endif %}><a
-                                    href="/contact/">签名墙</a></li>
+                                    href="/contact/">编程一小时</a></li>
                             <li {% if request.path == "/static/build/index.html" %}class="active"{% endif %}><a
                                     href="/static/build/index.html" target="_blank">Scratch</a></li>
 
@@ -716,10 +716,7 @@
     $("[name='confirm_code']").blur(function () {
         var code1 = $("[name='confirm_code']").val();
         var account1 = $("[name='forget_account']").val();
-        {#console.log(code1);#}
-        {#console.log(account1);#}
-        {#console.log(code);#}
-        {#console.log(account);#}
+
 
         if (code1 == code && account1 == account) {
 

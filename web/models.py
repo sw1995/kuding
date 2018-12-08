@@ -66,7 +66,6 @@ class AuthUserGroups(models.Model):
         unique_together = (('user', 'group'),)
 
 
-
 class AuthUserUserPermissions(models.Model):
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
     permission = models.ForeignKey(AuthPermission, models.DO_NOTHING)
@@ -121,6 +120,27 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class WebCertificate(models.Model):
+    c_id = models.CharField(primary_key=True, max_length=36)
+    c_name = models.CharField(max_length=100)
+    c_font_style = models.CharField(max_length=100)
+    c_cer_url = models.CharField(max_length=255, blank=True, null=True)
+    c_create_time = models.BigIntegerField()
+    c_certificate_no = models.CharField(max_length=36, blank=True, null=True)
+    c_remark = models.CharField(max_length=255, blank=True, null=True)
+    c_name_url = models.CharField(max_length=10000)
+    c_state = models.IntegerField()
+    c_des = models.CharField(max_length=100, blank=True, null=True)
+    c_phone = models.CharField(max_length=11, blank=True, null=True)
+    c_qq = models.CharField(max_length=20, blank=True, null=True)
+    c_from = models.CharField(max_length=100, blank=True, null=True)
+    c_wechat = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'web_certificate'
+
+
 class WebClasses(models.Model):
     c_id = models.CharField(primary_key=True, max_length=36)
     c_name = models.CharField(max_length=100)
@@ -131,9 +151,6 @@ class WebClasses(models.Model):
     class Meta:
         managed = False
         db_table = 'web_classes'
-
-    def __str__(self):
-        return self.c_name
 
 
 class WebCourse(models.Model):
@@ -147,9 +164,6 @@ class WebCourse(models.Model):
     class Meta:
         managed = False
         db_table = 'web_course'
-
-    def __str__(self):
-        return self.c_name
 
 
 class WebDetail(models.Model):
@@ -165,9 +179,6 @@ class WebDetail(models.Model):
     class Meta:
         managed = False
         db_table = 'web_detail'
-
-    def __str__(self):
-        return self.d_name
 
 
 class WebEvaluate(models.Model):
@@ -198,7 +209,6 @@ class WebGrant(models.Model):
     class Meta:
         managed = False
         db_table = 'web_grant'
-
 
 
 class WebLogsheet(models.Model):
@@ -247,9 +257,6 @@ class WebStudent(models.Model):
         managed = False
         db_table = 'web_student'
 
-    def __str__(self):
-        return self.s_name
-
 
 class WebTeacher(models.Model):
     t_id = models.CharField(primary_key=True, max_length=36)
@@ -268,6 +275,3 @@ class WebTeacher(models.Model):
     class Meta:
         managed = False
         db_table = 'web_teacher'
-
-    def __str__(self):
-        return self.t_name

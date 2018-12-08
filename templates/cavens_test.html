@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <style type="text/css">
+
+        html {
+            -webkit-text-size-adjust: none;
+        }
+
+        @font-face {
+            font-family: "caoshu";
+            src: url("/static/ttf/caoshu.TTF");
+        }
+
+        @font-face {
+            font-family: "kafka";
+            src: url("/static/ttf/kafka.ttf");
+        }
+
+        @font-face {
+            font-family: "Spaghettica";
+            src: url("/static/ttf/Spaghettica.ttf");
+        }
+
+        @font-face {
+            font-family: "Nathaniel";
+            src: url("/static/ttf/Nathaniel.ttf");
+        }
+
+        @font-face {
+            font-family: "xingshu";
+            src: url("/static/ttf/xingshu.ttf");
+        }
+
+        @font-face {
+            font-family: "langhua";
+            src: url("/static/ttf/langhua.otf");
+        }
+    </style>
+</head>
+<body>
+
+<canvas id='myCanvas' style="width: 280px; height: 280px" width="280" height="280">
+    <img src="/static/img/tmbg.jpg" alt="">
+</canvas>
+
+
+<a href="115.159.33.73:8080/kuding/upload/cer/1544257348667.jpg" download="mm.jpg">,mn,mn,mn</a>
+
+
+<script type="text/javascript">
+
+
+    getImg('这是什么鬼？', 36);
+
+    function getImg(text, fsz) {
+
+        var c = document.getElementById("myCanvas");
+        var cxt = c.getContext("2d");
+        var img = new Image();
+        img.src = '/static/img/tmbg.jpg';
+        img.onload = function () {//图片加载完成，才可处理
+            cxt.drawImage(img, 0, 0, 280, 280, 0, 0, 280, 280);
+            cxt.save();
+            cxt.font = fsz + "px caoshu";
+            cxt.textBaseline = 'middle';//更改字号后，必须重置对齐方式，否则居中麻烦。设置文本的垂直对齐方式
+            cxt.textAlign = 'center';
+            var tw = cxt.measureText(text).width;
+            var ftop = c.height / 2;
+            var fleft = c.width / 2;
+            cxt.fillStyle = "white";
+            cxt.fillRect(fleft - tw / 2, ftop - fsz / 2, tw, fsz);//矩形在画布居中方式
+            cxt.fillStyle = "black";
+            cxt.fillText(text, fleft, ftop);//文本元素在画布居中方式
+            //cxt.strokeStyle = 'yellow';
+            //cxt.strokeText(text,fleft,ftop);//文字边框
+        };
+
+    }
+
+</script>
+
+</body>
+</html>
+
+
